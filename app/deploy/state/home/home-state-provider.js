@@ -22,7 +22,7 @@
       name: STATE.HOME,
       url: '/' + STATE.HOME,
       templateUrl: 'app/ux-component/home/home.html',
-      controller: 'otusjs.otus.uxComponent.HomeController as $ctrl'
+      controller: 'normalizerjs.uxComponent.HomeController as $ctrl'
     };
   }
 }());

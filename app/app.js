@@ -2,6 +2,6 @@
   'use strict';
 
   angular
-    .module('exam.normalizer', []);
+    .module('normalizerjs', ['normalizerjs.uxComponent']);
 
 }());
