@@ -2,8 +2,8 @@
   'use strict';
 
   angular
-    .module('normalizerjs.uxComponent')
-    .controller('normalizerjs.uxComponent.HomeController', Controller);
+    .module('normalizerjs')
+    .controller('HomeController', Controller);
 
   // Controller.$inject = [
   //   'normalizerjs.application.state.ApplicationStateService'

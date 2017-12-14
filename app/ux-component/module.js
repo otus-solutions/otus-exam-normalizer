@@ -2,6 +2,6 @@
   'use strict';
 
   angular
-    .module('normalizerjs.uxComponent', []);
+    .module('uxComponent', ['HomeController']);
 
 }());

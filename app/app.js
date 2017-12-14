@@ -2,10 +2,9 @@
   'use strict';
 
   angular
-    .module('normalizerjs', [
-      'normalizerjs.uxComponent',
-      'normalizerjs.application',
-      'normalizerjs.deploy'
+    .module('otus-exam-normalizer', [
+      'states',
+      'uxComponent'
     ]);
 
 
