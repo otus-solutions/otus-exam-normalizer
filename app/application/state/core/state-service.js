@@ -57,5 +57,9 @@
       return $state.current.name;
     }
 
+    function setCurrentState(to) {
+      $state.go(to);
+    }
+
   }
 }());

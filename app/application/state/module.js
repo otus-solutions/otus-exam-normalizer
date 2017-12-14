@@ -2,7 +2,7 @@
   'use strict';
 
   angular
-    .module('normalizerjs.application.state', [])
+    .module('normalizerjs.application.state', ['ngRoute'])
     .run(Run);
 
   Run.$inject = [
@@ -38,11 +38,6 @@
         });
       }
     });
-
-    var currentModule = angular.module('normalizerjs.application.state');
-    var application = $injector.get('normalizerjs.application.core.ModuleService');
-    application.notifyModuleLoad(currentModule.name);
-    console.info('State module ready.');
   }
 
 }());

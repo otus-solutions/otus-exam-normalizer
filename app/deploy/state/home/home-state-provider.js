@@ -21,7 +21,7 @@
     self.state = {
       name: STATE.HOME,
       url: '/' + STATE.HOME,
-      templateUrl: 'app/ux-component/home/home.html',
+      templateUrl: 'ux-component/home/home.html',
       controller: 'normalizerjs.uxComponent.HomeController as $ctrl'
     };
   }
