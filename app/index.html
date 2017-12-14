@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en" ng-app="otus-exam-normalizer">
+<html lang="en" ng-app="normalizerjs">
 
 <head>
   <base href="/otus-exam-normalizer/" />
@@ -21,8 +21,7 @@
   </head>
   
   <body layout="row" md-theme="default">
-    <a href="#/home">teste</a>
-    <div flex layout="row" class="md-body-2" ui-view></div>
+    <div flex layout="row" class="md-body-2" ui-view="system-wrap"></div>
   </body>
   
   <!-- uncache(rename:true, append:hash) -->
@@ -82,27 +81,24 @@
 <!-- build:js scripts/application-module.min.js -->
 <script src="app/app.js"></script>
 <!-- # State -->
+<script src="app/application/dependency/module.js"></script>
 <script src="app/config/state-configuration.js"></script>
 
 <!-- # Application -->
-<!-- <script src="application/module.js"></script> -->
+<!-- <script src="app/application/module.js"></script> -->
 <!------------------------------------------------------------------------------------------------>
+<!-- # app/Application > State -->
+<script src="app/application/state/module.js"></script>
 
-<!-- # Application > State -->
-<!-- <script src="application/state/module.js"></script> -->
-<!-- # State > Core -->
-<!-- <script src="application/state/core/state-constant.js"></script>
-<script src="application/state/core/state-resolver-service.js"></script>
-<script src="application/state/core/state-service.js"></script> -->
+<script src="app/application/state/core/state-constant.js"></script>
+<script src="app/application/state/core/state-resolver-service.js"></script>
+<script src="app/application/state/core/state-service.js"></script>
 
 <!-- endbuild -->
 <!------------------------------------------------------------------------------------------------>
 <!-- build:js scripts/deploy-module.min.js -->
-<!-- <script src="deploy/module.js"></script> -->
-
-
-
-<!-- <script src="deploy/state/home/home-state-provider.js"></script> -->
+<script src="app/deploy/module.js"></script>
+<script src="app/deploy/state/home/home-state-provider.js"></script>
 
 <!-- endbuild -->
 <!------------------------------------------------------------------------------------------------>
@@ -110,11 +106,11 @@
 
 <!------------------------------------------------------------------------------------------------>
 <!-- build:js scripts/ux-component-module.min.js -->
-<!-- <script src="ux-component/module.js"></script>-->
+<script src="app/ux-component/module.js"></script>
 
 
 
-<!-- <script src="app/ux-component/home/home-controller.js"></script> -->
+<script src="app/ux-component/home/home-controller.js"></script>
 
 <!-- endbuild -->
 <!-- enduncache -->

@@ -1,13 +1,13 @@
-// (function() {
-//   'use strict';
+(function () {
+    'use strict';
 
-//   angular
-//     .module('normalizerjs.application', [
-//       'normalizerjs.application.state'
-     
-//     ])
-//     .run(function() {
-//       console.info('Application module ready.');
-//     });
+    angular
+        .module('normalizerjs.application', [
+            'normalizerjs.application.dependency',
+            'normalizerjs.application.state'
+        ])
+        .run(function () {
+            console.info('Application module ready.');
+        });
 
-// }());
+}());

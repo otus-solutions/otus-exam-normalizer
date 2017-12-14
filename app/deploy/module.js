@@ -1,9 +1,15 @@
-// (function() {
-//   'use strict';
+(function() {
+  'use strict';
 
-//   angular
-//     .module('normalizerjs.deploy', []);
+  angular
+    .module('normalizerjs.deploy', [
+      'normalizerjs.application.dependency',
+      'normalizerjs.application.state'
+    ])
+    .run(function () {
+      console.info('Deploy module ready.');
+    });
 
 
 
-// }());
+}());

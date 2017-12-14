@@ -2,16 +2,17 @@
   'use strict';
 
   angular
-    .module('normalizerjs')
+    .module('normalizerjs.uxComponent')
     .controller('HomeController', Controller);
 
-  // Controller.$inject = [
-  //   'normalizerjs.application.state.ApplicationStateService'
-  // ];
+  Controller.$inject = [
+    'normalizerjs.application.state.ApplicationStateService'
+  ];
 
-  function Controller() {
+  function Controller(ApplicationStateService) {
     var self = this;
-    console.log('teste');
+    self.title = "CCEM CEV";
+    
 
   }
 }());

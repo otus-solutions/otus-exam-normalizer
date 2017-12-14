@@ -1,8 +1,19 @@
 (function () {
 
     angular
-        .module('states', [])
-        .config(['$stateProvider', '$urlRouterProvider', stateConfiguration]);
+        .module('normalizerjs.states', [
+          'normalizerjs.application.dependency'
+        ])
+        .config(['$stateProvider', '$urlRouterProvider', '$locationProvider', stateConfiguration])
+        .constant('STATE', {
+            'HOME': 'home',
+            'SP_NORMALIZER': 'sp-normalizer',
+            'RS_NORMALIZER': 'rs-normalizer',
+            'ES_NORMALIZER': 'es-normalizer',
+            'RJ_NORMALIZER': 'rj-normalizer',
+            'MG_NORMALIZER': 'mg-normalizer',
+            'BA_NORMALIZER': 'ba-normalizer'
+        });
 
     function stateConfiguration($stateProvider, $urlRouterProvider) {
 
@@ -13,7 +24,8 @@
                 url: '/home',
                 views: {
                     'system-wrap': {
-                        templateUrl: 'app/ux-component/home/home.html'
+                        templateUrl: 'app/ux-component/home/home.html',
+                      controller: 'HomeController as $ctrl'
                     }
                 }
             });
