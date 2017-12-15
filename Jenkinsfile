@@ -14,7 +14,7 @@ pipeline {
         sh "rm -rf node_modules/"
         sh "npm install"
         sh "npm run test"
-        sh "npm run build"
+        sh "npm run build --prefix otus-exam-normalizer/"
       }
     }
 

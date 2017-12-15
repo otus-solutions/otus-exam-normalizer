@@ -57,24 +57,24 @@
       })
       .pipe(useref({
         transformPath: function(filePath) {
-          return filePath.replace('otus-exam-normalizer/app', 'otus-exam-normalizer');
+          return filePath.replace('/otus-exam-normalizer/app', '/otus-exam-normalizer');
         }
       }))
       .pipe(gulpif('*.js', uglify()))
       .pipe(gulpif('*.css', minifyCss()))
-      .pipe(gulpif('*.css', replace('url(../../static-resource/', 'url(/otus-exam-normalizer/app/static-resource/')))
-      .pipe(gulpif('index.html', replace('href="css', 'href="dist/exam-normalizer/css')))
-      .pipe(gulpif('index.html', replace('src="scripts', 'src="dist/exam-normalizer/scripts')))
-      .pipe(gulp.dest('dist/exam-normalizer'));
+      .pipe(gulpif('*.css', replace('url(../static-resource/', 'url(/static-resource/')))
+      .pipe(gulpif('index.html', replace('href="css', 'href="dist/otus-exam-normalizer/css')))
+      .pipe(gulpif('index.html', replace('src="scripts', 'src="dist/otus-exam-normalizer/scripts')))
+      .pipe(gulp.dest('dist/otus-exam-normalizer'));
   });
 
   gulp.task('compress-hash', function() {
-    return gulp.src('dist/exam-normalizer/index.html')
+    return gulp.src('dist/otus-exam-normalizer/index.html')
       .pipe(uncache({
         append: 'hash',
         rename: true
       }))
-      .pipe(gulp.dest('dist/exam-normalizer'));
+      .pipe(gulp.dest('dist/otus-exam-normalizer'));
   });
 
   gulp.task('compress', function() {
