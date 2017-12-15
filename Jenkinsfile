@@ -14,7 +14,7 @@ pipeline {
         sh "rm -rf node_modules/"
         sh "npm install"
         sh "npm run test"
-        sh "npm run build --prefix otus-exam-normalizer/"
+        sh "npm run build"
       }
     }
 
@@ -26,7 +26,7 @@ pipeline {
 
     stage('Update Docs') {
       steps {
-        sh "npm run gulp sonar --sonarUrl='${URL_SONAR}' --sonarDatabaseUsername='${USER_SONAR}' --sonarDatabasePassword='${PWD_SONAR}' --prefix otus/"
+        sh "npm run gulp sonar --sonarUrl='${URL_SONAR}' --sonarDatabaseUsername='${USER_SONAR}' --sonarDatabasePassword='${PWD_SONAR}'"
       }
     }
 

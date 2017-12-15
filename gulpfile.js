@@ -57,12 +57,12 @@
       })
       .pipe(useref({
         transformPath: function(filePath) {
-          return filePath.replace('/otus-exam-normalizer/app', '/otus-exam-normalizer');
+          return filePath.replace('otus-exam-normalizer/app', 'otus-exam-normalizer');
         }
       }))
       .pipe(gulpif('*.js', uglify()))
       .pipe(gulpif('*.css', minifyCss()))
-      .pipe(gulpif('*.css', replace('url(../static-resource/', 'url(/static-resource/')))
+      // .pipe(gulpif('*.css', replace('url(../static-resource/', 'url(/app/static-resource/')))
       .pipe(gulpif('index.html', replace('href="css', 'href="dist/otus-exam-normalizer/css')))
       .pipe(gulpif('index.html', replace('src="scripts', 'src="dist/otus-exam-normalizer/scripts')))
       .pipe(gulp.dest('dist/otus-exam-normalizer'));
