@@ -2,17 +2,24 @@
   'use strict';
 
   angular
-    .module('normalizerjs.uxComponent')
+    .module('normalizerjs.uxComponent' )
     .controller('HomeController', Controller);
 
   Controller.$inject = [
-    'normalizerjs.application.state.ApplicationStateService'
+    'normalizerjs.application.state.ApplicationStateService',
+    '$timeout',
+   '$mdSidenav'
   ];
 
-  function Controller(ApplicationStateService) {
+  function Controller(ApplicationStateService, $timeout, $mdSidenav) {
     var self = this;
-    self.title = "CCEM CEV";
+    self.title = "CCEM DEV";
     // ApplicationStateService.activateSaoPaulo();
+
+    self.toggleLeft = buildToggler('left');
+    self.toggleRight = buildToggler('right');
+
+
     self.rota = rota;
     self.centers = [
       {
@@ -39,6 +46,12 @@
     function rota(valor) {
       // ApplicationStateService.activateSaoPaulo();
       ApplicationStateService.setCurrentState(valor);
+    }
+
+    function buildToggler(componentId) {
+      return function() {
+        $mdSidenav(componentId).toggle();
+      };
     }
 
 

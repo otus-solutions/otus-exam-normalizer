@@ -1,33 +1,26 @@
-<md-content class="md-padding" flex>
-  <md-toolbar class="md-primary">
-  <div class="md-toolbar-tools">
-    <h2 class="md-flex">CONVERSOR DE FORMATOS DO EXAMES</h2>
-  </div>
-</md-toolbar>
-    <md-nav-bar md-no-ink-bar="disableInkBar" md-selected-nav-item="currentNavItem" nav-bar-aria-label="navigation links" >
-        <md-nav-item md-nav-click="goto('{{center.state}}')" name="{{center.state}}" ng-repeat="center in $ctrl.centers" ng-click="$ctrl.rota(center.state)">
-            {{center.state}}
-            <!-- <md-button class="md-raised" ng-click="$ctrl.rota(center.state)">Button</md-button> -->
-        </md-nav-item>
+<section layout="row" flex="">
+  <md-sidenav md-component-id="left" md-whiteframe="5" md-is-locked-open="$mdMedia('gt-md')">
+    <md-toolbar>
+      <h1 class="md-toolbar-tools">CENTROS</h1>
+    </md-toolbar>
 
-        <!-- these require actual routing with ui-router or ng-route, so they
-      won't work in the demo
-      <md-nav-item md-nav-href="#page4" name="page5">Page Four</md-nav-item>
-      <md-nav-item md-nav-sref="app.page5" name="page4">Page Five</md-nav-item>
-      You can also add options for the <code>ui-sref-opts</code> attribute.
-      <md-nav-item md-nav-sref="page6" sref-opts="{reload:true, notify:true}">
-        Page Six
-      </md-nav-item>
-      -->
-    </md-nav-bar>
-    <div class="ext-content">
-      <!-- <md-button class="md-raised" ng-click="$ctrl.rota('sp')">Button</md-button>
-        External content for `
-        <span>{{currentNavItem}}</span>`. -->
+    <md-list ng-repeat="center in $ctrl.centers" class="ng-scope" layout='row' layout-padding>
+      <md-button ng-click="$ctrl.rota(center.state)" layout-align='start center'>{{center.name}}</md-button>
+    </md-list>
+  </md-sidenav>
+
+  <md-content flex="" >
+    <md-toolbar>
+      <div class="md-toolbar-tools" md-display-4 ui-view></div>
+    </md-toolbar>
+
+    <div layout="column" layout-align="top center">
+      <p>
+        CONTEÚDO DO CONVERSOR (CENTRO):
+      </p>
+      <div class="text-content">
         <div flex layout="row" class="md-body-2" ui-view></div>
+      </div>
     </div>
-
-
-
-
-</md-content>
+  </md-content>
+</section>
