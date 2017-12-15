@@ -5,8 +5,9 @@
   </div>
 </md-toolbar>
     <md-nav-bar md-no-ink-bar="disableInkBar" md-selected-nav-item="currentNavItem" nav-bar-aria-label="navigation links" >
-        <md-nav-item md-nav-click="goto('{{center.name}}')" name="{{center.name}}" ng-repeat="center in $ctrl.centers">
-            {{center.name}}
+        <md-nav-item md-nav-click="goto('{{center.state}}')" name="{{center.state}}" ng-repeat="center in $ctrl.centers" ng-click="$ctrl.rota(center.state)">
+            {{center.state}}
+            <!-- <md-button class="md-raised" ng-click="$ctrl.rota(center.state)">Button</md-button> -->
         </md-nav-item>
 
         <!-- these require actual routing with ui-router or ng-route, so they
@@ -20,12 +21,12 @@
       -->
     </md-nav-bar>
     <div class="ext-content">
-
+      <!-- <md-button class="md-raised" ng-click="$ctrl.rota('sp')">Button</md-button>
         External content for `
-        <span>{{currentNavItem}}</span>`.
+        <span>{{currentNavItem}}</span>`. -->
+        <div flex layout="row" class="md-body-2" ui-view></div>
     </div>
 
-    <md-checkbox ng-model="disableInkBar">Disable Ink Bar</md-checkbox>
 
 
 

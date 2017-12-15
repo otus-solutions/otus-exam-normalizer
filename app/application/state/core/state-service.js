@@ -21,6 +21,7 @@
     self.activateBahia = activateBahia;
     self.activateRioDeJaneiro = activateRioDeJaneiro;
     self.activateMinasGerais = activateMinasGerais;
+    self.setCurrentState = setCurrentState;
 
 
     // self.activateErrorOffline = activateErrorOffline;
@@ -30,27 +31,27 @@
     }
 
     function activateSaoPaulo() {
-      $state.go(STATE.SP_NORMALIZER);
+      $state.go(STATE.SP);
     }
 
     function activateRioGrandeDoSul() {
-      $state.go(STATE.RS_NORMALIZER);
+      $state.go(STATE.RS);
     }
 
     function activateEspiritoSanto() {
-      $state.go(STATE.ES_NORMALIZER);
+      $state.go(STATE.ES);
     }
 
     function activateBahia() {
-      $state.go(STATE.BA_NORMALIZER);
+      $state.go(STATE.BA);
     }
 
     function activateRioDeJaneiro() {
-      $state.go(STATE.RJ_NORMALIZER);
+      $state.go(STATE.RJ);
     }
 
     function activateMinasGerais() {
-      $state.go(STATE.MG_NORMALIZER);
+      $state.go(STATE.MG);
     }
 
     function getCurrentState() {

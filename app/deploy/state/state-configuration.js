@@ -17,12 +17,13 @@
   Configuration.$inject = [
     '$urlRouterProvider',
     '$stateProvider',
-    'normalizerjs.deploy.HomeStateProvider'
+    'normalizerjs.deploy.HomeStateProvider',
+    'normalizerjs.deploy.SaoPauloStateProvider'
   ];
 
-  function Configuration($urlRouterProvider, $stateProvider, HomeStateProvider) {
+  function Configuration($urlRouterProvider, $stateProvider,HomeStateProvider,SaoPauloStateProvider) {
     //TODO Desenvolver os states de cada conversor
-    // $stateProvider.state(SaoPauloStateProvider.state);
+    $stateProvider.state(SaoPauloStateProvider.state);
     $stateProvider.state(HomeStateProvider.state);
     // $stateProvider.state(RioGrandeDoSulStateProvider.state);
     // $stateProvider.state(MinasGeraisStateProvider.state);
