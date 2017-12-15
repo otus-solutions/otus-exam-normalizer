@@ -2,7 +2,7 @@
     'use strict';
 
     angular
-        .module('application', [])
+        .module('normalizerjs.application', ['normalizerjs.states'])
         .run(function () {
             console.info('Application module ready.');
         });

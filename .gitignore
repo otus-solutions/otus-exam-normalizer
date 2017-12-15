@@ -7,10 +7,10 @@
 **/.idea
 *.iml
 *.swp
+dist/
 npm-debug.log
 **/unit-result.report.html
 node_modules/
 **/env.properties
-dist/otus-studio.war
 **/.sonar
 package-lock.json

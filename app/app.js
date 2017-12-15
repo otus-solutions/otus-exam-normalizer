@@ -5,7 +5,7 @@
     .module('normalizerjs', [
       'normalizerjs.application.dependency',
       'normalizerjs.uxComponent',
-      'normalizerjs.states',
+      'normalizerjs.application',
       'normalizerjs.deploy'
     ]);
 
