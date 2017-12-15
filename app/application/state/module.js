@@ -2,7 +2,7 @@
   'use strict';
 
   angular
-    .module('normalizerjs.states')
+    .module('normalizerjs.states',[])
     .run(Run);
 
   Run.$inject = [

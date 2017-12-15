@@ -3,7 +3,7 @@
 
   angular
     .module('normalizerjs.deploy')
-    .provider('normalizerjs.deploy.HomeState', Provider);
+    .provider('normalizerjs.deploy.SaoPauloState', Provider);
 
   Provider.$inject = [
     'STATE'
@@ -19,10 +19,10 @@
     }
 
     self.state = {
-      name: STATE.HOME,
-      url: '/' + STATE.HOME,
-      templateUrl: 'app/ux-component/home/home.html',
-      controller: 'HomeController as $ctrl'
+      parent: STATE.HOME,
+      name: STATE.SP,
+      url: '/' + STATE.SP,
+      templateUrl: 'app/ux-component/sp/sp-template.html'
     };
   }
 }());

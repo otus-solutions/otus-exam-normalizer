@@ -11,7 +11,7 @@
   <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet" />
   <!-- uncache(rename:true, append:hash) -->
   <!-- build:css css/otus.min.css -->
-  
+
   <!-- <link href="static-resource/stylesheet/styles.css" rel="stylesheet" />
     <link href="static-resource/stylesheet/please-wait-style.css" rel="stylesheet">
     <link href="node_modules/please-wait/build/please-wait.css" rel="stylesheet"> -->
@@ -19,11 +19,11 @@
     <!-- enduncache -->
     <title>Exam Normalizer</title>
   </head>
-  
+
   <body layout="row" md-theme="default">
-    <div flex layout="row" class="md-body-2" ui-view="system-wrap"></div>
+    <div flex layout="row" class="md-body-2" ui-view></div>
   </body>
-  
+
   <!-- uncache(rename:true, append:hash) -->
   <!-- ************************************* jQuery ************************************* -->
   <script src="node_modules/jquery/dist/jquery.min.js"></script>
@@ -82,7 +82,7 @@
 <script src="app/app.js"></script>
 <!-- # State -->
 <script src="app/application/dependency/module.js"></script>
-<script src="app/config/state-configuration.js"></script>
+
 
 <!-- # Application -->
 <!-- <script src="app/application/module.js"></script> -->
@@ -98,7 +98,9 @@
 <!------------------------------------------------------------------------------------------------>
 <!-- build:js scripts/deploy-module.min.js -->
 <script src="app/deploy/module.js"></script>
+<script src="app/deploy/state/state-configuration.js"></script>
 <script src="app/deploy/state/home/home-state-provider.js"></script>
+<script src="app/deploy/state/sp/sp-state-provider.js"></script>
 
 <!-- endbuild -->
 <!------------------------------------------------------------------------------------------------>

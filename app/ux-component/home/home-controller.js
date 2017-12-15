@@ -12,22 +12,34 @@
   function Controller(ApplicationStateService) {
     var self = this;
     self.title = "CCEM CEV";
-
+    // ApplicationStateService.activateSaoPaulo();
+    self.rota = rota;
     self.centers = [
       {
-        name: 'São Paulo'
+        name: 'São Paulo',
+        state: 'sp'
       },{
-        name: 'Rio Grande do Sul'
+        name: 'Rio Grande do Sul',
+        state: 'rs'
       },{
-        name: 'Espírito Santo'
+        name: 'Espírito Santo',
+        state: 'es'
       },{
-        name: 'Minas Gerais'
+        name: 'Minas Gerais',
+        state: 'mg'
       },{
-        name: 'Bahia'
+        name: 'Bahia',
+        state: 'ba'
       },{
-        name: 'Rio de Janeiro'
+        name: 'Rio de Janeiro',
+        state: 'rj'
       }
     ];
+
+    function rota(valor) {
+      // ApplicationStateService.activateSaoPaulo();
+      ApplicationStateService.setCurrentState(valor);
+    }
 
 
   }
