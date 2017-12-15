@@ -1,4 +1,9 @@
 <md-content class="md-padding" flex>
+  <md-toolbar class="md-primary">
+  <div class="md-toolbar-tools">
+    <h2 class="md-flex">CONVERSOR DE FORMATOS DO EXAMES</h2>
+  </div>
+</md-toolbar>
     <md-nav-bar md-no-ink-bar="disableInkBar" md-selected-nav-item="currentNavItem" nav-bar-aria-label="navigation links" >
         <md-nav-item md-nav-click="goto('{{center.name}}')" name="{{center.name}}" ng-repeat="center in $ctrl.centers">
             {{center.name}}
@@ -21,5 +26,7 @@
     </div>
 
     <md-checkbox ng-model="disableInkBar">Disable Ink Bar</md-checkbox>
+
+
 
 </md-content>
