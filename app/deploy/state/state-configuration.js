@@ -5,12 +5,12 @@
     .module('normalizerjs.deploy')
     .constant('STATE', {
       'HOME': 'home',
-      'SP_NORMALIZER': 'sp-normalizer',
-      'RS_NORMALIZER': 'rs-normalizer',
-      'ES_NORMALIZER': 'es-normalizer',
-      'RJ_NORMALIZER': 'rj-normalizer',
-      'MG_NORMALIZER': 'mg-normalizer',
-      'BA_NORMALIZER': 'ba-normalizer'
+      'SP': 'sp',
+      'RS': 'rs',
+      'ES': 'es',
+      'RJ': 'rj',
+      'MG': 'mg',
+      'BA': 'ba'
     })
     .config(Configuration);
 

@@ -12,7 +12,23 @@
   function Controller(ApplicationStateService) {
     var self = this;
     self.title = "CCEM CEV";
-    
+
+    self.centers = [
+      {
+        name: 'São Paulo'
+      },{
+        name: 'Rio Grande do Sul'
+      },{
+        name: 'Espírito Santo'
+      },{
+        name: 'Minas Gerais'
+      },{
+        name: 'Bahia'
+      },{
+        name: 'Rio de Janeiro'
+      }
+    ];
+
 
   }
 }());

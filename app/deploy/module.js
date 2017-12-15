@@ -2,10 +2,7 @@
   'use strict';
 
   angular
-    .module('normalizerjs.deploy', [
-      'normalizerjs.application.dependency',
-      'normalizerjs.application.state'
-    ])
+    .module('normalizerjs.deploy', [])
     .run(function () {
       console.info('Deploy module ready.');
     });

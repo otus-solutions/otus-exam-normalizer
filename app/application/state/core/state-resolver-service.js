@@ -2,14 +2,14 @@
   'use strict';
 
   angular
-    .module('normalizerjs.application.state')
-    .service('normalizerjs.application.state.RouteResolverService', Service);
+    .module('normalizerjs.states')
+    .service('application.state.RouteResolverService', Service);
 
   Service.$inject = [
     '$injector',
     '$rootScope',
     '$state',
-    'normalizerjs.application.state.ApplicationStateService'
+    'application.state.ApplicationStateService'
   ];
 
   function Service($injector, $rootScope, $state, ApplicationStateService) {
@@ -24,7 +24,7 @@
         }
       }
     });
-    
+
     $rootScope.$on('$stateChangeError', function(evt, to, toParams, from, fromParams, error) {
       evt.preventDefault();
       if (error.redirectTo) {

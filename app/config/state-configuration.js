@@ -25,7 +25,7 @@
                 views: {
                     'system-wrap': {
                         templateUrl: 'app/ux-component/home/home.html',
-                      controller: 'HomeController as $ctrl'
+                        controller: 'HomeController as $ctrl'
                     }
                 }
             });
