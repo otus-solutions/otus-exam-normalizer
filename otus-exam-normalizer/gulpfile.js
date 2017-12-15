@@ -62,7 +62,7 @@
       }))
       .pipe(gulpif('*.js', uglify()))
       .pipe(gulpif('*.css', minifyCss()))
-      // .pipe(gulpif('*.css', replace('url(../static-resource/', 'url(/app/static-resource/')))
+      .pipe(gulpif('*.css', replace('url(../../static-resource/', 'url(/otus-exam-normalizer/app/static-resource/')))
       .pipe(gulpif('index.html', replace('href="css', 'href="dist/otus-exam-normalizer/css')))
       .pipe(gulpif('index.html', replace('src="scripts', 'src="dist/otus-exam-normalizer/scripts')))
       .pipe(gulp.dest('dist/otus-exam-normalizer'));

@@ -11,22 +11,22 @@ pipeline {
       steps{
         // sh "git show -s --pretty=%an | perl -ne 'print \"GIT-COMMIT-USER=$_\"' >> $WORKSPACE/env.properties"
         // sh "echo '' >> $WORKSPACE/env.properties"
-        sh "rm -rf node_modules/"
-        sh "npm install"
-        sh "npm run test"
-        sh "npm run build"
+        sh "rm -rf otus-exam-normalizer/node_modules/"
+        sh "npm install --prefix otus-exam-normalizer/"
+        sh "npm run test --prefix otus-exam-normalizer/"
+        sh "npm run build --prefix otus-exam-normalizer/"
       }
     }
 
     stage('Publish Nexus') {
       steps {
-        sh "npm publish --registry ${repository_npm}"
+        sh "npm publish otus-exam-normalizer/ --registry ${repository_npm}"
       }
     }
 
     stage('Update Docs') {
       steps {
-        sh "npm run gulp sonar --sonarUrl='${URL_SONAR}' --sonarDatabaseUsername='${USER_SONAR}' --sonarDatabasePassword='${PWD_SONAR}'"
+        sh "npm run gulp sonar --sonarUrl='${URL_SONAR}' --sonarDatabaseUsername='${USER_SONAR}' --sonarDatabasePassword='${PWD_SONAR}' --prefix otus-exam-normalizer/"
       }
     }
 
