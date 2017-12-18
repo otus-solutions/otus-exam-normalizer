@@ -1,24 +1,45 @@
 <section layout="row" flex="">
-  <md-sidenav md-component-id="left" md-whiteframe="5" md-is-locked-open="$mdMedia('gt-md')">
-    <md-toolbar>
-      <h1 class="md-toolbar-tools">CENTROS</h1>
+  <md-sidenav md-component-id="left" md-whiteframe="5">
+
+    <md-toolbar class="md-primary md-whiteframe-1dp md-hue-3" layout-padding>
+      <div class="md-toolbar-tools" layout-margin>
+
+        <img src="app/static-resource/image/coruja_pesquisadora.png" class="toolbar-icon"></img>
+        <br>
+        <div layout-padding>
+          <span class="md-title">OTUS Solutions</span><br>
+          <span class="md-caption">
+        <md-icon md-font-set="material-icons">widgets</md-icon>
+        NORMALIZER
+      </span>
+        </div>
+
+
+      </div>
     </md-toolbar>
 
     <md-list ng-repeat="center in $ctrl.centers" class="ng-scope" layout='row' layout-padding>
-      <md-button ng-click="$ctrl.rota(center.state)" layout-align='start center'>{{center.name}}</md-button>
+      <md-button ng-click="$ctrl.route(center.state)" layout-align='start center'>{{center.name}}</md-button>
     </md-list>
   </md-sidenav>
 
-  <md-content flex="" >
-    <md-toolbar>
-      <div class="md-toolbar-tools" md-display-4 ui-view></div>
+  <md-content flex="">
+    <md-toolbar class="md-primary md-whiteframe-1dp md-primary">
+      <div class="md-toolbar-tools md-padding" layout-padding>
+        <span>
+      <md-button class="md-icon-button" aria-label="Menu" ng-click="$ctrl.toggleLeft()">
+      <md-icon md-font-set="material-icons">menu</md-icon>
+
+      </md-button>
+      OTUS NORMALIZER
+    </span>
+
+
+      </div>
     </md-toolbar>
 
     <div layout="column" layout-align="top center">
-      <p>
-        CONTEÚDO DO CONVERSOR (CENTRO):
-      </p>
-      <div class="text-content">
+      <div class="text-content" layout-padding>
         <div flex layout="row" class="md-body-2" ui-view></div>
       </div>
     </div>

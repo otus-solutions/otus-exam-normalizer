@@ -26,13 +26,11 @@ module.exports = function(config) {
       NODE_MODULES_ROOT_PATH + 'angular-messages/angular-messages.min.js',
       NODE_MODULES_ROOT_PATH + 'angular-mocks/angular-mocks.js',
       NODE_MODULES_ROOT_PATH + 'angular-resource/angular-resource.min.js',
-      NODE_MODULES_ROOT_PATH + 'angular-ui-mask/dist/mask.min.js',
       NODE_MODULES_ROOT_PATH + 'angular-ui-router/release/angular-ui-router.min.js',
       NODE_MODULES_ROOT_PATH + 'js-base64/base64.min.js',
       NODE_MODULES_ROOT_PATH + 'lokijs/build/lokijs.min.js',
       NODE_MODULES_ROOT_PATH + 'lokijs/src/loki-angular.js',
       NODE_MODULES_ROOT_PATH + 'moment/min/moment.min.js',
-      NODE_MODULES_ROOT_PATH + 'node-uuid/uuid.js',
       /* Static resources files */
       APP_ROOT_PATH + 'static-resource/**/*.js',
       /* Application files */
