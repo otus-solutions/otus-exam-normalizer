@@ -23,7 +23,7 @@ pipeline {
       steps {
         // sh "npm publish otus-exam-normalizer/ --registry ${repository_npm}"
         sh "cd otus-exam-normalizer/ && nexus-npm deploy"
-        sh "cd .."
+        // sh "cd .."
       }
     }
 
