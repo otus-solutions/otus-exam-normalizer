@@ -11,7 +11,7 @@ pipeline {
       steps{
         // sh "git show -s --pretty=%an | perl -ne 'print \"GIT-COMMIT-USER=$_\"' >> $WORKSPACE/env.properties"
         // sh "echo '' >> $WORKSPACE/env.properties"
-        sh "npm install -g nexus-npm"
+        // sh "npm install -g nexus-npm"
         sh "rm -rf otus-exam-normalizer/node_modules/"
         sh "npm install --prefix otus-exam-normalizer/"
         sh "npm run test --prefix otus-exam-normalizer/"
@@ -22,7 +22,9 @@ pipeline {
     stage('Publish Nexus') {
       steps {
         // sh "npm publish otus-exam-normalizer/ --registry ${repository_npm}"
+        sh "cd otus-exam-normalizer/"
         sh "nexus-npm deploy"
+        sh "cd .."
       }
     }
 
