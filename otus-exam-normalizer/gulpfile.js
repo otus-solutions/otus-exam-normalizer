@@ -50,6 +50,13 @@
       }))
       .pipe(gulp.dest('./'));
   });
+  gulp.task('snapshot', function(value) {
+    gulp.src('./package.json')
+      .pipe(bump({
+        version: packageJson.version.concat('-SNAPSHOT')
+      }))
+      .pipe(gulp.dest('./'));
+  });
 
   gulp.task('compress-compress', function() {
     return gulp.src('app/*.html', {
