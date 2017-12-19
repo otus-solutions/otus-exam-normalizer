@@ -77,7 +77,7 @@
     "watchify": "^3.9.0"
   },
   "distributionManagement": {
-    "releaseRegistry": "${repository_releases}",
-    "snapshotRegistry": "${repository_snapshots}"
+    "releaseRegistry": "http://nexus.inf.otus-solutions.com.br/repository/npm-releases/",
+    "snapshotRegistry": "http://nexus.inf.otus-solutions.com.br/repository/npm-snapshots/"
   }
 }
