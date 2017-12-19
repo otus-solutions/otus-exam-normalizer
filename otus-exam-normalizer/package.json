@@ -75,5 +75,9 @@
     "run-sequence": "^1.2.2",
     "stringify": "^5.1.0",
     "watchify": "^3.9.0"
+  },
+  "distributionManagement": {
+    "releaseRegistry": "http://nexus.inf.otus-solutions.com.br/repository/npm-repositories/",
+    "snapshotRegistry": "http://nexus.inf.otus-solutions.com.br/repository/npm-snapshots/"
   }
 }
