@@ -1,12 +1,13 @@
 {
   "name": "otus-exam-normalizer",
-  "version": "1.0.0-SNAPSHOT",
+  "version": "1.0.1",
   "description": "Otus - Exam Normalizer",
   "main": "app/app.js",
   "scripts": {
     "tdd": "karma start karma.conf.js --auto-watch --browsers Chrome",
     "test": "karma start karma.conf.js --single-run",
     "start": "npm run gulp browser-sync",
+    "upgrade": "npm run gulp upgrade-version && npm run gulp snapshot",
     "gulp": "gulp",
     "karma": "karma",
     "build": "gulp compress"

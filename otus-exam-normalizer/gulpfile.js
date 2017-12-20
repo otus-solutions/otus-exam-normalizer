@@ -43,14 +43,26 @@
     ]).on('change', browserSync.reload);
   });
 
-  gulp.task('upgrade-version', function(value) {
+  gulp.task('upgrade-version', function() {
+    gulp.src('./package.json')
+      .pipe(bump({
+        version: process.env.npm_config_value
+      }))
+      .pipe(bump({
+        version: process.env.npm_config_value
+      }))
+      .pipe(gulp.dest('./'));
+  });
+
+  gulp.task('release', function() {
     gulp.src('./package.json')
       .pipe(bump({
         version: process.env.npm_config_value
       }))
       .pipe(gulp.dest('./'));
   });
-  gulp.task('snapshot', function(value) {
+
+  gulp.task('snapshot', function() {
     gulp.src('./package.json')
       .pipe(bump({
         version: packageJson.version.concat('-SNAPSHOT')
@@ -87,6 +99,7 @@
   gulp.task('compress', function() {
     runSequence('compress-compress', 'compress-hash');
   });
+
 
   gulp.task('sonar', function() {
     var options = {
