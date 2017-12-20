@@ -17,6 +17,8 @@
   var uncache = require('gulp-uncache');
   var replace = require('gulp-replace');
   var runSequence = require('run-sequence');
+  var moment = require('moment');
+  var shell = require('shelljs');
 
   gulp.task('browser-sync', function() {
     browserSync.init({
@@ -68,6 +70,13 @@
         version: packageJson.version.concat('-SNAPSHOT')
       }))
       .pipe(gulp.dest('./'));
+  });
+
+  gulp.task('nexus', function() {
+      var now = moment().format('YYYYMMDD.hhmmss');
+      packageJson.version = packageJson.version.slice(0,5);
+      packageJson.version = packageJson.version + "." + now;
+      shell.exec('npm publish --registry=' + process.env.npm_config_nexusUrl);
   });
 
   gulp.task('compress-compress', function() {
