@@ -20,6 +20,7 @@
   var moment = require('moment');
   var shell = require('shelljs');
 
+
   gulp.task('browser-sync', function() {
     browserSync.init({
       server: {
@@ -64,20 +65,32 @@
       .pipe(gulp.dest('./'));
   });
 
-  gulp.task('snapshot', function() {
+  gulp.task('snapshot-hash', function(value) {
+    // var now = moment().format('YYYYMMDD.hhmmss');
+    // var now = moment().tz("America/Sao_Paulo").format('YYYYMMDD.hhmmss');
+    var now = moment.tz("YYYYMMDD.hhmmss","America/Sao_Paulo").format();
+    var newVersion = packageJson.version.slice(0, 5) + '-' + now;
+    // newVersion = newVersion.concat(now);
     gulp.src('./package.json')
       .pipe(bump({
-        version: packageJson.version.concat('-SNAPSHOT')
+        version: newVersion
+      }))
+      .pipe(gulp.dest('./'));
+  });
+
+  gulp.task('snapshot', function(value) {
+    gulp.src('./package.json')
+      .pipe(bump({
+        version: packageJson.version.slice(0, 5) + '-SNAPSHOT'
       }))
       .pipe(gulp.dest('./'));
   });
 
   gulp.task('nexus', function() {
-      var now = moment().format('YYYYMMDD.hhmmss');
-      packageJson.version = packageJson.version.slice(0,5);
-      packageJson.version = packageJson.version + "." + now;
-      shell.exec('npm publish --registry=' + process.env.npm_config_nexusUrl);
+    shell.exec('npm publish --registry=' + packageJson.distributionManagement.snapshotRegistry);
+
   });
+
 
   gulp.task('compress-compress', function() {
     return gulp.src('app/*.html', {

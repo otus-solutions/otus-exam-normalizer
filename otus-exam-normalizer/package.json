@@ -1,6 +1,6 @@
 {
   "name": "otus-exam-normalizer",
-  "version": "1.0.2-SNAPSHOT",
+  "version": "1.0.0-SNAPSHOT",
   "description": "Otus - Exam Normalizer",
   "main": "app/app.js",
   "scripts": {
@@ -8,6 +8,7 @@
     "test": "karma start karma.conf.js --single-run",
     "start": "npm run gulp browser-sync",
     "upgrade": "npm run gulp upgrade-version && npm run gulp snapshot",
+    "deploy": "npm run gulp snapshot-hash && npm run gulp nexus && npm run gulp snapshot",
     "gulp": "gulp",
     "karma": "karma",
     "build": "gulp compress"
@@ -79,7 +80,7 @@
     "watchify": "^3.9.0"
   },
   "distributionManagement": {
-    "releaseRegistry": "http://nexus.inf.otus-solutions.com.br/repository/npm-releases/",
-    "snapshotRegistry": "http://nexus.inf.otus-solutions.com.br/repository/npm-snapshots/"
+    "releaseRegistry": "${repository_snapshots}",
+    "snapshotRegistry": "${repository_snapshots}"
   }
 }
