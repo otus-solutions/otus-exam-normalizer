@@ -67,9 +67,7 @@
 
   gulp.task('snapshot-hash', function(value) {
     var now = moment().tz("America/Sao_Paulo").format('YYYYMMDD.HHmmss');
-    // var now = moment.tz("YYYYMMDD.hhmmss","America/Sao_Paulo").format();
     var newVersion = packageJson.version.slice(0, 5) + '-' + now;
-    // newVersion = newVersion.concat(now);
     gulp.src('./package.json')
       .pipe(bump({
         version: newVersion
@@ -85,11 +83,13 @@
       .pipe(gulp.dest('./'));
   });
 
-  gulp.task('nexus', function() {
+  gulp.task('nexus-snapshots', function() {
     shell.exec('npm publish --registry=' + packageJson.distributionManagement.snapshotRegistry);
-
   });
 
+  gulp.task('nexus-releases', function() {
+    shell.exec('npm publish --registry=' + packageJson.distributionManagement.releaseRegistry);
+  });
 
   gulp.task('compress-compress', function() {
     return gulp.src('app/*.html', {

@@ -8,7 +8,7 @@
     "test": "karma start karma.conf.js --single-run",
     "start": "npm run gulp browser-sync",
     "upgrade": "npm run gulp upgrade-version && npm run gulp snapshot",
-    "deploy": "npm run gulp snapshot-hash && npm run gulp nexus && npm run gulp snapshot",
+    "deploy": "npm run gulp snapshot-hash && npm run gulp nexus-snapshots && npm run gulp snapshot",
     "gulp": "gulp",
     "karma": "karma",
     "build": "gulp compress"
