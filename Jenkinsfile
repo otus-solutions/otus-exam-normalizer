@@ -23,7 +23,11 @@ pipeline {
       steps {
         // sh "npm publish otus-exam-normalizer/ --registry ${repository_npm}"
         // sh "cd otus-exam-normalizer/ && nexus-npm deploy"
+<<<<<<< HEAD
         sh "npm run gulp nexus --nexusUrl='${repository_npm}' --prefix otus-exam-normalizer/"
+=======
+        sh "npm run gulp nexus --nexusUrl='${repository_npm}'"
+>>>>>>> e8f7aa4c54ee0678b7aac079c4fd3a80a3837969
       }
     }
 
