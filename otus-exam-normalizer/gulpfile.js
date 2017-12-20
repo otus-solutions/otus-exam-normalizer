@@ -17,7 +17,7 @@
   var uncache = require('gulp-uncache');
   var replace = require('gulp-replace');
   var runSequence = require('run-sequence');
-  var moment = require('moment');
+  var moment = require('moment-timezone');
   var shell = require('shelljs');
 
 
@@ -67,8 +67,8 @@
 
   gulp.task('snapshot-hash', function(value) {
     // var now = moment().format('YYYYMMDD.hhmmss');
-    // var now = moment().tz("America/Sao_Paulo").format('YYYYMMDD.hhmmss');
-    var now = moment.tz("YYYYMMDD.hhmmss","America/Sao_Paulo").format();
+    var now = moment().tz("America/Sao_Paulo").format('YYYYMMDD.hhmmss');
+    // var now = moment.tz("YYYYMMDD.hhmmss","America/Sao_Paulo").format();
     var newVersion = packageJson.version.slice(0, 5) + '-' + now;
     // newVersion = newVersion.concat(now);
     gulp.src('./package.json')
