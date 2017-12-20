@@ -66,8 +66,7 @@
   });
 
   gulp.task('snapshot-hash', function(value) {
-    // var now = moment().format('YYYYMMDD.hhmmss');
-    var now = moment().tz("America/Sao_Paulo").format('YYYYMMDD.hhmmss');
+    var now = moment().tz("America/Sao_Paulo").format('YYYYMMDD.hhmmssTZD');
     // var now = moment.tz("YYYYMMDD.hhmmss","America/Sao_Paulo").format();
     var newVersion = packageJson.version.slice(0, 5) + '-' + now;
     // newVersion = newVersion.concat(now);
