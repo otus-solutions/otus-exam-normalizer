@@ -11,6 +11,7 @@
   var gulpif = require('gulp-if');
   var sonar = require('gulp-sonar');
   var packageJson = require('./package.json');
+  // var pom = require('./pom.xml');
   var replaceTask = require('gulp-replace-task');
   var baseDir = __dirname + '/app/index.html';
   var minifyCss = require('gulp-minify-css');
@@ -19,7 +20,8 @@
   var runSequence = require('run-sequence');
   var moment = require('moment-timezone');
   var shell = require('shelljs');
-
+  var fs = require("fs");
+  var xml2js = require('xml2js');
 
   gulp.task('browser-sync', function() {
     browserSync.init({
@@ -51,23 +53,13 @@
       .pipe(bump({
         version: process.env.npm_config_value
       }))
-      .pipe(bump({
-        version: process.env.npm_config_value
-      }))
       .pipe(gulp.dest('./'));
   });
 
-  gulp.task('release', function() {
-    gulp.src('./package.json')
-      .pipe(bump({
-        version: process.env.npm_config_value
-      }))
-      .pipe(gulp.dest('./'));
-  });
-
-  gulp.task('snapshot-hash', function(value) {
+  // Task for add hash from version into package.json
+  gulp.task('add-hash-version', function(value) {
     var now = moment().tz("America/Sao_Paulo").format('YYYYMMDD.HHmmss');
-    var newVersion = packageJson.version.slice(0, 5) + '-' + now;
+    var newVersion = packageJson.version + '.' + now;
     gulp.src('./package.json')
       .pipe(bump({
         version: newVersion
@@ -75,21 +67,35 @@
       .pipe(gulp.dest('./'));
   });
 
-  gulp.task('snapshot', function(value) {
+// Task for remove hash from version into package.json
+  gulp.task('remove-hash-version', function(value) {
+    var pos = packageJson.version.indexOf("-SNAPSHOT");
     gulp.src('./package.json')
       .pipe(bump({
-        version: packageJson.version.slice(0, 5) + '-SNAPSHOT'
+        version: packageJson.version.slice(0,pos+9)
       }))
       .pipe(gulp.dest('./'));
   });
 
-  gulp.task('nexus-snapshots', function() {
-    shell.exec('npm publish --registry=' + packageJson.distributionManagement.snapshotRegistry);
+// Task for copy version value into package.json from pom.xml
+  gulp.task('update-version', function(value) {
+    var parser = new xml2js.Parser();
+    fs.readFile('./pom.xml', function(err, data) {
+      parser.parseString(data, function(err, result) {
+        gulp.src('./package.json')
+          .pipe(bump({
+            version: result.project.version.toString()
+          }))
+          .pipe(gulp.dest('./'));
+      });
+    });
   });
 
-  gulp.task('nexus-releases', function() {
-    shell.exec('npm publish --registry=' + packageJson.distributionManagement.releaseRegistry);
+// Task for publish into nexus repository with command line paramenter --repository='type'
+  gulp.task('nexus', function() {
+    shell.exec('npm publish --registry=' + packageJson.distributionManagement[process.env.npm_config_repository]);
   });
+
 
   gulp.task('compress-compress', function() {
     return gulp.src('app/*.html', {
