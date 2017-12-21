@@ -93,7 +93,18 @@
 
 // Task for publish into nexus repository with command line paramenter --repository='type'
   gulp.task('nexus', function() {
-    shell.exec('npm publish --registry=' + packageJson.distributionManagement[process.env.npm_config_repository]);
+    var parser = new xml2js.Parser();
+    fs.readFile('./pom.xml', function(err, data) {
+      parser.parseString(data, function(err, result) {
+        if(result.project.version.toString().indexOf('-SNAPSHOT') == -1){
+          shell.exec('npm publish --registry=' + packageJson.distributionManagement.release);
+        } else {
+          shell.exec('npm run gulp add-hash-version');
+          shell.exec('npm publish --registry=' + packageJson.distributionManagement.snapshot);
+          shell.exec('npm run gulp remove-hash-version');
+        }
+      });
+    });
   });
 
 

@@ -7,7 +7,6 @@
     "tdd": "karma start karma.conf.js --auto-watch --browsers Chrome",
     "test": "karma start karma.conf.js --single-run",
     "start": "npm run gulp browser-sync",
-    "upgrade": "npm run gulp upgrade-version && npm run gulp snapshot",
     "deploy": "npm run gulp nexus",
     "gulp": "gulp",
     "karma": "karma",
