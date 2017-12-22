@@ -1,6 +1,7 @@
 {
   "name": "otus-exam-normalizer",
   "version": "1.0.0-SNAPSHOT",
+  "pomVersion": "1.0-SNAPSHOT",
   "description": "Otus - Exam Normalizer",
   "main": "app/app.js",
   "scripts": {
@@ -10,7 +11,8 @@
     "deploy": "npm run gulp nexus",
     "gulp": "gulp",
     "karma": "karma",
-    "build": "gulp compress"
+    "build": "gulp compress",
+    "postinstall": "sync-pom-version ./pom.xml ./package.json"
   },
   "url": "https://github.com/ccem-dev/otus-exam-normalizer/issues",
   "email": "ccem.projects@gmail.com",
@@ -45,6 +47,7 @@
     "otus-model-js": "https://github.com/ccem-dev/otus-model-js.git#v1.7",
     "please-wait": "0.0.5",
     "shelljs": "^0.7.7",
+    "sync-pom-version": "^1.0.1",
     "x2js": "^3.1.1",
     "xlsx-core": "^1.0.3",
     "xml2js": "^0.4.19"
