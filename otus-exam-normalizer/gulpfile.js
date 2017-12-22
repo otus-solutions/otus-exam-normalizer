@@ -22,6 +22,7 @@
   var shell = require('shelljs');
   var fs = require("fs");
   var xml2js = require('xml2js');
+  var Regex = require("regex");
 
   gulp.task('browser-sync', function() {
     browserSync.init({
@@ -67,36 +68,66 @@
       .pipe(gulp.dest('./'));
   });
 
-// Task for remove hash from version into package.json
+  // Task for remove hash from version into package.json
   gulp.task('remove-hash-version', function(value) {
     var pos = packageJson.version.indexOf("-SNAPSHOT");
     gulp.src('./package.json')
       .pipe(bump({
-        version: packageJson.version.slice(0,pos+9)
+        version: packageJson.version.slice(0, pos + 9)
       }))
       .pipe(gulp.dest('./'));
   });
 
-// Task for copy version value into package.json from pom.xml
+  // Task for copy version value into package.json from pom.xml
   gulp.task('update-version', function(value) {
+
+    var RegExp = /^[\d]{1,}\.[\d]{1,}$/;
     var parser = new xml2js.Parser();
     fs.readFile('./pom.xml', function(err, data) {
       parser.parseString(data, function(err, result) {
-        gulp.src('./package.json')
-          .pipe(bump({
-            version: result.project.version.toString()
-          }))
-          .pipe(gulp.dest('./'));
+        var pomVersion = result.project.version.toString();
+        var pos = pomVersion.indexOf('-SNAPSHOT');
+        if (pos > 0) { //When there is a snapshot
+          pomVersion = pomVersion.slice(0, pos);
+          if (RegExp.test(pomVersion) == true) {
+            gulp.src('./package.json')
+              .pipe(bump({
+                version: pomVersion.concat('.0-SNAPSHOT')
+              }))
+              .pipe(gulp.dest('./'));
+          } else {
+            gulp.src('./package.json')
+              .pipe(bump({
+                version: pomVersion.concat('-SNAPSHOT')
+              }))
+              .pipe(gulp.dest('./'));
+          }
+        } else { //When there is no snapshot
+          if (RegExp.test(pomVersion) == true) {
+            gulp.src('./package.json')
+              .pipe(bump({
+                version: pomVersion.concat('.0')
+              }))
+              .pipe(gulp.dest('./'));
+          } else {
+            gulp.src('./package.json')
+              .pipe(bump({
+                version: pomVersion
+              }))
+              .pipe(gulp.dest('./'));
+          }
+        }
       });
     });
   });
 
-// Task for publish into nexus repository with command line paramenter --repository='type'
+  // Task for publish into nexus repository with command line paramenter --repository='type'
   gulp.task('nexus', function() {
     var parser = new xml2js.Parser();
     fs.readFile('./pom.xml', function(err, data) {
       parser.parseString(data, function(err, result) {
-        if(result.project.version.toString().indexOf('-SNAPSHOT') == -1){
+        shell.exec('npm run gulp update-version');
+        if (result.project.version.toString().indexOf('-SNAPSHOT') == -1) {
           shell.exec('npm publish --registry=' + packageJson.distributionManagement.release);
         } else {
           shell.exec('npm run gulp add-hash-version');

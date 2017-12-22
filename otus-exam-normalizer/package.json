@@ -1,7 +1,6 @@
 {
   "name": "otus-exam-normalizer",
-  "version": "1.0.0-SNAPSHOT",
-  "pomVersion": "1.0-SNAPSHOT",
+  "version": "1.2.4",
   "description": "Otus - Exam Normalizer",
   "main": "app/app.js",
   "scripts": {
