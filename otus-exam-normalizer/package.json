@@ -42,7 +42,7 @@
     "lokijs": "1.4.2",
     "moment": "2.12.0",
     "moment-timezone": "^0.5.14",
-    "otus-model-js": "https://github.com/ccem-dev/otus-model-js.git#v1.7",
+    "otus-model-js": "https://github.com/ccem-dev/otus-model-js.git#v1.8",
     "please-wait": "0.0.5",
     "shelljs": "^0.7.7",
     "sync-pom-version": "^1.0.1",
