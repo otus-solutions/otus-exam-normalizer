@@ -11,12 +11,17 @@
   var gulpif = require('gulp-if');
   var sonar = require('gulp-sonar');
   var packageJson = require('./package.json');
+  // var pom = require('./pom.xml');
   var replaceTask = require('gulp-replace-task');
   var baseDir = __dirname + '/app/index.html';
   var minifyCss = require('gulp-minify-css');
   var uncache = require('gulp-uncache');
   var replace = require('gulp-replace');
   var runSequence = require('run-sequence');
+  var moment = require('moment-timezone');
+  var shell = require('shelljs');
+  var fs = require("fs");
+  var xml2js = require('xml2js');
 
   gulp.task('browser-sync', function() {
     browserSync.init({
@@ -43,13 +48,95 @@
     ]).on('change', browserSync.reload);
   });
 
-  gulp.task('upgrade-version', function(value) {
+  gulp.task('upgrade-version', function() {
     gulp.src('./package.json')
       .pipe(bump({
         version: process.env.npm_config_value
       }))
       .pipe(gulp.dest('./'));
   });
+
+  // Task for add hash from version into package.json
+  gulp.task('add-hash-version', function(value) {
+    var now = moment().tz("America/Sao_Paulo").format('YYYYMMDD.HHmmss');
+    var newVersion = packageJson.version + '.' + now;
+    gulp.src('./package.json')
+      .pipe(bump({
+        version: newVersion
+      }))
+      .pipe(gulp.dest('./'));
+  });
+
+  // Task for remove hash from version into package.json
+  gulp.task('remove-hash-version', function(value) {
+    var pos = packageJson.version.indexOf("-SNAPSHOT");
+    gulp.src('./package.json')
+      .pipe(bump({
+        version: packageJson.version.slice(0, pos + 9)
+      }))
+      .pipe(gulp.dest('./'));
+  });
+
+  // Task for copy version value into package.json from pom.xml
+  gulp.task('update-version', function(value) {
+
+    var RegExp = /^[\d]{1,}\.[\d]{1,}$/;
+    var parser = new xml2js.Parser();
+    fs.readFile('./pom.xml', function(err, data) {
+      parser.parseString(data, function(err, result) {
+        var pomVersion = result.project.version.toString();
+        var pos = pomVersion.indexOf('-SNAPSHOT');
+        if (pos > 0) { //When there is a snapshot
+          pomVersion = pomVersion.slice(0, pos);
+          if (RegExp.test(pomVersion) == true) {
+            gulp.src('./package.json')
+              .pipe(bump({
+                version: pomVersion.concat('.0-SNAPSHOT')
+              }))
+              .pipe(gulp.dest('./'));
+          } else {
+            gulp.src('./package.json')
+              .pipe(bump({
+                version: pomVersion.concat('-SNAPSHOT')
+              }))
+              .pipe(gulp.dest('./'));
+          }
+        } else { //When there is no snapshot
+          if (RegExp.test(pomVersion) == true) {
+            gulp.src('./package.json')
+              .pipe(bump({
+                version: pomVersion.concat('.0')
+              }))
+              .pipe(gulp.dest('./'));
+          } else {
+            gulp.src('./package.json')
+              .pipe(bump({
+                version: pomVersion
+              }))
+              .pipe(gulp.dest('./'));
+          }
+        }
+      });
+    });
+  });
+
+  // Task for publish into nexus repository with command line paramenter --repository='type'
+  gulp.task('nexus', function() {
+    var parser = new xml2js.Parser();
+    fs.readFile('./pom.xml', function(err, data) {
+      parser.parseString(data, function(err, result) {
+        shell.exec('npm run gulp update-version');
+        if (result.project.version.toString().indexOf('-SNAPSHOT') == -1) {
+          shell.exec('npm publish --registry=' + packageJson.distributionManagement.release);
+        } else {
+          shell.exec('npm run gulp add-hash-version');
+          shell.exec('npm publish --registry=' + packageJson.distributionManagement.snapshot);
+          shell.exec('npm run gulp remove-hash-version');
+        }
+      });
+    });
+  });
+
 
   gulp.task('compress-compress', function() {
     return gulp.src('app/*.html', {
@@ -80,6 +167,7 @@
   gulp.task('compress', function() {
     runSequence('compress-compress', 'compress-hash');
   });
+
 
   gulp.task('sonar', function() {
     var options = {

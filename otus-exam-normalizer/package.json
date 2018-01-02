@@ -7,6 +7,7 @@
     "tdd": "karma start karma.conf.js --auto-watch --browsers Chrome",
     "test": "karma start karma.conf.js --single-run",
     "start": "npm run gulp browser-sync",
+    "deploy": "npm run gulp nexus",
     "gulp": "gulp",
     "karma": "karma",
     "build": "gulp compress"
@@ -25,18 +26,29 @@
     "angular": "1.5.8",
     "angular-animate": "1.5.8",
     "angular-aria": "1.5.8",
+    "angular-bind-html-compile-ci-dev": "1.1.1",
     "angular-cookies": "1.5.8",
+    "angular-input-masks": "2.5.0",
     "angular-material": "1.1.1",
     "angular-material-icons": "0.7.1",
     "angular-messages": "1.5.8",
+    "angular-mousewheel": "1.0.5",
     "angular-resource": "1.5.8",
+    "angular-ui-mask": "1.8.7",
     "angular-ui-router": "0.4.1",
+    "fs": "0.0.1-security",
     "jquery": "2.2.0",
     "jsbarcode": "^3.5.7",
     "lokijs": "1.4.2",
     "moment": "2.12.0",
+    "moment-timezone": "^0.5.14",
     "otus-model-js": "https://github.com/ccem-dev/otus-model-js.git#v1.7",
-    "please-wait": "0.0.5"
+    "please-wait": "0.0.5",
+    "shelljs": "^0.7.7",
+    "sync-pom-version": "^1.0.1",
+    "x2js": "^3.1.1",
+    "xlsx-core": "^1.0.3",
+    "xml2js": "^0.4.19"
   },
   "devDependencies": {
     "angular-mocks": "1.4.9",
@@ -71,5 +83,9 @@
     "run-sequence": "^1.2.2",
     "stringify": "^5.1.0",
     "watchify": "^3.9.0"
+  },
+  "distributionManagement": {
+    "release": "http://nexus.inf.otus-solutions.com.br/repository/npm-releases/",
+    "snapshot": "http://nexus.inf.otus-solutions.com.br/repository/npm-snapshots/"
   }
 }
