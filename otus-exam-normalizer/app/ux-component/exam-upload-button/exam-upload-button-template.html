@@ -1,0 +1,8 @@
+<input id="fileInput" type="file" ng-model="file" accept='.xls, .xlsx' class="ng-hide" ng-change="$ctrl.validateFile()">
+<md-button class="md-raised md-accent" aria-label="Carregar Resultados" ng-click="$ctrl.upload()">
+  <md-tooltip md-direction="left">
+    Realizar envio de resultados de exames
+  </md-tooltip>
+  <md-icon>file_upload</md-icon>
+  <span style="margin-right:8px">converter arquivo</span>
+</md-button>
