@@ -6,8 +6,9 @@
       'normalizerjs.application.dependency',
       'normalizerjs.uxComponent',
       'normalizerjs.application',
-      'normalizerjs.deploy',
-      'normalizerjs.commons'
+      'normalizerjs.deploy'
+      // ,
+      // 'normalizerjs.commons'
     ]);
 
 
