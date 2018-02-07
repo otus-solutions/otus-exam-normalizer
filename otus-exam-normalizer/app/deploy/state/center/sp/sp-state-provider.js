@@ -1,9 +1,9 @@
-(function() {
+(function () {
   'use strict';
 
   angular
     .module('normalizerjs.deploy')
-    .provider('normalizerjs.deploy.RioDeJaneiroState', Provider);
+    .provider('normalizerjs.deploy.SaoPauloState', Provider);
 
   Provider.$inject = [
     'STATE'
@@ -20,9 +20,9 @@
 
     self.state = {
       parent: STATE.HOME,
-      name: STATE.RJ,
-      url: '/' + STATE.RJ,
-      templateUrl: 'app/ux-component/rj/rj-template.html'
+      name: STATE.SP,
+      url: '/' + STATE.SP,
+      templateUrl: 'app/ux-component/center/sp/sp-template.html'
     };
   }
 }());

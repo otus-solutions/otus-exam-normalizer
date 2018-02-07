@@ -22,7 +22,7 @@
       parent: STATE.HOME,
       name: STATE.MG,
       url: '/' + STATE.MG,
-      templateUrl: 'app/ux-component/mg/mg-template.html'
+      templateUrl: 'app/ux-component/center/mg/mg-template.html'
     };
   }
 }());

@@ -22,7 +22,7 @@
             parent: STATE.HOME,
             name: STATE.RS,
             url: '/' + STATE.RS,
-            templateUrl: 'app/ux-component/rs/rs-template.html'
+            templateUrl: 'app/ux-component/center/rs/rs-template.html'
         };
     }
 }());
