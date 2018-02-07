@@ -86,129 +86,107 @@ Definitions.templates = [
 
     fields: {
       aliquot: {
+        column: 0,
         required: true,
-        column: 0
+
+        rules: {
+          result: {
+            isEmpty: false,
+          }
+        }
       },
       patientName: {
-        required: false,
-        column: 1
+        column: 1,
+        required: true,
+
+        rules: {
+          result: {},
+          exam: {},
+          examObservation: {},
+          resultObservation: {}
+        },
       },
       solicitationNumber: {
-        required: false,
-        column: 2
+        column: 2,
+        required: true,
       },
       orderNumber: {
-        required: false,
-        column: 3
+        column: 3,
+        required: true,
       },
       itemNumber: {
-        required: false,
-        column: 4
+        column: 4,
+        required: true,
       },
       examCode: {
-        required: false,
-        column: 5
+        column: 5,
+        required: true,
       },
       examName: {
-        required: false,
-        column: 6
+        column: 6,
+        required: true,
       },
       label: {
+        column: 7,
         required: true,
-        column: 7
+
+        rules: {
+          result: {
+            isEmpty: false,
+            notContains: ["eTFG para afro-descendentes", "eTFG para não afro-descendentes"]
+          },
+          exam: {
+            isEmpty: false,
+            equalLastResult: false
+          }
+        }
+
       },
       result: {
-        required: false,
-        column: 8
+        column: 8,
+        required: true,
       },
       requestDate: {
-        required: false,
         column: 9,
+        required: false,
         isDate: true
       },
       collectionDate: {
-        required: false,
         column: 10,
+        required: false,
         isDate: true
       },
       releaseDate: {
-        required: false,
         column: 11,
+        required: true,
         isDate: true
+      }
+    },
+
+    rules: {
+      result: {
+        otherValidation: function (row, lastResult) { return true; }
       },
-    },
-
-    examRole: {
-      rules: [
-        {
-          fieldsRule: [
-            {
-              name: "aliquot",
-              equalLastResult: false
-            },
-            {
-              name: "label",
-              notContains: ["OBS", "INVALID_OBSERVATION"]
-            }
-          ],
-          otherValidation: function (row, lastResult) { return true; }
+      exam: {
+        otherValidation: function (row, lastResult) {
+          return lastResult || row.aliquot !== lastResult.aliquot
+            || row.examCode !== lastResult.examCode ? false : true;
+        }
+      },
+      examObservation: {
+        otherValidation: function (row, lastResult) { return true; },
+        getObservation: function (row, lastResult) { return "Observação..."; }
+      },
+      resultObservation: {
+        otherValidation: function (row, lastResult) {
+          //Exemplo: Valida somente 2 linhas após a linha do ultimo resuldade de exame
+          return (row.rowsAfterLastResult <= 2);
         },
-        {
-          fieldsRule: [
-            {
-              name: "examCode",
-              equalLastResult: false
-            },
-            {
-              name: "label",
-              notContains: ["OBS", "INVALID_OBSERVATION"]
-            }
-          ]
+        getObservation: function (row, lastResult) {
+          //Exemplo: Concatena rótulo do resultado com a coluna resultado na linha da observação
+          return lastResult.label + " - " + row.result;
         }
-      ]
-    },
-
-    examObservationRule: {},
-
-    resultObservationRule: {
-      rules: [
-        {
-          fieldsRule: [
-            {
-              name: "aliquot",
-              equalLastResult: true
-            },
-            {
-              name: "examName",
-              equalLastResult: true
-            },
-            {
-              name: "examCode",
-              equalLastResult: true
-            },
-            {
-              name: "label",
-              contains: ["", "OBS"],
-              notContains: ["INVALID_OBSERVATION"]
-            },
-            {
-              name: "result",
-              isEmpty: false,
-            },
-          ],
-
-          valueByFieldName: "result",
-
-          otherValidation: function (row, lastResult) {
-            //Exemplo: Valida somente 2 linhas após a linha do ultimo resuldade de exame
-            return (row.rowsAfterLastResult <= 2);
-          },
-          getObservation: function (row, lastResult) {
-            //Exemplo: Concatena rótulo do resultado com a coluna resultado na linha da observação
-            return lastResult.label + " - " + row.result;
-          }
-        }
-      ]
+      }
     }
   }
 ];
