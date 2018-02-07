@@ -1,3 +1,4 @@
+//TODO: Implementanar...
 
 var row = {
   aliquot: "",
@@ -13,24 +14,16 @@ var row = {
   collectionDate: "",
   releaseDate: "",
 
+  fieldsRequiredfilled: true,
   isResult: true,
   isNewExam: true,
   isObservation: false,
-  observationValue: "",
+  observation: "",
   rejected: false,
   rejectionMessage: "",
 
+  originalColumnsArray: [],
+
   index: 0,
-  rowsAfterLastResult: 1
-}
-
-
-var file = {
-  fileName: "arquivo.xlsx",
-  realizationDate: new Date().toISOString(),
-  fieldCenter: {acronym: "SP"},
-
-  lastResult: undefined,
-  rows: []
-
+  rowsAfterLastResult: 1 //Position After lastResult
 }

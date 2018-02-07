@@ -45,16 +45,13 @@
               workbook.Sheets[workbook.SheetNames[0]],
               {
                 header: 1,
-                dateNF: "dd/MM/yy hh:mm", 
-                defval: "", 
+                dateNF: "dd/MM/yy hh:mm",
+                defval: "",
                 raw: false
               }
             )
           );
         })
-
-        
-        
         self.upload(e.target.files);
         // if (_validateFileToUpload(e.target.files[0])) {
         //   fr.readAsText(e.target.files[0]);
@@ -62,12 +59,12 @@
       });
     }
 
-    function _convertToWorkbook(file, callback){
+    function _convertToWorkbook(file, callback) {
       var reader = new FileReader();
 
       reader.onload = function (e) {
         var bstr = e.target.result;
-        var workbook = XLSX.read(bstr, {type: 'binary'});
+        var workbook = XLSX.read(bstr, { type: 'binary' });
         callback(workbook);
       };
 

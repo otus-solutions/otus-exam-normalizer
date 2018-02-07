@@ -1,24 +1,65 @@
-<section layout="row" flex>
-  <md-content layout="column" flex>
-    <div flex layout="column">
-      <md-toolbar class="md-primary md-whiteframe-1dp md-primary">
-        <div class="md-toolbar-tools md-padding" layout-padding>
-          <div style="padding: 15px;">
-            <md-icon md-font-set="material-icons">widgets</md-icon>
-            <span style="position: relative; top:1.5px;">
-              OTUS NORMALIZER
-            </span>
-          </div>
-        </div>
-      </md-toolbar>
-
-      <div layout="row" flex>
-        <div layout="column" flex>
-          <md-content layout="row" flex>
-            <div flex layout="column" class="md-body-2" ui-view></div>
-          </md-content>
+<div layout="column" layout-fill>
+  <header>
+    <md-toolbar class="md-primary md-whiteframe-1dp md-primary">
+      <div class="md-toolbar-tools md-padding" layout-padding>
+        <div style="padding: 15px;">
+          <md-icon md-font-set="material-icons">widgets</md-icon>
+          <span style="position: relative; top:1.5px;">
+            OTUS NORMALIZER
+          </span>
         </div>
       </div>
+    </md-toolbar>
+  </header>
+
+  <div flex>
+    <div ui-view></div>
+  </div>
+
+  <footer>
+    <div layout="row" layout-align="center center">
+      <md-card flex style="min-height: 150px">
+        <md-card-title flex>
+          <md-card-title-text>
+            <span class="md-headline">Informações relacionadas a versão do conversor</span>
+          </md-card-title-text>
+        </md-card-title>
+        <md-card-content flex>
+          <p>
+            Conversor preparado para converter os seguintes resultados:
+          </p>
+          <div layout="row" flex>
+            <div layout="column" flex>
+              <div layout="row">
+                <li>Bioquimica de urina</li>
+              </div>
+              <div layout="row">
+                <li>Glicemia jejum</li>
+              </div>
+              <div layout="row">
+                <li>Glicemia pos</li>
+              </div>
+              <div layout="row">
+                <li>Hormonios jejum</li>
+              </div>
+            </div>
+            <div layout="column" flex>
+              <div layout="row">
+                <li>Insulina pos</li>
+              </div>
+              <div layout="row">
+                <li>PCR</li>
+              </div>
+              <div layout="row">
+                <li>Bioq. Soro de outros CIs</li>
+              </div>
+              <div layout="row">
+                <li>Hemograma SP</li>
+              </div>
+            </div>
+          </div>
+        </md-card-content>
+      </md-card>
     </div>
-  </md-content>
-</section>
+  </footer>
+</div>
