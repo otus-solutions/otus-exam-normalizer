@@ -1,4 +1,56 @@
-var templates = [
+var Definitions = {};
+Definitions.templates = [];
+Definitions.fieldCenterList = [];
+
+Definitions.fieldCenterList = [
+  {
+    name: "Bahia",
+    acronym: "BA",
+    code: 1,
+    templates: []
+  },
+  {
+    name: "Espírito Santo",
+    acronym: "ES",
+    code: 2,
+    templates: []
+  },
+  {
+    acronym: "MG",
+    name: "Minas Gerais",
+    code: 3,
+    templates: []
+  },
+  {
+    name: "Rio de Janeiro",
+    acronym: "RJ",
+    code: 4,
+    templates: []
+  },
+  {
+    name: "Rio Grande do Sul",
+    acronym: "RS",
+    code: 5,
+    templates: []
+  },
+  {
+    acronym: "SP",
+    name: "São Paulo",
+    code: 6,
+    templates: [
+      {
+        template: "bioquimica-urina-sp",
+        version: "1.0.0"
+      },
+      {
+        template: "glicemia-jejum-sp",
+        version: "1.0.0"
+      }
+    ]
+  }
+];
+
+Definitions.templates = [
   {
     template: "bioquimica-urina-sp",
     version: "1.0.0",

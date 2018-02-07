@@ -47,6 +47,17 @@
     self.setFieldCenter = setFieldCenter;
     self.toJSON = toJSON;
 
+    // var file = {
+    //   fileName: "arquivo.xlsx",
+    //   realizationDate: new Date().toISOString(),
+    //   fieldCenter: {acronym: "SP"},
+    //   template = undefined;
+    
+    //   lastResult: undefined,
+    //   rows: []
+    // }
+
+
     _onInit();
 
     function _onInit() {
