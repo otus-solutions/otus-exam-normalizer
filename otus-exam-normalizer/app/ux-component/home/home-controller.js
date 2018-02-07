@@ -20,6 +20,8 @@
     self.showMessage = showMessage;
 
     self.route = route;
+
+    //TODO: remover, isso deve ficar na definição
     self.centers = [
       {
         name: 'Bahia',
@@ -80,10 +82,10 @@
       }
     ];
 
-    self.findFieldCenterByAcronym = function(acronym){
+    self.findFieldCenterByAcronym = function (acronym) {
       var fieldCenter;
 
-      if(acronym) {
+      if (acronym) {
         fieldCenter = self.fieldCenterList.find(function (center) {
           return center.acronym.toUpperCase() === acronym.toUpperCase();
         });

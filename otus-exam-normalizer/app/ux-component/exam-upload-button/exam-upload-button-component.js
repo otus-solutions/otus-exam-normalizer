@@ -20,7 +20,7 @@
 
   function Controller($q, $element, $mdToast) {
     var self = this;
-    var timeShowMsg = 3000;
+    var timeShowMsg = 4000;
     var fr = new FileReader();
 
     self.$onInit = onInit;
