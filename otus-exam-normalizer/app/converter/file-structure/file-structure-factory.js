@@ -16,7 +16,7 @@
     self.fromJson = fromJson;
 
     function create() {
-      return new FileStructure(Row, TemplateService, {});
+      return new FileStructure(Row, TemplateService);
     }
 
     function fromJson(fileInfo) {
@@ -28,19 +28,16 @@
 
   function FileStructure(Row, TemplateService, fileInfo) {
     var self = this;
-    
     var availableTemplates = [];
     var template;
     var fieldCenter = fileInfo.fieldCenter || undefined;
     
+    self.objectType = 'FileStructure';
     self.fileName = fileInfo.fileName || '';
     self.realizationDate = fileInfo.realizationDate || new Date().toISOString();
     self.template = fileInfo.template || '';
-
     self.lastResult = fileInfo.lastResult || '';
-    self.rows = Row.fromJson(fileInfo.rows);
-    
-    self.objectType = 'FileStructure';
+    self.rows = []; //Row.fromJson(fileInfo.rows);
     
     self.findLastResult = findLastResult;
     self.getFieldCenter = getFieldCenter;
@@ -110,5 +107,3 @@
     }
   }
 }());
-
-

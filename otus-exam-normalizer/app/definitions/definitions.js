@@ -60,14 +60,16 @@ Definitions.templates = [
     outTemplate: "OTUS-EXAM-NORMALIZER",
     outTemplateVersion: "1.0.0",
 
-    formatDate: {
-      day: { start: 0, end: 1 },
-      month: { start: 3, end: 4 },
-      year: { start: 6, end: 7 },
-      hour: { start: 9, end: 10 },
-      minutes: { start: 12, end: 13 }
-      //TODO: Implement 'formatString' in the Future
-      //formatString: "dd/MM/yy hh:mm"
+    formatType: {
+      date: {
+        day: { start: 0, length: 2 },
+        month: { start: 3, length: 2 },
+        year: { start: 6, length: 2 },
+        hours: { start: 9, length: 2 },
+        minutes: { start: 12, length: 2 }
+        //TODO: Implement 'formatString' in the Future
+        //formatString: "dd/MM/yy hh:mm"
+      },
     },
 
     templateValidations: [
@@ -84,8 +86,9 @@ Definitions.templates = [
 
     valueIfUndefined: "",
 
-    fields: {
-      aliquot: {
+    fields: [
+      {
+        name: "aliquot",
         column: 0,
         required: true,
 
@@ -95,7 +98,8 @@ Definitions.templates = [
           }
         }
       },
-      patientName: {
+      {
+        name: "patientName",
         column: 1,
         required: true,
 
@@ -106,27 +110,33 @@ Definitions.templates = [
           resultObservation: {}
         },
       },
-      solicitationNumber: {
+      {
+        name: "solicitationNumber",
         column: 2,
         required: true,
       },
-      orderNumber: {
+      {
+        name: "orderNumber",
         column: 3,
         required: true,
       },
-      itemNumber: {
+      {
+        name: "itemNumber",
         column: 4,
         required: true,
       },
-      examCode: {
+      {
+        name: "examCode",
         column: 5,
         required: true,
       },
-      examName: {
+      {
+        name: "examName",
         column: 6,
         required: true,
       },
-      label: {
+      {
+        name: "label",
         column: 7,
         required: true,
 
@@ -142,26 +152,30 @@ Definitions.templates = [
         }
 
       },
-      result: {
+      {
+        name: "result",
         column: 8,
         required: true,
       },
-      requestDate: {
+      {
+        name: "requestDate",
         column: 9,
         required: false,
         isDate: true
       },
-      collectionDate: {
+      {
+        name: "collectionDate",
         column: 10,
         required: false,
         isDate: true
       },
-      releaseDate: {
+      {
+        name: "releaseDate",
         column: 11,
         required: true,
         isDate: true
       }
-    },
+    ],
 
     rules: {
       result: {
@@ -175,16 +189,18 @@ Definitions.templates = [
       },
       examObservation: {
         otherValidation: function (row, lastResult) { return true; },
+        observationFromTheField: "result",
         getObservation: function (row, lastResult) { return "Observação..."; }
       },
       resultObservation: {
         otherValidation: function (row, lastResult) {
           //Exemplo: Valida somente 2 linhas após a linha do ultimo resuldade de exame
-          return (row.rowsAfterLastResult <= 2);
+          return (row.countRowsAfterLastResult <= 2);
         },
+        observationFromTheField: "result",
         getObservation: function (row, lastResult) {
           //Exemplo: Concatena rótulo do resultado com a coluna resultado na linha da observação
-          return lastResult.label + " - " + row.result;
+          return lastResult.label.value + " - " + row.result.value;
         }
       }
     }
