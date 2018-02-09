@@ -1,4 +1,9 @@
-<!-- <h1>RIO DE JANEIRO</h1> -->
-<div flex layout="column" layout-align="center">
-    <converter field-center="$ctrl.findFieldCenterByAcronym('rj')"/>
+<md-toolbar style="z-index: 1" class="md-primary md-hue-1">
+    <div class="md-toolbar-tools md-hue-2">
+        <span flex>Conversor: Rio de Janeiro</span>
+    </div>
+</md-toolbar>
+
+<div flex layout="row" layout-align="center">
+    <converter layout="row" field-center="$ctrl.findFieldCenterByAcronym('rj')" style="width: 600px;"></converter>
 </div>

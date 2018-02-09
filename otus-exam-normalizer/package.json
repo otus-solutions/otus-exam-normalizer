@@ -42,6 +42,7 @@
     "lokijs": "1.4.2",
     "moment": "2.12.0",
     "moment-timezone": "^0.5.14",
+    "ng-file-upload": "^12.2.13",
     "otus-model-js": "https://github.com/ccem-dev/otus-model-js.git#v1.8",
     "please-wait": "0.0.5",
     "shelljs": "^0.7.7",
@@ -83,7 +84,8 @@
     "phantomjs-prebuilt": "^2.1.15",
     "run-sequence": "^1.2.2",
     "stringify": "^5.1.0",
-    "watchify": "^3.9.0"
+    "watchify": "^3.9.0",
+    "ng-file-upload": "12.2.13"
   },
   "distributionManagement": {
     "release": "http://nexus.inf.otus-solutions.com.br/repository/npm-releases/",

@@ -1,65 +1,55 @@
-<div layout="column" layout-fill>
-  <header>
-    <md-toolbar class="md-primary md-whiteframe-1dp md-primary">
-      <div class="md-toolbar-tools md-padding" layout-padding>
-        <div style="padding: 15px;">
-          <md-icon md-font-set="material-icons">widgets</md-icon>
-          <span style="position: relative; top:1.5px;">
-            OTUS NORMALIZER
-          </span>
-        </div>
-      </div>
-    </md-toolbar>
-  </header>
-
-  <div flex>
-    <div ui-view></div>
-  </div>
-
-  <footer>
-    <div layout="row" layout-align="center center">
-      <md-card flex style="min-height: 150px">
-        <md-card-title flex>
-          <md-card-title-text>
-            <span class="md-headline">Informações relacionadas a versão do conversor</span>
-          </md-card-title-text>
-        </md-card-title>
-        <md-card-content flex>
-          <p>
-            Conversor preparado para converter os seguintes resultados:
-          </p>
-          <div layout="row" flex>
-            <div layout="column" flex>
-              <div layout="row">
-                <li>Bioquimica de urina</li>
-              </div>
-              <div layout="row">
-                <li>Glicemia jejum</li>
-              </div>
-              <div layout="row">
-                <li>Glicemia pos</li>
-              </div>
-              <div layout="row">
-                <li>Hormonios jejum</li>
-              </div>
-            </div>
-            <div layout="column" flex>
-              <div layout="row">
-                <li>Insulina pos</li>
-              </div>
-              <div layout="row">
-                <li>PCR</li>
-              </div>
-              <div layout="row">
-                <li>Bioq. Soro de outros CIs</li>
-              </div>
-              <div layout="row">
-                <li>Hemograma SP</li>
-              </div>
+<section layout="row" flex>
+  <md-content layout="column" flex>
+    <div layout="row">
+      <md-sidenav class="md-sidenav-left md-whiteframe-1dp" md-component-id="left" style="z-index: 1000 !important">
+        <md-toolbar class="md-primary md-whiteframe-1dp">
+          <div class="md-toolbar-tools" layout-margin>
+            <img src="app/static-resource/image/coruja_pesquisadora.png" class="toolbar-icon"></img>
+            <br>
+            <div layout-padding>
+              <span class="md-title">OTUS Solutions</span>
+              <br>
+              <span class="md-caption">
+                <md-icon md-font-set="material-icons">widgets</md-icon>
+                NORMALIZER
+              </span>
             </div>
           </div>
-        </md-card-content>
-      </md-card>
+        </md-toolbar>
+
+        <md-list>
+          <md-list-item ng-repeat="center in $ctrl.centers" >
+            <div layout-align="start center">
+              <md-button ng-click="$ctrl.route(center.state)" style="text-align: left" layout-padding>
+                <span>
+                  {{center.name}}
+                </span>
+              </md-button>
+            </div>
+          </md-list-item>
+        </md-list>
+      </md-sidenav>
     </div>
-  </footer>
-</div>
+
+    <div flex layout="column">
+      <md-toolbar class="md-primary md-whiteframe-1dp md-primary">
+        <div class="md-toolbar-tools md-padding" layout-padding>
+          <md-button ng-click="$ctrl.toggleLeft()" style="padding: 15px;">
+            <md-icon md-font-set="material-icons">menu</md-icon>
+            <span style="position: relative; top:1.5px;">
+              OTUS NORMALIZER
+            </span>
+          </md-button>
+        </div>
+      </md-toolbar>
+
+      <div layout="row" flex>
+        <div layout="column" flex>
+          <md-content layout="row" flex>
+            <div flex layout="column" class="md-body-2" ui-view></div>
+          </md-content>
+        </div>
+      </div>
+    </div>
+  </md-content>
+</section>

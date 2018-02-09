@@ -1,8 +1,27 @@
-<input id="fileInput" type="file" ng-model="file" accept='.xls, .xlsx' class="ng-hide" ng-change="$ctrl.validateFile()">
-<md-button class="md-raised md-accent" aria-label="Carregar Resultados" ng-click="$ctrl.upload()">
-  <md-tooltip md-direction="left">
-    Realizar envio de resultados de exames
-  </md-tooltip>
-  <md-icon>file_upload</md-icon>
-  <span style="margin-right:8px">converter arquivo</span>
-</md-button>
+<div ng-app="normalizerjs.uxComponent" ng-controller="FileUploadController">
+  <div ng-if="progress">
+    <div class="progress">
+      <div class="progress-bar" role="progressbar" aria-valuenow="{{progress}}" aria-valuemin="0" aria-valuemax="100" style="width: {{progress}};">
+        {{progress}}
+      </div>
+    </div>
+    <hr>
+    <ul>
+      <li ng-repeat="f in gFiles" style="font:smaller">{{f.name}}</li>
+    </ul>
+  </div>
+
+  <div class="dropzone" ng-hide="progress" ngf-drop ngf-select ng-model="gFiles" ngf-pattern="'image/*'" ngf-multiple="true"
+    ngf-drag-over-class="'dragover'">
+    <div class="sm-hidden">
+      <h3>Solte os arquivos aqui</h3>
+      <h3>ou</h3>
+    </div>
+    <p>
+      <md-button class="md-raised md-accent" aria-label="Carregar Resultados">
+        <span style="margin-right:8px">Selecione arquivos do seu computador</span>
+      </md-button>
+    </p>
+    <p ngf-no-file-drop>O arquivo não é compatível</p>
+  </div>
+</div>

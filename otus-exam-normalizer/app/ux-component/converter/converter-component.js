@@ -2,7 +2,7 @@
   'use strict';
 
   angular
-    .module('normalizerjs')
+    .module('normalizerjs.uxComponent')
     .component('converter', {
       templateUrl: 'app/ux-component/converter/converter-template.html',
       bindings: {

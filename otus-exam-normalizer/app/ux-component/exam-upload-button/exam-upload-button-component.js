@@ -2,13 +2,14 @@
   'use strict';
 
   angular
-    .module('normalizerjs')
+    .module('normalizerjs.uxComponent')
     .component('examUploadButton', {
       controller: Controller,
       templateUrl: 'app/ux-component/exam-upload-button/exam-upload-button-template.html',
       bindings: {
         uploadFile: '<',
         validateFile: '<',
+        fieldCenter: '<'
       }
     });
 
