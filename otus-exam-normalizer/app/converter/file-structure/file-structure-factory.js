@@ -16,7 +16,7 @@
     self.fromJson = fromJson;
 
     function create() {
-      return new FileStructure(Row, TemplateService);
+      return new FileStructure(Row, TemplateService, {});
     }
 
     function fromJson(fileInfo) {
@@ -37,12 +37,18 @@
     self.realizationDate = fileInfo.realizationDate || new Date().toISOString();
     self.template = fileInfo.template || '';
     self.lastResult = fileInfo.lastResult || '';
+    self.sheet = fileInfo.sheet || [];
     self.rows = []; //Row.fromJson(fileInfo.rows);
     
+    self.createRowWithSheet = createRowWithSheet;
     self.findLastResult = findLastResult;
     self.getFieldCenter = getFieldCenter;
     self.setFieldCenter = setFieldCenter;
     self.toJSON = toJSON;
+    self.insertRow = insertRow;
+    self.findAvailableTemplates = findAvailableTemplates;
+    self.findTemplate = findTemplate;
+    self.createRow = createRow;
 
     _onInit();
 
@@ -86,16 +92,26 @@
 
     function findTemplate(sheet) {
       if(!availableTemplates || !availableTemplates.length) findAvailableTemplates(fieldCenter);
-      if(template) template = TemplateService.getTemplate(sheet, availableTemplates);
+      self.template = TemplateService.getTemplate(sheet, availableTemplates);
+    }
+
+    function createRowWithSheet(sheet){
+      findTemplate(sheet);
+
+      for (var i = self.template.header.row + 1; i < sheet.length; i++) {
+        var columnsArray = sheet[i];
+        createRow(columnsArray);
+      }
     }
 
     function createRow(columnsArray) {
-      var row = TemplateService.createRow(template, columnsArray, self.rows[self.rows.length]);
+      var row = TemplateService.createRow(self.template, columnsArray, self.rows[self.rows.length], self.lastResult);
       insertRow(row);
     }
 
     function insertRow(row){
       self.rows.push(row);
+      if(row.isResult) self.lastResult = row;
     }
 
     function toJSON() {

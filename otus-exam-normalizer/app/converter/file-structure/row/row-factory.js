@@ -37,11 +37,12 @@
     self.isValid = rowInfo.isValid || true;
     self.isResult = rowInfo.isResult || false;
     self.isNewExam = rowInfo.isNewExam || false;
-    self.isObservation = rowInfo.isObservation || false;
+    self.isExamObservation = rowInfo.isExamObservation || false;
+    self.isResultObservation = rowInfo.isResultObservation || false;
     self.observation = rowInfo.observation || "";
     self.rejected = rowInfo.rejected || false;
     self.rejectionMessage = rowInfo.rejectionMessage || "";
-    self.fields = rowInfo.fields || {};
+    self.fields = rowInfo.fields || [];
 
     self.toJSON = toJSON;
     self.insertField = insertField;
@@ -49,12 +50,12 @@
     _onInit();
 
     function _onInit() {
-      _inicializeFields()
+      
     }
 
     function insertField(field) {
       self.fields.push(field);
-      if (self[field.name]) self.self[field.name] = field.value;
+      if (!self[field.name]) self[field.name] = field.value;
       /* Campos Dinamicos
           aliquot = "";
           patientName = "";

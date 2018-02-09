@@ -1,4 +1,4 @@
-(function (){
+(function () {
   'use strict';
 
   angular
@@ -11,9 +11,9 @@
     'normalizerjs.converter.Field'
   ];
 
-  function Service(FieldCenterService, Row, Field){
+  function Service(FieldCenterService, Row, Field) {
     var self = this;
-    var properties = [
+    var requiredProperties = [
       "aliquot",
       "patientName",
       "solicitationNumber",
@@ -31,33 +31,65 @@
 
     self.allTemplates = Definitions.templates;
     self.createRow = createRow;
+    self.findTemplatesByFieldCenter = findTemplatesByFieldCenter;
+    self.getTemplate = getTemplate;
 
     _onInit();
 
-    function _onInit(){
+    function _onInit() {
 
     }
 
-    function _getValue(row){
+    function getTemplate(sheet, availableTemplates) {
+      var template = undefined;
+      for (var i = 0; i < availableTemplates.length; i++) {
+        var testTemplate = availableTemplates[i];
+        var column = _getColumn(testTemplate.templateValidations.fieldName, testTemplate);
+        var isValid = false;
 
+        for(var line = 0; line < 10; line++) {
+          var value = _getValueFromSheet(sheet, line, column); 
+          var acceptable = testTemplate.templateValidations.acceptableValues.find(function(acceptableValue){
+            return acceptableValue.toString().trim() == value.toString().trim();
+          });
+
+          if(_exists(acceptable)){
+            template = testTemplate;
+            break;
+          }
+        }
+        if(_exists(template)) break;
+      }
+
+      return template;
     }
 
-    function _equalLastResult(property, row, lastResult){
+    function _getValueFromSheet(sheet, line, column){
+      return sheet[line][column];
+    }
+
+    function _getColumn(fieldName, template){
+      return template.fields.find(function(field){
+        return field.name == fieldName;
+      }).column
+    }
+
+    function _equalLastResult(property, row, lastResult) {
       return lastResult && row[property].toString().trim().toUpperCase() === lastResult[property].toString().trim().toUpperCase() ? true : false;
     }
 
-    function _notContains(property, row, textArray){
+    function _notContains(property, row, textArray) {
       return !_contains(property, row, textArray);
     }
 
-    function _contains(property, row, textArray){
+    function _contains(property, row, textArray) {
       var value = row[property];
       var contains = false;
       var re = new RegExp(value, "i");
 
-      for (var i = 0; i < textArray.length; i++){
-        text = textArray[i];
-        if(re.test(text)){
+      for (var i = 0; i < textArray.length; i++) {
+        var text = textArray[i];
+        if (re.test(text)) {
           contains = true;
           break;
         }
@@ -65,43 +97,52 @@
       return contains;
     }
 
-    function _exists(value){
+    function _exists(value) {
       return value !== undefined ? true : false;
     }
 
-    function _isEmpty(value){
+    function _isEmpty(value) {
       return value === undefined || value === "" ? true : false;
     }
 
-    function createRow(template, columnsArray, lastRow){
+    function createRow(template, columnsArray, lastRow, lastResult) {
       var row = Row.create();
 
       row.originalColumnsArray = columnsArray;
       row.index = lastRow ? lastRow.index + 1 : 0;
-      row.countRowsAfterLastResult = lastRow ? lastRow.countRowsAfterLastResult + 1 : 1;
+      row.countRowsAfterLastResult = lastRow ? lastRow.countRowsAfterLastResult + 1 : 0;
 
-      /*TODO: {
-        create
-      }*/
+      _fillRow(row, columnsArray, template);
+      _validateFieldsRule(row, lastResult);
+      _validateRow(row, lastResult, template);
+
+      if(row.isResult){
+        row.countRowsAfterLastResult = 0;
+      }
+
+      if(!row.isResult && !row.isNewExam && !row.isExamObservation && !row.isResultObservation){
+        row.rejected = true;
+        row.rejectionMessage = "N/A";
+      }
 
       return row;
     }
 
-    function _dateValueToISOString(value, formatDate){
+    function _dateValueToISOString(value, formatDate) {
       var currentYear = new Date().getFullYear().toString().substr(2, 2);
 
-      if(formatDate.day) var day = value.substr(formatDate.day.start, formatDate.day.length);
-      if(formatDate.month) var month = value.substr(formatDate.month.start, formatDate.month.length);
-      if(formatDate.year){
+      if (formatDate.day) var day = value.substr(formatDate.day.start, formatDate.day.length);
+      if (formatDate.month) var month = value.substr(formatDate.month.start, formatDate.month.length);
+      if (formatDate.year) {
         var year = value.substr(formatDate.year.start, formatDate.year.length);
-        if(year.length == 2){
-          year = (currentYear > year ? '19' : '20') + year;
+        if (year.length == 2) {
+          year = (year > currentYear ? '19' : '20') + year;
         }
       }
-      if(formatDate.hours) var hours = value.substr(formatDate.hours.start, formatDate.hours.length);
-      if(formatDate.minutes) var minutes = value.substr(formatDate.minutes.start, formatDate.minutes.length);
-      if(formatDate.seconds) var seconds = value.substr(formatDate.seconds.start, formatDate.seconds.length);
-      if(formatDate.milliseconds) var milliseconds = value.substr(formatDate.milliseconds.start, formatDate.milliseconds.length);
+      if (formatDate.hours) var hours = value.substr(formatDate.hours.start, formatDate.hours.length);
+      if (formatDate.minutes) var minutes = value.substr(formatDate.minutes.start, formatDate.minutes.length);
+      if (formatDate.seconds) var seconds = value.substr(formatDate.seconds.start, formatDate.seconds.length);
+      if (formatDate.milliseconds) var milliseconds = value.substr(formatDate.milliseconds.start, formatDate.milliseconds.length);
 
       day = day || 0;
       month = month || 0;
@@ -112,45 +153,33 @@
       milliseconds = milliseconds || 0;
 
       var date = new Date(Number(year), Number(month) - 1, Number(day),
-                          Number(hours), Number(minutes), Number(seconds), 
-                          Number(milliseconds));
+        Number(hours), Number(minutes), Number(seconds),
+        Number(milliseconds));
 
       return date.toISOString();
     }
 
-    function _validateRules(property, row, lastRow){
-
-      isEmpty
-      equalLastResult
-      contains
-      notContains
-    }
-
-    function _validateFunctionRules(){
-
-    }
-
-    function _getFieldValue(field, columnsArray, template){
+    function _getFieldValue(field, columnsArray, template) {
       var value = columnsArray[field.column];
-      if(filter.isDate && template.formatType && template.formatType.date){
+      if (value && field.isDate && template.formatType && template.formatType.date) {
         value = _dateValueToISOString(value, template.formatType.date);
       }
       return value;
     }
 
-    function _fillRow(row, columnsArray, template){
+    function _fillRow(row, columnsArray, template) {
       var isValid = true;
       var isResult = true;
 
-      template.fields.forEach(function (templateField){
+      template.fields.forEach(function (templateField) {
         var field = Field.createWithTemplateField(templateField);
-        var value = _getFieldValue(field,columnsArray, template);
-        if(_isEmpty(value)){
-          if(field.required) {
+        var value = _getFieldValue(field, columnsArray, template);
+        if (_isEmpty(value)) {
+          if (field.required) {
             field.isEmpty = true;
             isValid = false;
           }
-          if(!_isEmpty(template.valueIfUndefined)) value = template.valueIfUndefined;
+          if (!_isEmpty(template.valueIfUndefined)) value = template.valueIfUndefined;
         }
         field.value = value;
         row.insertField(field);
@@ -159,95 +188,174 @@
       return row;
     }
 
-    function _validateFieldRules(field, rules, row, lastResult){
+    function _validateSimpleRules(field, rules, row, lastResult) {
       var isValid = true;
-      
-      if(isValid && _exists(rules.isEmpty)){
+
+      if (isValid && _exists(rules.isEmpty)) {
         var expected = rules.isEmpty;
-        returned = field.isEmpty;
+        var returned = field.isEmpty;
         isValid = expected === returned;
       }
-      
-      if(isValid && _exists(rules.equalLastResult)){
+
+      if (isValid && _exists(rules.equalLastResult)) {
         var expected = rules.equalLastResult;
-        returned = _equalLastResult(field.name, row, lastResult);
+        var returned = _equalLastResult(field.name, row, lastResult);
         isValid = expected === returned;
       }
-      
-      if(isValid && _exists(rules.contains)){
+
+      if (isValid && _exists(rules.contains)) {
         var textArray = rules.contains;
-        returned = _contains(field.name, row, textArray);
+        var returned = _contains(field.name, row, textArray);
         isValid = returned;
       }
-      
-      
-      if(isValid && _exists(rules.notContains)){
+
+
+      if (isValid && _exists(rules.notContains)) {
         var textArray = rules.notContains;
-        returned = _notContains(field.name, row, textArray);
+        var returned = _notContains(field.name, row, textArray);
         isValid = returned;
       }
 
       return isValid;
     }
 
-    function _validateRow(row, lastResult){
-      row.fields.forEach(function(field){
+    function _validateFieldsRule(row, lastResult) {
+      row.fields.forEach(function (field) {
         var isValid = true;
 
-        if(field.required && field.isEmpty) isValid = false;
+        if (field.required && field.isEmpty) isValid = false;
 
-        if(isValid && field.examRule){
-          isValid = _validateFieldRules(filter, field.rules.exam, row, lastResult);
+        if (isValid && field.examRule) {
+          isValid = _validateSimpleRules(field, field.examRule, row, lastResult);
           field.examRuleApplied = true;
           field.examRuleReturn = isValid;
         }
 
-        if(isValid && field.resultRule){
-          isValid = _validateFieldRules(filter, field.rules.result, row, lastResult);
+        if (isValid && field.resultRule) {
+          isValid = _validateSimpleRules(field, field.resultRule, row, lastResult);
           field.resultRuleApplied = true;
           field.resultRuleReturn = isValid;
         }
 
-        if(isValid && field.examObservationRule){
-          isValid = _validateFieldRules(filter, field.rules.examObservation, row, lastResult);
+        if (isValid && field.examObservationRule) {
+          isValid = _validateSimpleRules(field, field.examObservationRule, row, lastResult);
           field.examObservationRuleApplied = true;
           field.examObservationRuleReturn = isValid;
         }
 
-        if(isValid && field.resultObservationRule){
-          isValid = _validateFieldRules(filter, field.rules.resultObservation, row, lastResult);
+        if (isValid && field.resultObservationRule) {
+          isValid = _validateSimpleRules(field, field.resultObservationRule, row, lastResult);
           field.resultObservationRuleApplied = true;
           field.resultObservationRuleReturn = isValid;
         }
       });
+    }
 
-      if(template.rules){
-        if(template.rules.result){
+    function _validateRow(row, lastResult, template) {
+      var examRuleReturn = undefined;
+      var resultRuleReturn = undefined;
+      var examObservationRuleReturn = undefined;
+      var resultObservationRuleReturn = undefined;
 
+      row.fields.forEach(function (field) {
+        if (_exists(field.examRuleReturn)) {
+          if (_exists(examRuleReturn)) {
+            examRuleReturn = examRuleReturn ? field.examRuleReturn : false;
+          } else {
+            examRuleReturn = field.examRuleReturn;
+          }
         }
 
-        if(template.rules.exam){
-
+        if (_exists(field.resultRuleReturn)) {
+          if (_exists(resultRuleReturn)) {
+            resultRuleReturn = resultRuleReturn ? field.resultRuleReturn : false;
+          } else {
+            resultRuleReturn = field.resultRuleReturn;
+          }
         }
 
-        if(template.rules.examObservation){
-
+        if (_exists(field.examObservationRuleReturn)) {
+          if (_exists(examObservationRuleReturn)) {
+            examObservationRuleReturn = examObservationRuleReturn ? field.examObservationRuleReturn : false;
+          } else {
+            examObservationRuleReturn = field.examObservationRuleReturn;
+          }
         }
 
-        if(template.rules.resultObservation){
+        if (_exists(field.resultObservationRuleReturn)) {
+          if (_exists(resultObservationRuleReturn)) {
+            resultObservationRuleReturn = resultObservationRuleReturn ? field.resultObservationRuleReturn : false;
+          } else {
+            resultObservationRuleReturn = field.resultObservationRuleReturn;
+          }
+        }
+      });
 
+      if (template.rules) {
+        if (template.rules.exam && (!_exists(examRuleReturn) || examRuleReturn)) {
+          examRuleReturn = _validateFunctionRules(template.rules.exam, row, lastResult);
+        }
+        if (template.rules.result && (!_exists(resultRuleReturn) || resultRuleReturn)) {
+          resultRuleReturn = _validateFunctionRules(template.rules.result, row, lastResult);
+        }
+        if (template.rules.examObservation && (!_exists(examObservationRuleReturn) || examObservationRuleReturn)) {
+          examObservationRuleReturn = _validateFunctionRules(template.rules.examObservation, row, lastResult);
+        }
+        if (template.rules.resultObservation && (!_exists(resultObservationRuleReturn) || resultObservationRuleReturn)) {
+          resultObservationRuleReturn = _validateFunctionRules(template.rules.resultObservation, row, lastResult);
+        }
+      }
+
+      if (resultRuleReturn) {
+        row.isResult = true;
+
+        if (examRuleReturn) {
+          row.isNewExam = true;
+        }
+      } else {
+        if (examObservationRuleReturn) {
+          row.isExamObservation = true;
+          if (template.rules && template.rules.examObservation) {
+            var observationRule = template.rules.examObservation;
+            row.observation = _getObservation(observationRule, row, lastResult);
+          }
+        }
+        else if (resultObservationRuleReturn) {
+          row.isResultObservation = true;
+          if (template.rules && template.rules.resultObservation) {
+            var observationRule = template.rules.resultObservation;
+            row.observation = _getObservation(observationRule, row, lastResult);
+          }
         }
       }
     }
 
-    function findTemplatesByFieldCenter(fieldCenter){
+    function _getObservation(observationRule, row, lastResult){
+      var observation = "";
+      if(observationRule.observationFromTheField){
+        observation = row[observationRule.observationFromTheField];
+      } else if(observationRule.getObservation){
+        observation = observationRule.getObservation(row, lastResult);
+      }
+      return observation;
+    }
+
+    function _validateFunctionRules(rules, row, lastResult) {
+      var isValid = false;
+      if (rules.otherValidation) {
+        isValid = rules.otherValidation(row, lastResult);
+      }
+      return isValid;
+    }
+
+    function findTemplatesByFieldCenter(fieldCenter) {
       var acronym = fieldCenter.acronym;
       var availableTemplates = [];
       var fieldCenterDefinition = FieldCenterService.getFieldCenterByAcronym(fieldCenter.acronym);
 
-      availableTemplates = self.allTemplates.filter(function (template){
+      availableTemplates = self.allTemplates.filter(function (template) {
         return (
-          fieldCenterDefinition.template.filter(function (centerTemplate){
+          fieldCenterDefinition.templates.filter(function (centerTemplate) {
             return (
               centerTemplate.template === template.template
               && centerTemplate.version === template.version
