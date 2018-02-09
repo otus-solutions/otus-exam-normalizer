@@ -16,10 +16,11 @@
   Controller.$inject = [
     '$q',
     '$element',
-    '$mdToast'
+    '$mdToast',
+    'normalizerjs.converter.FileStructureFactory'
   ];
 
-  function Controller($q, $element, $mdToast) {
+  function Controller($q, $element, $mdToast, FileStructureFactory) {
     var self = this;
     var timeShowMsg = 4000;
     var fr = new FileReader();
@@ -41,17 +42,20 @@
 
         _convertToWorkbook(e.target.files[0], workbook => {
           console.log(workbook);
-          console.log(
-            XLSX.utils.sheet_to_json(
-              workbook.Sheets[workbook.SheetNames[0]],
-              {
-                header: 1,
-                dateNF: "dd/MM/yy hh:mm",
-                defval: "",
-                raw: false
-              }
-            )
-          );
+          var rowsArray = XLSX.utils.sheet_to_json(
+            workbook.Sheets[workbook.SheetNames[0]],
+            {
+              header: 1,
+              dateNF: "dd/MM/yy hh:mm",
+              defval: "",
+              raw: false
+            }
+          )
+          console.log("rowsArray", rowsArray);
+          var fileStructure = FileStructureFactory.create();
+          fileStructure.setFieldCenter({acronym: "SP"})
+          fileStructure.createRowWithSheet(rowsArray);
+          console.log(fileStructure)
         })
         self.upload(e.target.files);
         // if (_validateFileToUpload(e.target.files[0])) {

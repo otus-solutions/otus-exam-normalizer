@@ -72,12 +72,10 @@ Definitions.templates = [
       },
     },
 
-    templateValidations: [
-      {
-        fieldName: "examCode",
-        acceptableValues: [111100, 111130]
-      }
-    ],
+    templateValidations: {
+      fieldName: "examCode",
+      acceptableValues: [111100, 111130]
+    },
 
     header: {
       row: 2,
@@ -94,7 +92,7 @@ Definitions.templates = [
 
         rules: {
           result: {
-            isEmpty: false,
+            isEmpty: true,
           }
         }
       },
@@ -183,8 +181,12 @@ Definitions.templates = [
       },
       exam: {
         otherValidation: function (row, lastResult) {
-          return lastResult || row.aliquot !== lastResult.aliquot
-            || row.examCode !== lastResult.examCode ? false : true;
+          return (!lastResult ||
+            (
+              row.aliquot !== lastResult.aliquot
+              || row.examCode !== lastResult.examCode
+            )
+          ) ? true : false;
         }
       },
       examObservation: {
@@ -200,7 +202,7 @@ Definitions.templates = [
         observationFromTheField: "result",
         getObservation: function (row, lastResult) {
           //Exemplo: Concatena rótulo do resultado com a coluna resultado na linha da observação
-          return lastResult.label.value + " - " + row.result.value;
+          return lastResult.label + " - " + row.result;
         }
       }
     }
