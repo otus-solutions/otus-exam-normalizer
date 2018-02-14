@@ -13,6 +13,11 @@
 
 	function Controller($scope, Upload, $timeout) {
 		var self = this;
+		/* Public methods */
+
+		$scope.uploadFiles = function (files) {
+			console.log(files);
+		}
 
 		$scope.$watch('gFiles', function () {
 			$scope.upload($scope.gFiles);
@@ -30,7 +35,9 @@
 							}
 						})
 							.then(function (response) {
-								$timeout(function () { });
+								$timeout(function () {
+									console.log(response.data);
+								});
 							}, function (response) {
 								console.log('Error status: ' + response.status);
 							}, function (evt) {

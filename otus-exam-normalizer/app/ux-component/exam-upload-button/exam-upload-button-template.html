@@ -1,8 +1,11 @@
 <div ng-app="normalizerjs.uxComponent" ng-controller="FileUploadController">
   <div ng-if="progress">
+    <div layout="column" layout-padding layout-align="center center">
+      <span layout="row" class="md-headline">Aguarde, carregando arquivo</span>
+    </div>
     <div class="progress">
-      <div class="progress-bar" role="progressbar" aria-valuenow="{{progress}}" aria-valuemin="0" aria-valuemax="100" style="width: {{progress}};">
-        {{progress}}
+      <div class="progress-bar" role="progressbar" aria-valuenow="{{progress}}" aria-valuemin="0" aria-valuemax="100">
+        Progresso do processamento do arquivo: {{progress}}
       </div>
     </div>
     <hr>
@@ -11,7 +14,7 @@
     </ul>
   </div>
 
-  <div class="dropzone" ng-hide="progress" ngf-drop ngf-select ng-model="gFiles" ngf-pattern="'image/*'" ngf-multiple="true"
+  <div class="dropzone" ng-hide="progress" ngf-drop ngf-select="uploadFiles($files)" ng-model="gFiles" ngf-pattern="'.json'" accept=".json" ngf-multiple="true"
     ngf-drag-over-class="'dragover'">
     <div class="sm-hidden">
       <h3>Solte os arquivos aqui</h3>
@@ -23,5 +26,8 @@
       </md-button>
     </p>
     <p ngf-no-file-drop>O arquivo não é compatível</p>
+    <p>
+      <small>Os seguintes formatos de arquivo são suportados: .csv .xls</small>
+    </p>
   </div>
 </div>

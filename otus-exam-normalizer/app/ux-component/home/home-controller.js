@@ -17,38 +17,11 @@
 
     self.toggleLeft = buildToggler('left');
     self.load = false;
-    self.showMessage = showMessage;
 
+    /* Public methods */
     self.route = route;
 
     //TODO: remover, isso deve ficar na definição
-    self.centers = [
-      {
-        name: 'Bahia',
-        state: 'ba'
-      },
-      {
-        name: 'Espírito Santo',
-        state: 'es'
-      },
-      {
-        name: 'Minas Gerais',
-        state: 'mg'
-      },
-      {
-        name: 'Rio de Janeiro',
-        state: 'rj'
-      },
-      {
-        name: 'Rio Grande do Sul',
-        state: 'rs'
-      },
-      {
-        name: 'São Paulo',
-        state: 'sp'
-      }
-    ];
-
     self.fieldCenterList = [
       {
         name: "Bahia",
@@ -90,24 +63,16 @@
           return center.acronym.toUpperCase() === acronym.toUpperCase();
         });
       }
-
       return fieldCenter;
     }
 
     self.$onInit = onInit;
 
-    function onInit() {
-      if (window.sessionStorage.getItem('pageLoaded') !== "true") {
-        window.sessionStorage.setItem('pageLoaded', "true");
-        self.showMessage();
-      }
-
-    }
+    function onInit() { }
 
     function route(valor) {
       // ApplicationStateService.activateSaoPaulo();
       ApplicationStateService.setCurrentState(valor);
-
       $mdSidenav('left').close();
     }
 
@@ -116,22 +81,5 @@
         $mdSidenav(componentId).toggle();
       };
     }
-
-    function showMessage() {
-
-      $mdDialog.show(
-        $mdDialog.alert()
-          .parent(angular.element(document.querySelector('#popupContainer')))
-          .clickOutsideToClose(true)
-          .title('Olá')
-          .textContent('Seja bem vindo ao Otus Normalizer')
-          .ariaLabel('Alert Dialog Init')
-          .ok('Fechar')
-
-      );
-    }
-
-
-
   }
 }());
