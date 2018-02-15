@@ -10,12 +10,12 @@
     </div>
     <hr>
     <ul>
-      <li ng-repeat="f in gFiles" style="font:smaller">{{f.name}}</li>
+      <li style="font:smaller">{{file.name}}</li>
     </ul>
   </div>
 
-  <div class="dropzone" ng-hide="progress" ngf-drop ngf-select="uploadFiles($files)" ng-model="gFiles" ngf-pattern="'.json'" accept=".json" ngf-multiple="true"
-    ngf-drag-over-class="'dragover'">
+  <div class="dropzone" ng-hide="progress" ng-model="file" ngf-pattern="'.xlsx,.csv'" accept=".xlsx,.csv" ngf-multiple="false"
+    ngf-drop ngf-select="upload($file)" ngf-drag-over-class="'dragover'">
     <div class="sm-hidden">
       <h3>Solte os arquivos aqui</h3>
       <h3>ou</h3>

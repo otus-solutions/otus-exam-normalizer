@@ -6,50 +6,41 @@
 		.controller('FileUploadController', Controller);
 
 	Controller.$inject = [
+		'$q',
 		'$scope',
+		'$element',
 		'Upload',
-		'$timeout'
+		'$timeout',
+		'normalizerjs.module.laboratory.ExamUploadService'
 	];
 
-	function Controller($scope, Upload, $timeout) {
+	function Controller($q, $scope, $element, Upload, $timeout, ExamUploadService) {
 		var self = this;
+
 		/* Public methods */
+		self.upload = upload;
 
-		$scope.uploadFiles = function (files) {
-			console.log(files);
-		}
-
-		$scope.$watch('gFiles', function () {
-			$scope.upload($scope.gFiles);
+		$scope.$watch('file', function () {
+			self.upload($scope.file);
 		});
 
-		$scope.upload = function (gFiles) {
-			if (gFiles && gFiles.length) {
-				for (var i = 0; i < gFiles.length; i++) {
-					var file = gFiles[i];
-					if (!file.$error) {
-						Upload.upload({
-							url: 'https://angular-file-upload-cors-srv.appspot.com/upload',
-							data: {
-								file: file
-							}
-						})
-							.then(function (response) {
-								$timeout(function () {
-									console.log(response.data);
-								});
-							}, function (response) {
-								console.log('Error status: ' + response.status);
-							}, function (evt) {
-								var progressPercentage = parseInt(100.0 *
-									evt.loaded / evt.total);
-								$scope.progress = progressPercentage + '% ';
-							});
-					}
+		function upload(file) {
+			if (file) {
+				if (!file.$error) {
+					console.log($scope.file);
+					var reader = new FileReader();
+					console.log(reader);
+
+					reader.onload = function () {
+						//TODO: aplicar o modelo?
+						ExamUploadService.createExamSending();
+						var text = reader.result;
+						console.log(text);
+					};
+					reader.readAsText($scope.file);
 				}
 			}
 		}
-
 	}
 
 }());
