@@ -3,8 +3,8 @@
 
   angular
     .module('normalizerjs.uxComponent')
-    .component('converter', {
-      templateUrl: 'app/ux-component/converter/converter-template.html',
+    .component('rsCenter', {
+      templateUrl: 'app/ux-component/laboratory/rs-center/rs-center-template.html',
       bindings: {
         fieldCenter: '<'
       },

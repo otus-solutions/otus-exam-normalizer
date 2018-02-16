@@ -6,15 +6,12 @@
 		.controller('FileUploadController', Controller);
 
 	Controller.$inject = [
-		'$q',
 		'$scope',
 		'$element',
-		'Upload',
-		'$timeout',
 		'normalizerjs.module.laboratory.ExamUploadService'
 	];
 
-	function Controller($q, $scope, $element, Upload, $timeout, ExamUploadService) {
+	function Controller($scope, $element, ExamUploadService) {
 		var self = this;
 
 		/* Public methods */

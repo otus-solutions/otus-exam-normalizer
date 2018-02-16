@@ -1,4 +1,4 @@
-<div ng-app="normalizerjs.uxComponent" ng-controller="FileUploadController">
+<div>
   <div ng-if="progress">
     <div layout="column" layout-padding layout-align="center center">
       <span layout="row" class="md-headline">Aguarde, carregando arquivo</span>
@@ -15,7 +15,7 @@
   </div>
 
   <div class="dropzone" ng-hide="progress" ng-model="file" ngf-pattern="'.xlsx,.csv'" accept=".xlsx,.csv" ngf-multiple="false"
-    ngf-drop ngf-select="upload($file)" ngf-drag-over-class="'dragover'">
+    ngf-drop ngf-select="$ctrl.fileUpload($file)" ngf-drag-over-class="'dragover'">
     <div class="sm-hidden">
       <h3>Solte os arquivos aqui</h3>
       <h3>ou</h3>

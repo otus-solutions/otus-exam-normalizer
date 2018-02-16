@@ -3,8 +3,8 @@
 
   angular
     .module('normalizerjs.uxComponent')
-    .component('converter', {
-      templateUrl: 'app/ux-component/converter/converter-template.html',
+    .component('spCenter', {
+      templateUrl: 'app/ux-component/laboratory/sp-center/sp-center-template.html',
       bindings: {
         fieldCenter: '<'
       },

@@ -15,17 +15,20 @@
 
   Controller.$inject = [
     '$q',
+    '$scope',
     '$element',
     '$mdToast',
-    'normalizerjs.converter.FileStructureFactory'
+    'normalizerjs.converter.FileStructureFactory',
+    'normalizerjs.module.laboratory.ExamUploadService'
   ];
 
-  function Controller($q, $element, $mdToast, FileStructureFactory) {
+  function Controller($q, $scope, $element, $mdToast, FileStructureFactory, ExamUploadService) {
     var self = this;
     var timeShowMsg = 4000;
     var fr = new FileReader();
 
     self.$onInit = onInit;
+    self.fileUpload = fileUpload;
     self.upload = self.uploadFile || upload;
     self.validate = self.validateFile || _validateFileToUpload;
 
@@ -53,7 +56,7 @@
           )
           console.log("rowsArray", rowsArray);
           var fileStructure = FileStructureFactory.create();
-          fileStructure.setFieldCenter({acronym: "SP"})
+          fileStructure.setFieldCenter({ acronym: "SP" })
           fileStructure.createRowWithSheet(rowsArray);
           console.log(fileStructure)
         })
@@ -62,6 +65,31 @@
         //   fr.readAsText(e.target.files[0]);
         // }
       });
+    }
+
+    //TODO: verificar a utilização de um change!
+    $scope.$watch('file', function () {
+      self.upload($scope.file);
+    });
+
+    function fileUpload(file) {
+      console.log("opa");
+      console.log(file);
+      if (file) {
+        if (!file.$error) {
+          console.log($scope.file);
+          var reader = new FileReader();
+          console.log(reader);
+
+          reader.onload = function () {
+            //TODO: aplicar o modelo?
+            ExamUploadService.createExamSending();
+            var text = reader.result;
+            console.log(text);
+          };
+          reader.readAsText($scope.file);
+        }
+      }
     }
 
     function _convertToWorkbook(file, callback) {

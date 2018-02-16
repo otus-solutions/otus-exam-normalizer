@@ -2,8 +2,8 @@
   'use strict';
 
   angular
-    .module('normalizerjs.converter')
-    .service('normalizerjs.converter.TemplateService', Service);
+    .module('normalizerjs.converter.template')
+    .service('normalizerjs.converter.template.TemplateService', Service);
 
   Service.$inject = [
     'normalizerjs.converter.FieldCenterService',

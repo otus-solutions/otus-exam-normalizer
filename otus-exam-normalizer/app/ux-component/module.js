@@ -2,8 +2,6 @@
   'use strict';
 
   angular
-    .module('normalizerjs.uxComponent', [
-      'ngFileUpload'
-    ]);
+    .module('normalizerjs.uxComponent', []);
 
 }());
