@@ -23,6 +23,9 @@
   ];
 
   function Controller($q, $scope, $element, $mdToast, FileStructureFactory, ExamUploadService) {
+    const PROGRESS_MESSAGE = "Aguarde, carregando arquivo";
+    const SUCCESS_MESSAGE = "Arquivo pronto para download";
+
     var self = this;
     var timeShowMsg = 4000;
     var fr = new FileReader();
@@ -73,23 +76,29 @@
     });
 
     function fileUpload(file) {
-      console.log("opa");
-      console.log(file);
       if (file) {
         if (!file.$error) {
-          console.log($scope.file);
+          var progressPercentage;
           var reader = new FileReader();
-          console.log(reader);
+          ExamUploadService.createExamSending();
 
           reader.onload = function () {
-            //TODO: aplicar o modelo?
-            ExamUploadService.createExamSending();
+            //TODO: utilizar o conversor de arquivo aqui, aqui também deve ser chamado o model!
+
             var text = reader.result;
             console.log(text);
           };
           reader.readAsText($scope.file);
         }
       }
+
+      //TODO: calcular o processamento de conversão
+      var loaded = 10;
+      var total = 50;
+      progressPercentage = parseInt(100.0 * loaded / total);
+      self.progress = progressPercentage;
+      self.progress = 100;
+      console.log(self.progress);
     }
 
     function upload() {

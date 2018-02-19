@@ -21,7 +21,7 @@
     self.$onInit = onInit;
 
     function onInit() {
-      console.log("");
+      console.log("SP center");
     }
   }
 }());
