@@ -3,7 +3,8 @@
 
   angular
     .module('normalizerjs.module', [
-      'normalizerjs.module.laboratory',
+      //'normalizerjs.commons',
+      'normalizerjs.module.laboratory'
     ]);
 
 }());

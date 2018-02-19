@@ -92,32 +92,8 @@
       }
     }
 
-    function _convertToWorkbook(file, callback) {
-      var reader = new FileReader();
-
-      reader.onload = function (e) {
-        var bstr = e.target.result;
-        var workbook = XLSX.read(bstr, { type: 'binary' });
-        callback(workbook);
-      };
-
-      reader.readAsBinaryString(file);
-    }
-
     function upload() {
       self.input.click();
-    }
-
-    function _validateFileToUpload(file) {
-      if (_typeIsValid(file.type)) {
-        return true;
-      } else {
-        _toastError();
-      }
-    }
-
-    function _typeIsValid(type) {
-      return type === "application/json";
     }
 
     function receivedText(e) {
@@ -135,6 +111,30 @@
           _toastEmptyFile();
         }
       }
+    }
+
+    function _convertToWorkbook(file, callback) {
+      var reader = new FileReader();
+
+      reader.onload = function (e) {
+        var bstr = e.target.result;
+        var workbook = XLSX.read(bstr, { type: 'binary' });
+        callback(workbook);
+      };
+
+      reader.readAsBinaryString(file);
+    }
+
+    function _validateFileToUpload(file) {
+      if (_typeIsValid(file.type)) {
+        return true;
+      } else {
+        _toastError();
+      }
+    }
+
+    function _typeIsValid(type) {
+      return type === "application/json";
     }
 
     function _fileIsEmpty(lines) {

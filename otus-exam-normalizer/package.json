@@ -43,14 +43,14 @@
     "moment": "2.12.0",
     "moment-timezone": "^0.5.14",
     "ng-file-upload": "^12.2.13",
-    "otus-model-js": "https://github.com/ccem-dev/otus-model-js.git#v1.8",
     "please-wait": "0.0.5",
     "shelljs": "^0.7.7",
     "sync-pom-version": "^1.0.1",
     "x2js": "^3.1.1",
     "xlsx": "^0.11.18",
     "xlsx-core": "^1.0.3",
-    "xml2js": "^0.4.19"
+    "xml2js": "^0.4.19",
+    "otus-model-js": "https://github.com/ccem-dev/otus-model-js.git#dev"
   },
   "devDependencies": {
     "angular-mocks": "1.4.9",
