@@ -9,6 +9,8 @@
             'ngAnimate',
             /* 3rd-party modules */
             'ui.router',
-            'ngFileUpload'
+            'ngFileUpload',
+            /* otus-model */
+            'otusjs'
         ]);
 }());
