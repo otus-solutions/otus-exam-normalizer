@@ -6,41 +6,41 @@
     .factory('normalizerjs.converter.FileStructureFactory', Factory);
 
   Factory.$inject = [
+    '$q',
     'normalizerjs.converter.RowFactory',
     'normalizerjs.converter.template.TemplateService'
   ];
 
-  function Factory(Row, TemplateService) {
+  function Factory($q, Row, TemplateService) {
     var self = this;
     self.create = create;
     self.fromJson = fromJson;
 
     function create() {
-      return new FileStructure(Row, TemplateService, {});
+      return new FileStructure($q, Row, TemplateService, {});
     }
 
     function fromJson(fileInfo) {
-      return new FileStructure(Row, TemplateService, fileInfo);
+      return new FileStructure($q, Row, TemplateService, fileInfo);
     }
 
     return self;
   }
 
-  function FileStructure(Row, TemplateService, fileInfo) {
+  function FileStructure($q, Row, TemplateService, fileInfo) {
     var self = this;
     var availableTemplates = [];
-    var template;
     var fieldCenter = fileInfo.fieldCenter || undefined;
-    
+
     self.objectType = 'FileStructure';
     self.fileName = fileInfo.fileName || '';
     self.realizationDate = fileInfo.realizationDate || new Date().toISOString();
     self.template = fileInfo.template || '';
     self.lastResult = fileInfo.lastResult || '';
     self.sheet = fileInfo.sheet || [];
-    self.rows = []; //Row.fromJson(fileInfo.rows);
-    
-    self.createRowWithSheet = createRowWithSheet;
+    self.rows = Row.fromJson(fileInfo.rows);
+
+    self.createRowsWithSheet = createRowsWithSheet;
     self.findLastResult = findLastResult;
     self.getFieldCenter = getFieldCenter;
     self.setFieldCenter = setFieldCenter;
@@ -53,30 +53,30 @@
     _onInit();
 
     function _onInit() {
-      _inicializeFields()  
+      _inicializeFields()
     }
 
-    function _inicializeFields(){
-      if(fieldCenter && fieldCenter.acronym){
+    function _inicializeFields() {
+      if (fieldCenter && fieldCenter.acronym) {
         findAvailableTemplates(fieldCenter);
       }
       findLastResult();
     }
 
-    function setFieldCenter(parmFieldCenter){
+    function setFieldCenter(parmFieldCenter) {
       fieldCenter = parmFieldCenter;
       findAvailableTemplates(fieldCenter);
     }
 
-    function getFieldCenter(){
+    function getFieldCenter() {
       return fieldCenter;
     }
 
-    function findLastResult(){
+    function findLastResult() {
       var lastResult = undefined;
 
-      if(self.rows && self.rows.length){
-        var rowsResults = self.rows.filter(function(row){
+      if (self.rows && self.rows.length) {
+        var rowsResults = self.rows.filter(function (row) {
           return row.isResult === true;
         });
 
@@ -86,39 +86,55 @@
       self.lastResult = lastResult;
     }
 
-    function findAvailableTemplates(fieldCenter){
+    function findAvailableTemplates(fieldCenter) {
       availableTemplates = TemplateService.findTemplatesByFieldCenter(fieldCenter);
     }
 
     function findTemplate(sheet) {
-      if(!availableTemplates || !availableTemplates.length) findAvailableTemplates(fieldCenter);
+      if (!availableTemplates || !availableTemplates.length) findAvailableTemplates(fieldCenter);
       self.template = TemplateService.getTemplate(sheet, availableTemplates);
     }
 
-    function createRowWithSheet(sheet){
+    function createRowsWithSheet(sheet) {
+      var deferred = $q.defer();
+      self.sheet = sheet;
       findTemplate(sheet);
 
-      for (var i = self.template.header.row + 1; i < sheet.length; i++) {
-        var columnsArray = sheet[i];
-        createRow(columnsArray);
+      if (self.template) {
+        for (var i = self.template.header.row + 1; i < sheet.length; i++) {
+          var columnsArray = sheet[i];
+          var originalLine = i + 1;
+          createRow(columnsArray, originalLine);
+        }
+        deferred.resolve('A estrutura foi criada');
+      } else {
+        deferred.reject('Template não encontrado para este arquivo');
       }
+
+      return deferred.promise;
     }
 
-    function createRow(columnsArray) {
-      var row = TemplateService.createRow(self.template, columnsArray, self.rows[self.rows.length], self.lastResult);
+    function createRow(columnsArray, originalLine) {
+      var row = TemplateService.createRow(self.template, columnsArray, self.rows[self.rows.length], self.lastResult, originalLine);
       insertRow(row);
     }
 
-    function insertRow(row){
+    function insertRow(row) {
       self.rows.push(row);
-      if(row.isResult) self.lastResult = row;
+      if (row.isResult) self.lastResult = row;
     }
 
     function toJSON() {
       var json = {
-        self
+        fieldCenter: fieldCenter,
+        objectType: self.objectType,
+        fileName: self.fileName,
+        realizationDate: self.realizationDate,
+        template: self.template,
+        lastResult: self.lastResult,
+        sheet: self.sheet,
+        rows: self.rows,
       };
-
       return json;
     }
   }

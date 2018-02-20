@@ -46,7 +46,7 @@
         console.log(e.target.result)
         console.log(e.target.files[0])
 
-        _convertToWorkbook(e.target.files[0], workbook => {
+        _convertToWorkbook(e.target.files[0], function(workbook) {
           console.log(workbook);
           var rowsArray = XLSX.utils.sheet_to_json(
             workbook.Sheets[workbook.SheetNames[0]],
@@ -59,9 +59,10 @@
           )
           console.log("rowsArray", rowsArray);
           var fileStructure = FileStructureFactory.create();
-          fileStructure.setFieldCenter({ acronym: "SP" })
-          fileStructure.createRowWithSheet(rowsArray);
-          console.log(fileStructure)
+          fileStructure.setFieldCenter({acronym: "SP"})
+          fileStructure.createRowsWithSheet(rowsArray).then(
+            console.log(fileStructure)
+          );
         })
         self.upload(e.target.files);
         // if (_validateFileToUpload(e.target.files[0])) {
@@ -70,7 +71,6 @@
       });
     }
 
-    //TODO: verificar a utilização de um change!
     $scope.$watch('file', function () {
       self.upload($scope.file);
     });
@@ -101,8 +101,32 @@
       console.log(self.progress);
     }
 
+    function _convertToWorkbook(file, callback) {
+      var reader = new FileReader();
+
+      reader.onload = function (e) {
+        var bstr = e.target.result;
+        var workbook = XLSX.read(bstr, { type: 'binary' });
+        callback(workbook);
+      };
+
+      reader.readAsBinaryString(file);
+    }
+
     function upload() {
       self.input.click();
+    }
+
+    function _validateFileToUpload(file) {
+      if (_typeIsValid(file.type)) {
+        return true;
+      } else {
+        _toastError();
+      }
+    }
+
+    function _typeIsValid(type) {
+      return type === "application/json";
     }
 
     function receivedText(e) {
@@ -120,30 +144,6 @@
           _toastEmptyFile();
         }
       }
-    }
-
-    function _convertToWorkbook(file, callback) {
-      var reader = new FileReader();
-
-      reader.onload = function (e) {
-        var bstr = e.target.result;
-        var workbook = XLSX.read(bstr, { type: 'binary' });
-        callback(workbook);
-      };
-
-      reader.readAsBinaryString(file);
-    }
-
-    function _validateFileToUpload(file) {
-      if (_typeIsValid(file.type)) {
-        return true;
-      } else {
-        _toastError();
-      }
-    }
-
-    function _typeIsValid(type) {
-      return type === "application/json";
     }
 
     function _fileIsEmpty(lines) {

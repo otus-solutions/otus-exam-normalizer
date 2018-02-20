@@ -18,6 +18,7 @@ module.exports = function(config) {
     // list of files / patterns to load in the browser
     files: [
       /* External dependencies */
+      NODE_MODULES_ROOT_PATH + 'babel-polyfill/dist/polyfill.js',
       NODE_MODULES_ROOT_PATH + 'jquery/dist/jquery.min.js',
       NODE_MODULES_ROOT_PATH + 'angular/angular.min.js',
       NODE_MODULES_ROOT_PATH + 'angular-animate/angular-animate.min.js',
@@ -32,11 +33,15 @@ module.exports = function(config) {
       NODE_MODULES_ROOT_PATH + 'lokijs/src/loki-angular.js',
       NODE_MODULES_ROOT_PATH + 'moment/min/moment.min.js',
       /* Static resources files */
+      // APP_ROOT_PATH + 'definitions/**/*.js',
+      'tests/utils/data/**/*.js',
+      APP_ROOT_PATH + 'static-resource/**/*.js',
+      /* Static resources files */
       APP_ROOT_PATH + 'static-resource/**/*.js',
       /* Application files */
       APP_ROOT_PATH + 'app.js',
       /* Applicatoin Module files */
-      APP_ROOT_PATH + '**/**/module.js',
+      APP_ROOT_PATH + '**/**/*module.js',
       APP_ROOT_PATH + '**/**/*.js',
       /* Test files */
       'tests/unit/**/example.js',

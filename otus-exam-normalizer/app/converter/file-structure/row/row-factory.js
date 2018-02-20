@@ -18,8 +18,14 @@
       return new Row(Field, {});
     }
 
-    function fromJson(rowInfo) {
-      return new Row(Field, rowInfo);
+    function fromJson(rowInfoArray) {
+      if (Array.isArray(rowInfoArray)) {
+        return rowInfoArray.map(function (rowInfo) {
+          return new Row(Field, rowInfo);
+        });
+      } else {
+        return [];
+      }
     }
 
     return self;
@@ -30,6 +36,7 @@
 
     self.objectType = 'Row';
     self.index = rowInfo.index || 0;
+    self.originalLine = rowInfo.originalLine || 0;
     self.originalColumnsArray = rowInfo.originalColumnsArray || [];
     self.countRowsAfterLastResult = rowInfo.countRowsAfterLastResult || 1;
 
@@ -42,7 +49,7 @@
     self.observation = rowInfo.observation || "";
     self.rejected = rowInfo.rejected || false;
     self.rejectionMessage = rowInfo.rejectionMessage || "";
-    self.fields = rowInfo.fields || [];
+    self.fields = Field.fromJson(rowInfo.fields);
 
     self.toJSON = toJSON;
     self.insertField = insertField;
@@ -50,33 +57,55 @@
     _onInit();
 
     function _onInit() {
-      
+      _fillDynamicAttributes();
+    }
+
+    function _fillDynamicAttributes(){
+      if(self.fields && self.fields.length){
+        self.fields.forEach(function(field) {
+          if (!self[field.name]) self[field.name] = field.value;
+        });
+      }
     }
 
     function insertField(field) {
       self.fields.push(field);
+      //Create Dynamic Attributes
       if (!self[field.name]) self[field.name] = field.value;
-      /* Campos Dinamicos
-          aliquot = "";
-          patientName = "";
-          solicitationNumber = "";
-          orderNumber = "";
-          itemNumber = "";
-          examCode = "";
-          examName = "";
-          label = "";
-          result = "";
-          requestDate = "";
-          collectionDate = "";
-          releaseDate = "";
+      /*
+        self.aliquot = field.value;
+        self.registrationCode = field.value;
+        self.solicitationNumber = field.value;
+        self.orderNumber = field.value;
+        self.itemNumber = field.value;
+        self.examCode = field.value;
+        self.examName = field.value;
+        self.label = field.value;
+        self.result = field.value;
+        self.requestDate = field.value;
+        self.collectionDate = field.value;
+        self.releaseDate = field.value;
       */
     }
 
     function toJSON() {
       var json = {
-        self
+        objectType: self.objectType,
+        index: self.index,
+        originalLine: self.originalLine,
+        originalColumnsArray: self.originalColumnsArray,
+        countRowsAfterLastResult: self.countRowsAfterLastResult,
+        fieldsRequiredfilled: self.fieldsRequiredfilled,
+        isValid: self.isValid,
+        isResult: self.isResult,
+        isNewExam: self.isNewExam,
+        isExamObservation: self.isExamObservation,
+        isResultObservation: self.isResultObservation,
+        observation: self.observation,
+        rejected: self.rejected,
+        rejectionMessage: self.rejectionMessage,
+        fields: self.fields
       };
-
       return json;
     }
   }
