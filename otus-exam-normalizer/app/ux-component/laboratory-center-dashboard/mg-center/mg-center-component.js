@@ -3,8 +3,8 @@
 
   angular
     .module('normalizerjs.uxComponent')
-    .component('rsCenter', {
-      templateUrl: 'app/ux-component/laboratory/rs-center/rs-center-template.html',
+    .component('mgCenter', {
+      templateUrl: 'app/ux-component/laboratory-center-dashboard/mg-center/mg-center-template.html',
       bindings: {
         fieldCenter: '<'
       },
@@ -21,7 +21,7 @@
     self.$onInit = onInit;
 
     function onInit() {
-      console.log("RS center");
+      console.log("MG center");
     }
   }
 }());

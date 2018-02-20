@@ -3,8 +3,8 @@
 
   angular
     .module('normalizerjs.uxComponent')
-    .component('esCenter', {
-      templateUrl: 'app/ux-component/laboratory/es-center/es-center-template.html',
+    .component('rsCenter', {
+      templateUrl: 'app/ux-component/laboratory-center-dashboard/rs-center/rs-center-template.html',
       bindings: {
         fieldCenter: '<'
       },
@@ -21,7 +21,7 @@
     self.$onInit = onInit;
 
     function onInit() {
-      console.log("ES center");
+      console.log("RS center");
     }
   }
 }());
