@@ -107,7 +107,7 @@ Definitions.templates = [
 
         rules: {
           result: {
-              isEmpty: true,
+            isEmpty: true,
           },
           exam: {},
           examObservation: {},

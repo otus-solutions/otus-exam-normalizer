@@ -14,8 +14,8 @@
   function Service(FieldCenterService, Row, Field) {
     var self = this;
     var requiredProperties = [
+      "registrationCode",
       "aliquot",
-      "patientName",
       "solicitationNumber",
       "orderNumber",
       "itemNumber",
@@ -27,69 +27,77 @@
       "collectionDate",
       "releaseDate"
     ];
-
-
     self.allTemplates = Definitions.templates;
+
     self.createRow = createRow;
-    self.findTemplatesByFieldCenter = findTemplatesByFieldCenter;
     self.getTemplate = getTemplate;
-
-    _onInit();
-
-    function _onInit() {
-
-    }
+    self.findTemplatesByFieldCenter = findTemplatesByFieldCenter;
+    self.getColumn = getColumn;
+    self.getValueFromSheet = getValueFromSheet;
+    self.equalLastResult = equalLastResult;
+    self.contains = contains;
+    self.notContains = notContains;
+    self.exists = exists;
+    self.isEmpty = isEmpty;
+    self.fillRow = fillRow;
+    self.validateFieldsRule = validateFieldsRule;
+    self.validateRow = validateRow;
+    self.dateValueToISOString = dateValueToISOString;
+    self.getFieldValue = getFieldValue;
+    self.validateSimpleRules = validateSimpleRules;
+    self.validateFunctionRules = validateFunctionRules;
+    self.getObservation = getObservation;
 
     function getTemplate(sheet, availableTemplates) {
       var template = undefined;
       for (var i = 0; i < availableTemplates.length; i++) {
         var testTemplate = availableTemplates[i];
-        var column = _getColumn(testTemplate.templateValidations.fieldName, testTemplate);
+        var column = getColumn(testTemplate.templateValidations.fieldName, testTemplate);
         var isValid = false;
 
         for(var line = 0; line < 10; line++) {
-          var value = _getValueFromSheet(sheet, line, column); 
+          var value = getValueFromSheet(sheet, line, column); 
           var acceptable = testTemplate.templateValidations.acceptableValues.find(function(acceptableValue){
             return acceptableValue.toString().trim() == value.toString().trim();
           });
 
-          if(_exists(acceptable)){
+          if(exists(acceptable)){
             template = testTemplate;
             break;
           }
         }
-        if(_exists(template)) break;
+        if(exists(template)) break;
       }
 
       return template;
     }
 
-    function _getValueFromSheet(sheet, line, column){
+    function getValueFromSheet(sheet, line, column){
       return sheet[line][column];
     }
 
-    function _getColumn(fieldName, template){
+    function getColumn(fieldName, template){
       return template.fields.find(function(field){
         return field.name == fieldName;
       }).column
     }
 
-    function _equalLastResult(property, row, lastResult) {
+    function equalLastResult(property, row, lastResult) {
       return lastResult && row[property].toString().trim().toUpperCase() === lastResult[property].toString().trim().toUpperCase() ? true : false;
     }
 
-    function _notContains(property, row, textArray) {
-      return !_contains(property, row, textArray);
+    function notContains(property, row, textArray) {
+      return !contains(property, row, textArray);
     }
 
-    function _contains(property, row, textArray) {
+    function contains(property, row, textArray) {
       var value = row[property];
       var contains = false;
-      var re = new RegExp(value, "i");
-
+      
       for (var i = 0; i < textArray.length; i++) {
         var text = textArray[i];
-        if (re.test(text)) {
+        var re = new RegExp(text, "i");
+        if (re.test(value)) {
           contains = true;
           break;
         }
@@ -97,24 +105,25 @@
       return contains;
     }
 
-    function _exists(value) {
+    function exists(value) {
       return value !== undefined ? true : false;
     }
 
-    function _isEmpty(value) {
+    function isEmpty(value) {
       return value === undefined || value === "" ? true : false;
     }
 
-    function createRow(template, columnsArray, lastRow, lastResult) {
+    function createRow(template, columnsArray, lastRow, lastResult, originalLine) {
       var row = Row.create();
 
       row.originalColumnsArray = columnsArray;
+      row.originalLine = originalLine;
       row.index = lastRow ? lastRow.index + 1 : 0;
       row.countRowsAfterLastResult = lastRow ? lastRow.countRowsAfterLastResult + 1 : 0;
 
-      _fillRow(row, columnsArray, template);
-      _validateFieldsRule(row, lastResult);
-      _validateRow(row, lastResult, template);
+      fillRow(row, columnsArray, template);
+      validateFieldsRule(row, lastResult);
+      validateRow(row, lastResult, template);
 
       if(row.isResult){
         row.countRowsAfterLastResult = 0;
@@ -128,7 +137,7 @@
       return row;
     }
 
-    function _dateValueToISOString(value, formatDate) {
+    function dateValueToISOString(value, formatDate) {
       var currentYear = new Date().getFullYear().toString().substr(2, 2);
 
       if (formatDate.day) var day = value.substr(formatDate.day.start, formatDate.day.length);
@@ -159,27 +168,27 @@
       return date.toISOString();
     }
 
-    function _getFieldValue(field, columnsArray, template) {
+    function getFieldValue(field, columnsArray, template) {
       var value = columnsArray[field.column];
       if (value && field.isDate && template.formatType && template.formatType.date) {
-        value = _dateValueToISOString(value, template.formatType.date);
+        value = dateValueToISOString(value, template.formatType.date);
       }
       return value;
     }
 
-    function _fillRow(row, columnsArray, template) {
+    function fillRow(row, columnsArray, template) {
       var isValid = true;
       var isResult = true;
 
       template.fields.forEach(function (templateField) {
         var field = Field.createWithTemplateField(templateField);
-        var value = _getFieldValue(field, columnsArray, template);
-        if (_isEmpty(value)) {
+        var value = getFieldValue(field, columnsArray, template);
+        if (isEmpty(value)) {
           if (field.required) {
             field.isEmpty = true;
             isValid = false;
           }
-          if (!_isEmpty(template.valueIfUndefined)) value = template.valueIfUndefined;
+          if (!isEmpty(template.valueIfUndefined)) value = template.valueIfUndefined;
         }
         field.value = value;
         row.insertField(field);
@@ -188,102 +197,102 @@
       return row;
     }
 
-    function _validateSimpleRules(field, rules, row, lastResult) {
+    function validateSimpleRules(field, rules, row, lastResult) {
       var isValid = true;
 
-      if (isValid && _exists(rules.isEmpty)) {
+      if (isValid && exists(rules.isEmpty)) {
         var expected = rules.isEmpty;
         var returned = field.isEmpty;
         isValid = expected === returned;
       }
 
-      if (isValid && _exists(rules.equalLastResult)) {
+      if (isValid && exists(rules.equalLastResult)) {
         var expected = rules.equalLastResult;
-        var returned = _equalLastResult(field.name, row, lastResult);
+        var returned = equalLastResult(field.name, row, lastResult);
         isValid = expected === returned;
       }
 
-      if (isValid && _exists(rules.contains)) {
+      if (isValid && exists(rules.contains)) {
         var textArray = rules.contains;
-        var returned = _contains(field.name, row, textArray);
+        var returned = contains(field.name, row, textArray);
         isValid = returned;
       }
 
 
-      if (isValid && _exists(rules.notContains)) {
+      if (isValid && exists(rules.notContains)) {
         var textArray = rules.notContains;
-        var returned = _notContains(field.name, row, textArray);
+        var returned = notContains(field.name, row, textArray);
         isValid = returned;
       }
 
       return isValid;
     }
 
-    function _validateFieldsRule(row, lastResult) {
+    function validateFieldsRule(row, lastResult) {
       row.fields.forEach(function (field) {
         var isValid = true;
 
         if (field.required && field.isEmpty) isValid = false;
 
         if (isValid && field.examRule) {
-          isValid = _validateSimpleRules(field, field.examRule, row, lastResult);
+          isValid = validateSimpleRules(field, field.examRule, row, lastResult);
           field.examRuleApplied = true;
           field.examRuleReturn = isValid;
         }
 
         if (isValid && field.resultRule) {
-          isValid = _validateSimpleRules(field, field.resultRule, row, lastResult);
+          isValid = validateSimpleRules(field, field.resultRule, row, lastResult);
           field.resultRuleApplied = true;
           field.resultRuleReturn = isValid;
         }
 
         if (isValid && field.examObservationRule) {
-          isValid = _validateSimpleRules(field, field.examObservationRule, row, lastResult);
+          isValid = validateSimpleRules(field, field.examObservationRule, row, lastResult);
           field.examObservationRuleApplied = true;
           field.examObservationRuleReturn = isValid;
         }
 
         if (isValid && field.resultObservationRule) {
-          isValid = _validateSimpleRules(field, field.resultObservationRule, row, lastResult);
+          isValid = validateSimpleRules(field, field.resultObservationRule, row, lastResult);
           field.resultObservationRuleApplied = true;
           field.resultObservationRuleReturn = isValid;
         }
       });
     }
 
-    function _validateRow(row, lastResult, template) {
+    function validateRow(row, lastResult, template) {
       var examRuleReturn = undefined;
       var resultRuleReturn = undefined;
       var examObservationRuleReturn = undefined;
       var resultObservationRuleReturn = undefined;
 
       row.fields.forEach(function (field) {
-        if (_exists(field.examRuleReturn)) {
-          if (_exists(examRuleReturn)) {
+        if (exists(field.examRuleReturn)) {
+          if (exists(examRuleReturn)) {
             examRuleReturn = examRuleReturn ? field.examRuleReturn : false;
           } else {
             examRuleReturn = field.examRuleReturn;
           }
         }
 
-        if (_exists(field.resultRuleReturn)) {
-          if (_exists(resultRuleReturn)) {
+        if (exists(field.resultRuleReturn)) {
+          if (exists(resultRuleReturn)) {
             resultRuleReturn = resultRuleReturn ? field.resultRuleReturn : false;
           } else {
             resultRuleReturn = field.resultRuleReturn;
           }
         }
 
-        if (_exists(field.examObservationRuleReturn)) {
-          if (_exists(examObservationRuleReturn)) {
+        if (exists(field.examObservationRuleReturn)) {
+          if (exists(examObservationRuleReturn)) {
             examObservationRuleReturn = examObservationRuleReturn ? field.examObservationRuleReturn : false;
           } else {
             examObservationRuleReturn = field.examObservationRuleReturn;
           }
         }
 
-        if (_exists(field.resultObservationRuleReturn)) {
-          if (_exists(resultObservationRuleReturn)) {
+        if (exists(field.resultObservationRuleReturn)) {
+          if (exists(resultObservationRuleReturn)) {
             resultObservationRuleReturn = resultObservationRuleReturn ? field.resultObservationRuleReturn : false;
           } else {
             resultObservationRuleReturn = field.resultObservationRuleReturn;
@@ -292,17 +301,17 @@
       });
 
       if (template.rules) {
-        if (template.rules.exam && (!_exists(examRuleReturn) || examRuleReturn)) {
-          examRuleReturn = _validateFunctionRules(template.rules.exam, row, lastResult);
+        if (template.rules.exam && (!exists(examRuleReturn) || examRuleReturn)) {
+          examRuleReturn = validateFunctionRules(template.rules.exam, row, lastResult);
         }
-        if (template.rules.result && (!_exists(resultRuleReturn) || resultRuleReturn)) {
-          resultRuleReturn = _validateFunctionRules(template.rules.result, row, lastResult);
+        if (template.rules.result && (!exists(resultRuleReturn) || resultRuleReturn)) {
+          resultRuleReturn = validateFunctionRules(template.rules.result, row, lastResult);
         }
-        if (template.rules.examObservation && (!_exists(examObservationRuleReturn) || examObservationRuleReturn)) {
-          examObservationRuleReturn = _validateFunctionRules(template.rules.examObservation, row, lastResult);
+        if (template.rules.examObservation && (!exists(examObservationRuleReturn) || examObservationRuleReturn)) {
+          examObservationRuleReturn = validateFunctionRules(template.rules.examObservation, row, lastResult);
         }
-        if (template.rules.resultObservation && (!_exists(resultObservationRuleReturn) || resultObservationRuleReturn)) {
-          resultObservationRuleReturn = _validateFunctionRules(template.rules.resultObservation, row, lastResult);
+        if (template.rules.resultObservation && (!exists(resultObservationRuleReturn) || resultObservationRuleReturn)) {
+          resultObservationRuleReturn = validateFunctionRules(template.rules.resultObservation, row, lastResult);
         }
       }
 
@@ -317,20 +326,20 @@
           row.isExamObservation = true;
           if (template.rules && template.rules.examObservation) {
             var observationRule = template.rules.examObservation;
-            row.observation = _getObservation(observationRule, row, lastResult);
+            row.observation = getObservation(observationRule, row, lastResult);
           }
         }
         else if (resultObservationRuleReturn) {
           row.isResultObservation = true;
           if (template.rules && template.rules.resultObservation) {
             var observationRule = template.rules.resultObservation;
-            row.observation = _getObservation(observationRule, row, lastResult);
+            row.observation = getObservation(observationRule, row, lastResult);
           }
         }
       }
     }
 
-    function _getObservation(observationRule, row, lastResult){
+    function getObservation(observationRule, row, lastResult){
       var observation = "";
       if(observationRule.observationFromTheField){
         observation = row[observationRule.observationFromTheField];
@@ -340,7 +349,7 @@
       return observation;
     }
 
-    function _validateFunctionRules(rules, row, lastResult) {
+    function validateFunctionRules(rules, row, lastResult) {
       var isValid = false;
       if (rules.otherValidation) {
         isValid = rules.otherValidation(row, lastResult);

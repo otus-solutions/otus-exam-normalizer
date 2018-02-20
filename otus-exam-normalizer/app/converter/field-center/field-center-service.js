@@ -11,7 +11,6 @@
 
   function Service() {
     var self = this;
-
     self.fieldCenterList = Definitions.fieldCenterList;
     self.getFieldCenterByAcronym = getFieldCenterByAcronym;
 

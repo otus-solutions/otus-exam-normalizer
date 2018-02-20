@@ -39,7 +39,7 @@
         console.log(e.target.result)
         console.log(e.target.files[0])
 
-        _convertToWorkbook(e.target.files[0], workbook => {
+        _convertToWorkbook(e.target.files[0], function(workbook) {
           console.log(workbook);
           var rowsArray = XLSX.utils.sheet_to_json(
             workbook.Sheets[workbook.SheetNames[0]],
@@ -53,8 +53,9 @@
           console.log("rowsArray", rowsArray);
           var fileStructure = FileStructureFactory.create();
           fileStructure.setFieldCenter({acronym: "SP"})
-          fileStructure.createRowWithSheet(rowsArray);
-          console.log(fileStructure)
+          fileStructure.createRowsWithSheet(rowsArray).then(
+            console.log(fileStructure)
+          );
         })
         self.upload(e.target.files);
         // if (_validateFileToUpload(e.target.files[0])) {
