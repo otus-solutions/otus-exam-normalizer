@@ -8,7 +8,7 @@
   Factory.$inject = [
     '$q',
     'normalizerjs.converter.RowFactory',
-    'normalizerjs.converter.TemplateService'
+    'normalizerjs.converter.template.TemplateService'
   ];
 
   function Factory($q, Row, TemplateService) {

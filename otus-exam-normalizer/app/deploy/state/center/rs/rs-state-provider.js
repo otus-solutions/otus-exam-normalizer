@@ -1,28 +1,28 @@
 (function () {
-    'use strict';
+  'use strict';
 
-    angular
-        .module('normalizerjs.deploy')
-        .provider('normalizerjs.deploy.RioGrandeDoSulState', Provider);
+  angular
+    .module('normalizerjs.deploy')
+    .provider('normalizerjs.deploy.RioGrandeDoSulState', Provider);
 
-    Provider.$inject = [
-        'STATE'
-    ];
+  Provider.$inject = [
+    'STATE'
+  ];
 
-    function Provider(STATE) {
-        var self = this;
+  function Provider(STATE) {
+    var self = this;
 
-        self.$get = [provider];
+    self.$get = [provider];
 
-        function provider() {
-            return self;
-        }
-
-        self.state = {
-            parent: STATE.HOME,
-            name: STATE.RS,
-            url: '/' + STATE.RS,
-            templateUrl: 'app/ux-component/center/rs/rs-template.html'
-        };
+    function provider() {
+      return self;
     }
+
+    self.state = {
+      parent: STATE.HOME,
+      name: STATE.RS,
+      url: '/' + STATE.RS,
+      template: '<rs-center></rs-center>'
+    };
+  }
 }());

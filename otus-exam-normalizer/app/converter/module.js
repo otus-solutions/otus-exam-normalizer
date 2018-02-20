@@ -2,6 +2,8 @@
   'use strict';
 
   angular
-    .module('normalizerjs.converter', []);
+    .module('normalizerjs.converter', [
+      'normalizerjs.converter.template'
+    ]);
 
 }());  

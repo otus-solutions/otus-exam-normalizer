@@ -1,16 +1,14 @@
-(function() {
+(function () {
   'use strict';
 
   angular
     .module('normalizerjs', [
       'normalizerjs.application.dependency',
-      'normalizerjs.uxComponent',
+      'normalizerjs.module',
       'normalizerjs.application',
-      'normalizerjs.deploy',
-      'normalizerjs.converter'
-      // ,
-      // 'normalizerjs.commons'
+      'normalizerjs.uxComponent',
+      'normalizerjs.converter',
+      'normalizerjs.deploy'
     ]);
-
 
 }());

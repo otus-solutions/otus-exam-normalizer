@@ -10,22 +10,28 @@
   <link href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700,400italic" rel="stylesheet" />
   <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet" />
   <link href="node_modules/angular-material/angular-material.min.css" rel="stylesheet" />
+
   <!-- uncache(rename:true, append:hash) -->
+
   <!-- build:css css/normalizerjs.min.css -->
   <link href="app/static-resource/stylesheet/styles.css" rel="stylesheet" />
   <link href="app/static-resource/stylesheet/home-page.css" rel="stylesheet" />
   <link href="app/static-resource/stylesheet/please-wait-style.css" rel="stylesheet">
+  <link href="app/static-resource/stylesheet/file-upload.css" rel="stylesheet">
   <link href="node_modules/please-wait/build/please-wait.css" rel="stylesheet">
   <!-- endbuild -->
+
   <!-- enduncache -->
+
   <title>Normalizer</title>
 </head>
 
-<body layout="row" flex md-theme="default" >
+<body layout="row" flex md-theme="default">
   <div flex layout="row" class="md-body-2" ui-view></div>
 </body>
 
 <!-- uncache(rename:true, append:hash) -->
+
 <!-- ************************************* jQuery ************************************* -->
 <script src="node_modules/jquery/dist/jquery.min.js"></script>
 <!-- ************************************* Angular ************************************* -->
@@ -43,27 +49,28 @@
 <script src="node_modules/moment/min/moment.min.js"></script>
 <script src="node_modules/moment-timezone/moment-timezone.js"></script>
 <script src="node_modules/moment-timezone/builds/moment-timezone-with-data.min.js"></script>
-
+<!-- ************************************* SheetJS js-xlsx ************************************* -->
 <script src="node_modules/xlsx/dist/xlsx.full.min.js"></script>
-
+<!-- ************************************* File Upload ************************************* -->
+<script src="node_modules/ng-file-upload/dist/ng-file-upload-shim.js"></script>
+<script src="node_modules/ng-file-upload/dist/ng-file-upload.js"></script>
+<!-- ************************************* Otus-model ************************************* -->
 <script src="node_modules/otus-model-js/dist/otus-model.js"></script>
 <script src="node_modules/otus-model-js/dist/st-utils.min.js"></script>
-
-<script src="app/definitions/definitions.js"></script>
-
 <!-- enduncache -->
+
 <!-- ************************************* Nomalizer ************************************* -->
 <!-- uncache(rename:true, append:hash) -->
+<script src="app/definitions/definitions.js"></script>
+
 <!-- build:js scripts/application-module.min.js -->
 <script src="app/app.js"></script>
 <!-- # State -->
 <script src="app/application/dependency/module.js"></script>
 
-<script src="app/definitions/definitions.js"></script>
-
 <!-- # Application -->
 <script src="app/application/module.js"></script>
-<!------------------------------------------------------------------------------------------------>
+
 <!-- # app/Application > State -->
 <script src="app/application/state/module.js"></script>
 
@@ -74,7 +81,7 @@
 <script src="app/application/theme/module.js"></script>
 <script src="app/application/theme/theme-configuration.js"></script>
 <!-- endbuild -->
-<!------------------------------------------------------------------------------------------------>
+
 <!-- build:js scripts/deploy-module.min.js -->
 <script src="app/deploy/module.js"></script>
 <script src="app/deploy/state/state-configuration.js"></script>
@@ -85,27 +92,37 @@
 <script src="app/deploy/state/center/mg/mg-state-provider.js"></script>
 <script src="app/deploy/state/center/es/es-state-provider.js"></script>
 <script src="app/deploy/state/center/ba/ba-state-provider.js"></script>
+<!-- endbuild -->
 
-<script src="app/ux-component/converter/converter-component.js"></script>
-<script src="app/ux-component/exam-upload-button/exam-upload-button-component.js"></script>
-
-
+<!-- build:js scripts/converter-module.min.js -->
 <script src="app/converter/module.js"></script>
+<script src="app/converter/template/module.js"></script>
 <script src="app/converter/field-center/field-center-service.js"></script>
 <script src="app/converter/file-structure/field/field-factory.js"></script>
 <script src="app/converter/file-structure/row/row-factory.js"></script>
 <script src="app/converter/file-structure/file-structure-factory.js"></script>
 <script src="app/converter/template/template-service.js"></script>
-
-
 <!-- endbuild -->
 
-<!------------------------------------------------------------------------------------------------>
+<!-- build:js scripts/module-module.min.js -->
+<script src="app/module/module.js"></script>
+<script src="app/module/laboratory/module.js"></script>
+<script src="app/module/laboratory/exam-upload-service.js"></script>
+<!-- endbuild -->
+
 <!-- build:js scripts/ux-component-module.min.js -->
 <script src="app/ux-component/module.js"></script>
 <script src="app/ux-component/home/home-controller.js"></script>
-
+<script src="app/ux-component/laboratory/ba-center/ba-center-component.js"></script>
+<script src="app/ux-component/laboratory/es-center/es-center-component.js"></script>
+<script src="app/ux-component/laboratory/mg-center/mg-center-component.js"></script>
+<script src="app/ux-component/laboratory/rj-center/rj-center-component.js"></script>
+<script src="app/ux-component/laboratory/rs-center/rs-center-component.js"></script>
+<script src="app/ux-component/laboratory/sp-center/sp-center-component.js"></script>
+<script src="app/ux-component/converter/converter-component.js"></script>
+<script src="app/ux-component/exam-upload-button/exam-upload-button-component.js"></script>
 <!-- endbuild -->
+
 <!-- enduncache -->
 
 </html>

@@ -1,8 +1,36 @@
-<input id="fileInput" type="file" ng-model="file" accept='.xls, .xlsx' class="ng-hide" ng-change="$ctrl.validateFile()">
-<md-button class="md-raised md-accent" aria-label="Carregar Resultados" ng-click="$ctrl.upload()">
-  <md-tooltip md-direction="left">
-    Realizar envio de resultados de exames
-  </md-tooltip>
-  <md-icon>file_upload</md-icon>
-  <span style="margin-right:8px">converter arquivo</span>
-</md-button>
+<div>
+  <!-- <div class="dropzone" ng-if="$ctrl.progress"> -->
+  <div class="dropzone">
+    <div layout="column" layout-padding layout-align="center center">
+      <span ng-if="$ctrl.progress != '100'" layout="row" class="md-headline">Aguarde, carregando arquivo</span>
+      <span ng-if="$ctrl.progress == '100'" layout="row" class="md-headline">Arquivo pronto para download</span>
+    </div>
+    <md-progress-linear md-mode="determinate" value="{{$ctrl.progress}}"></md-progress-linear>
+    </br>
+
+    <!-- <li style="font:smaller">nome do arquivo convertido: {{file.name}}</li> -->
+    <li style="font:smaller">nome do arquivo convertido: arquivo-exemplo</li>
+    </br>
+
+    <md-button class="md-raised md-accent" aria-label="Carregar Resultados">
+      <span style="margin-right:8px">Download do arquivo</span>
+    </md-button>
+  </div>
+
+  <!-- <div class="dropzone" ng-hide="$ctrl.progress" ng-model="file" ngf-pattern="'.xlsx,.csv'" accept=".xlsx,.csv" ngf-multiple="false"
+    ngf-drop ngf-select="$ctrl.fileUpload($file)" ngf-drag-over-class="'dragover'">
+    <div class="sm-hidden">
+      <h3>Solte os arquivos aqui</h3>
+      <h3>ou</h3>
+    </div>
+    <p>
+      <md-button class="md-raised md-accent" aria-label="Carregar Resultados">
+        <span style="margin-right:8px">Selecione arquivos do seu computador</span>
+      </md-button>
+    </p>
+    <p ngf-no-file-drop>O arquivo não é compatível</p>
+    <p>
+      <small>Os seguintes formatos de arquivo são suportados: .csv .xls</small>
+    </p>
+  </div> -->
+</div>

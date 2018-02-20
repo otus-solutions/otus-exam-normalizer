@@ -3,8 +3,8 @@
 
   angular
     .module('normalizerjs.uxComponent')
-    .component('converter', {
-      templateUrl: 'app/ux-component/converter/converter-template.html',
+    .component('mgCenter', {
+      templateUrl: 'app/ux-component/laboratory/mg-center/mg-center-template.html',
       bindings: {
         fieldCenter: '<'
       },
@@ -21,7 +21,7 @@
     self.$onInit = onInit;
 
     function onInit() {
-      console.log("converter");
+      console.log("MG center");
     }
   }
 }());

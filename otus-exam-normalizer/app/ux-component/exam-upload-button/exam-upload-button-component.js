@@ -2,29 +2,36 @@
   'use strict';
 
   angular
-    .module('normalizerjs')
+    .module('normalizerjs.uxComponent')
     .component('examUploadButton', {
       controller: Controller,
       templateUrl: 'app/ux-component/exam-upload-button/exam-upload-button-template.html',
       bindings: {
         uploadFile: '<',
         validateFile: '<',
+        fieldCenter: '<'
       }
     });
 
   Controller.$inject = [
     '$q',
+    '$scope',
     '$element',
     '$mdToast',
-    'normalizerjs.converter.FileStructureFactory'
+    'normalizerjs.converter.FileStructureFactory',
+    'normalizerjs.module.laboratory.ExamUploadService'
   ];
 
-  function Controller($q, $element, $mdToast, FileStructureFactory) {
+  function Controller($q, $scope, $element, $mdToast, FileStructureFactory, ExamUploadService) {
+    const PROGRESS_MESSAGE = "Aguarde, carregando arquivo";
+    const SUCCESS_MESSAGE = "Arquivo pronto para download";
+
     var self = this;
     var timeShowMsg = 4000;
     var fr = new FileReader();
 
     self.$onInit = onInit;
+    self.fileUpload = fileUpload;
     self.upload = self.uploadFile || upload;
     self.validate = self.validateFile || _validateFileToUpload;
 
@@ -62,6 +69,36 @@
         //   fr.readAsText(e.target.files[0]);
         // }
       });
+    }
+
+    $scope.$watch('file', function () {
+      self.upload($scope.file);
+    });
+
+    function fileUpload(file) {
+      if (file) {
+        if (!file.$error) {
+          var progressPercentage;
+          var reader = new FileReader();
+          ExamUploadService.createExamSending();
+
+          reader.onload = function () {
+            //TODO: utilizar o conversor de arquivo aqui, aqui também deve ser chamado o model!
+
+            var text = reader.result;
+            console.log(text);
+          };
+          reader.readAsText($scope.file);
+        }
+      }
+
+      //TODO: calcular o processamento de conversão
+      var loaded = 10;
+      var total = 50;
+      progressPercentage = parseInt(100.0 * loaded / total);
+      self.progress = progressPercentage;
+      self.progress = 100;
+      console.log(self.progress);
     }
 
     function _convertToWorkbook(file, callback) {

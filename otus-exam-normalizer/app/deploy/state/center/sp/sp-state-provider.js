@@ -22,7 +22,7 @@
       parent: STATE.HOME,
       name: STATE.SP,
       url: '/' + STATE.SP,
-      templateUrl: 'app/ux-component/center/sp/sp-template.html'
+      template: '<sp-center></sp-center>'
     };
   }
 }());
