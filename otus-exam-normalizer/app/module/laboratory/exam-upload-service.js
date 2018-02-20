@@ -50,7 +50,7 @@
           }
           if (row.isExamObservation && examSending.exams && examSending.exams.length) {
             var observation = ExamObservation.create();
-            //observation.name //Não sabemos o que vai aqui
+            observation.name = row.label; //Não sabemos o que vai aqui
             observation.value = row.observation;
             examSending.exams[examSending.exams.length - 1].observations.push(observation);
           }
@@ -62,7 +62,7 @@
             var lastExamIndex = examSending.exams.length - 1;
             var lastResultIndex = examSending.exams[lastExamIndex].examResults.length - 1;
             var observation = ExamObservation.create();
-            //observation.name //Não sabemos o que vai aqui
+            observation.name = row.label; //Não sabemos o que vai aqui
             observation.value = row.observation;
             examSending.exams[lastExamIndex].examResults[lastResultIndex].observations.push(observation);
           }

@@ -92,11 +92,9 @@ Definitions.templates = [
       {
         name: "registrationCode",
         column: 0,
-        required: true,
-
         rules: {
           result: {
-            isEmpty: true,
+            isEmpty: false,
           }
         }
       },
@@ -104,54 +102,52 @@ Definitions.templates = [
         name: "aliquot",
         column: 1,
         required: true,
-
         rules: {
           result: {
-              isEmpty: true,
-          },
-          exam: {},
-          examObservation: {},
-          resultObservation: {}
+              isEmpty: false,
+          }
         },
       },
       {
         name: "solicitationNumber",
         column: 2,
-        required: true,
       },
       {
         name: "orderNumber",
         column: 3,
-        required: true,
       },
       {
         name: "itemNumber",
         column: 4,
-        required: true,
       },
       {
         name: "examCode",
         column: 5,
         required: true,
+        rules: {
+          result: {
+              isEmpty: false,
+          }
+        },
       },
       {
         name: "examName",
         column: 6,
         required: true,
+        rules: {
+          result: {
+              isEmpty: false,
+          }
+        },
       },
       {
         name: "label",
         column: 7,
         required: true,
-
         rules: {
           result: {
             isEmpty: false,
             notContains: ["eTFG para afro-descendentes", "eTFG para não afro-descendentes"]
-          },
-          exam: {
-            isEmpty: false,
-            equalLastResult: false
           }
         }
 
@@ -160,31 +156,48 @@ Definitions.templates = [
         name: "result",
         column: 8,
         required: true,
+        rules: {
+          result: {
+              isEmpty: false,
+          }
+        },
       },
       {
         name: "requestDate",
         column: 9,
         required: false,
-        isDate: true
+        isDate: true,
+        rules: {
+          result: {
+              isEmpty: false,
+          }
+        },
       },
       {
         name: "collectionDate",
         column: 10,
         required: false,
-        isDate: true
+        isDate: true,
+        rules: {
+          result: {
+              isEmpty: false,
+          }
+        },
       },
       {
         name: "releaseDate",
         column: 11,
         required: true,
-        isDate: true
+        isDate: true,
+        rules: {
+          result: {
+              isEmpty: false,
+          }
+        },
       }
     ],
 
     rules: {
-      result: {
-        otherValidation: function (row, lastResult) { return true; }
-      },
       exam: {
         otherValidation: function (row, lastResult) {
           return (!lastResult ||
@@ -194,21 +207,159 @@ Definitions.templates = [
             )
           ) ? true : false;
         }
+      }
+    }
+  },
+
+  {
+    template: "glicemia-jejum-sp",
+    version: "1.0.0",
+    fileType: "Glicemia jejum (SP)",
+    fieldCenter: { acronym: "SP" },
+
+    outTemplate: "OTUS-EXAM-NORMALIZER",
+    outTemplateVersion: "1.0.0",
+
+    formatType: {
+      date: {
+        day: { start: 0, length: 2 },
+        month: { start: 3, length: 2 },
+        year: { start: 6, length: 2 },
+        hours: { start: 9, length: 2 },
+        minutes: { start: 12, length: 2 }
       },
-      examObservation: {
-        otherValidation: function (row, lastResult) { return true; },
-        observationFromTheField: "result",
-        getObservation: function (row, lastResult) { return "Observação..."; }
+    },
+
+    templateValidations: {
+      fieldName: "examCode",
+      acceptableValues: [110010]
+    },
+
+    header: {
+      row: 2,
+      headers: ["Matrícula", "Nome do Paciente", "Nº Solicitação", "Nº Pedido", "Nº Item Pedido", "Cód.  Exame", "Nome do Exame", "Rótulo", "R E S U L T A D O", "Data/Hora Solicitação", "Data/Hora Coleta", "Data/Hora Liberação"]
+    },
+
+    valueIfUndefined: "",
+
+    fields: [
+      {
+        name: "registrationCode",
+        column: 0,
+        rules: {
+          result: {
+            isEmpty: false,
+          }
+        }
       },
-      resultObservation: {
-        otherValidation: function (row, lastResult) {
-          //Exemplo: Valida somente 2 linhas após a linha do ultimo resuldade de exame
-          return (row.countRowsAfterLastResult <= 2);
+      {
+        name: "aliquot",
+        column: 1,
+        required: true,
+        rules: {
+          result: {
+              isEmpty: false,
+          }
         },
-        observationFromTheField: "result",
-        getObservation: function (row, lastResult) {
-          //Exemplo: Concatena rótulo do resultado com a coluna resultado na linha da observação
-          return lastResult.label + " - " + row.result;
+      },
+      {
+        name: "solicitationNumber",
+        column: 2,
+      },
+      {
+        name: "orderNumber",
+        column: 3,
+      },
+      {
+        name: "itemNumber",
+        column: 4,
+      },
+      {
+        name: "examCode",
+        column: 5,
+        required: true,
+        rules: {
+          result: {
+              isEmpty: false,
+          }
+        },
+      },
+      {
+        name: "examName",
+        column: 6,
+        required: true,
+        rules: {
+          result: {
+              isEmpty: false,
+          }
+        },
+      },
+      {
+        name: "label",
+        column: 7,
+        required: true,
+        rules: {
+          result: {
+            isEmpty: false,
+            notContains: ["eTFG para afro-descendentes", "eTFG para não afro-descendentes"]
+          }
+        }
+
+      },
+      {
+        name: "result",
+        column: 8,
+        required: true,
+        rules: {
+          result: {
+              isEmpty: false,
+          }
+        },
+      },
+      {
+        name: "requestDate",
+        column: 9,
+        required: false,
+        isDate: true,
+        rules: {
+          result: {
+              isEmpty: false,
+          }
+        },
+      },
+      {
+        name: "collectionDate",
+        column: 10,
+        required: false,
+        isDate: true,
+        rules: {
+          result: {
+              isEmpty: false,
+          }
+        },
+      },
+      {
+        name: "releaseDate",
+        column: 11,
+        required: true,
+        isDate: true,
+        rules: {
+          result: {
+              isEmpty: false,
+          }
+        },
+      }
+    ],
+
+    rules: {
+      exam: {
+        otherValidation: function (row, lastResult) {
+          return (!lastResult ||
+            (
+              row.aliquot !== lastResult.aliquot
+              || row.examCode !== lastResult.examCode
+            )
+          ) ? true : false;
         }
       }
     }

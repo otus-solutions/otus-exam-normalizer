@@ -93,10 +93,9 @@ Definitions.templates = [
         name: "registrationCode",
         column: 0,
         required: true,
-
         rules: {
           result: {
-            isEmpty: true,
+            isEmpty: false,
           }
         }
       },
@@ -107,11 +106,11 @@ Definitions.templates = [
 
         rules: {
           result: {
-            isEmpty: true,
-          },
-          exam: {},
-          examObservation: {},
-          resultObservation: {}
+              isEmpty: false,
+          }//,
+          // exam: {},
+          // examObservation: {},
+          // resultObservation: {}
         },
       },
       {
@@ -197,7 +196,7 @@ Definitions.templates = [
       },
       examObservation: {
         otherValidation: function (row, lastResult) { return true; },
-        observationFromTheField: "result",
+        // observationFromTheField: "result",
         getObservation: function (row, lastResult) { return "Observação..."; }
       },
       resultObservation: {

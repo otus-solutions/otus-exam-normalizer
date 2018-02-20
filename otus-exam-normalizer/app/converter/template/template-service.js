@@ -68,8 +68,9 @@
         }
         if(exists(template)) break;
       }
-
+      console.log(self)
       return template;
+      
     }
 
     function getValueFromSheet(sheet, line, column){
@@ -232,27 +233,29 @@
       row.fields.forEach(function (field) {
         var isValid = true;
 
-        if (field.required && field.isEmpty) isValid = false;
+        if (field.required && field.isEmpty) {
+          row.isValid = false;
+        };
 
-        if (isValid && field.examRule) {
+        if (field.examRule) {
           isValid = validateSimpleRules(field, field.examRule, row, lastResult);
           field.examRuleApplied = true;
           field.examRuleReturn = isValid;
         }
 
-        if (isValid && field.resultRule) {
+        if (field.resultRule) {
           isValid = validateSimpleRules(field, field.resultRule, row, lastResult);
           field.resultRuleApplied = true;
           field.resultRuleReturn = isValid;
         }
 
-        if (isValid && field.examObservationRule) {
+        if (field.examObservationRule) {
           isValid = validateSimpleRules(field, field.examObservationRule, row, lastResult);
           field.examObservationRuleApplied = true;
           field.examObservationRuleReturn = isValid;
         }
 
-        if (isValid && field.resultObservationRule) {
+        if (field.resultObservationRule) {
           isValid = validateSimpleRules(field, field.resultObservationRule, row, lastResult);
           field.resultObservationRuleApplied = true;
           field.resultObservationRuleReturn = isValid;

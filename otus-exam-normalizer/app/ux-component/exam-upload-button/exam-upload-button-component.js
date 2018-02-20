@@ -54,11 +54,15 @@
             )
             console.log("rowsArray", rowsArray);
             var fileStructure = FileStructureFactory.create();
-            fileStructure.setFieldCenter({ acronym: "SP" })
-            fileStructure.createRowsWithSheet(rowsArray).then(function () {
-              console.log(fileStructure);
-              ExamUploadService.fileStructureToModel(fileStructure);
-            });
+            fileStructure.setFieldCenter({ acronym: "SP" }); //TODO: Setar o FieldCenter Correspondente em cada Centro
+            fileStructure.createRowsWithSheet(rowsArray)
+              .then(function () {
+                console.log(fileStructure);
+                ExamUploadService.fileStructureToModel(fileStructure);
+              })
+              .catch(function(error){
+                _showToast(error);
+              });
           });
         }
       }
@@ -76,5 +80,12 @@
       reader.readAsBinaryString(file);
     }
 
+    function _showToast(msg) {
+      $mdToast.show(
+        $mdToast.simple()
+          .textContent(msg)
+          .hideDelay(timeShowMsg)
+      );
+    }
   }
 }());

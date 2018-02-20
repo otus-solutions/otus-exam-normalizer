@@ -108,14 +108,14 @@
         }
         deferred.resolve('A estrutura foi criada');
       } else {
-        deferred.reject('Template não encontrado para este arquivo');
+        deferred.reject('Não há template(s) de conversão para este arquivo.');
       }
 
       return deferred.promise;
     }
 
     function createRow(columnsArray, originalLine) {
-      var row = TemplateService.createRow(self.template, columnsArray, self.rows[self.rows.length], self.lastResult, originalLine);
+      var row = TemplateService.createRow(self.template, columnsArray, self.rows[self.rows.length-1], self.lastResult, originalLine);
       insertRow(row);
     }
 
