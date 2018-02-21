@@ -14,7 +14,7 @@
     </ul>
   </div>
 
-  <div class="dropzone" ng-hide="progress" ng-model="file" ngf-pattern="'.xlsx,.csv'" accept=".xlsx,.csv" ngf-multiple="false"
+  <div class="dropzone" ng-hide="progress" ng-model="file" ngf-pattern="$ctrl.fileFormats" accept="$ctrl.fileFormats" ngf-multiple="false"
     ngf-drop ngf-select="$ctrl.fileUpload($file)" ngf-drag-over-class="'dragover'">
     <div class="sm-hidden">
       <h3>Solte os arquivos aqui</h3>
@@ -27,7 +27,7 @@
     </p>
     <p ngf-no-file-drop>O arquivo não é compatível</p>
     <p>
-      <small>Os seguintes formatos de arquivo são suportados: .csv .xls</small>
+      <small>Os seguintes formatos de arquivo são suportados: {{$ctrl.fileFormats}}</small>
     </p>
   </div>
 </div>

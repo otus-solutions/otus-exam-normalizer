@@ -12,16 +12,17 @@
     });
 
   Controller.$inject = [
-
+    'normalizerjs.converter.FieldCenterService'
   ];
 
-  function Controller() {
+  function Controller(FieldCenterService) {
     var self = this;
 
     self.$onInit = onInit;
+    self.completeFieldCenter;
 
     function onInit() {
-      console.log("converter");
+      self.completeFieldCenter = FieldCenterService.getFieldCenterByAcronym(self.fieldCenter.acronym);
     }
   }
 }());

@@ -58,7 +58,11 @@
         for(var line = 0; line < 10; line++) {
           var value = getValueFromSheet(sheet, line, column); 
           var acceptable = testTemplate.templateValidations.acceptableValues.find(function(acceptableValue){
-            return acceptableValue.toString().trim() == value.toString().trim();
+            if(exists(value) && value.toString){
+              return acceptableValue.toString().trim() == value.toString().trim();
+            } else {
+              return false;
+            }
           });
 
           if(exists(acceptable)){
@@ -68,9 +72,7 @@
         }
         if(exists(template)) break;
       }
-      console.log(self)
       return template;
-      
     }
 
     function getValueFromSheet(sheet, line, column){

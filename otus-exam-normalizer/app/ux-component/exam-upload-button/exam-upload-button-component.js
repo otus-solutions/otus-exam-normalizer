@@ -29,7 +29,13 @@
     var self = this;
     var timeShowMsg = 4000;
 
+    self.fileFormats = "";
     self.upload = upload;
+    self.$onInit = onInit;
+
+    function onInit(){
+      self.fileFormats = self.fieldCenter.fileFormats.map(function(format){return "."+format}).toString();
+    }
 
     $scope.$watch('file', function () {
       self.upload($scope.file);
@@ -42,7 +48,6 @@
           //TODO: Chamar o serviço que conversa com o model!
 
           _convertToWorkbook(file, function (workbook) {
-            console.log(workbook);
             var rowsArray = XLSX.utils.sheet_to_json(
               workbook.Sheets[workbook.SheetNames[0]],
               {
@@ -52,11 +57,14 @@
                 raw: false
               }
             )
-            console.log("rowsArray", rowsArray);
             var fileStructure = FileStructureFactory.create();
-            fileStructure.setFieldCenter({ acronym: "SP" }); //TODO: Setar o FieldCenter Correspondente em cada Centro
+            /*TODO: Setar o FieldCenter Correspondente
+              fileStructure.setFieldCenter(self.fieldCenter);
+            */
+            fileStructure.setFieldCenter({ acronym: "SP" }); 
             fileStructure.createRowsWithSheet(rowsArray)
               .then(function () {
+                _showToast("Convertendo arquivo de: " + fileStructure.template.fileType);
                 console.log(fileStructure);
                 ExamUploadService.fileStructureToModel(fileStructure);
               })
