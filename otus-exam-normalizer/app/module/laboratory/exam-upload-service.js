@@ -69,7 +69,8 @@
         }
       });
       examSending.examLot.resultsQuantity = examSending.getExamList().length;
-      console.log(examSending);
+
+      return examSending;
     }
 
   }

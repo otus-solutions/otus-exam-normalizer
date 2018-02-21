@@ -18,6 +18,7 @@
   function Controller(FieldCenterService) {
     var self = this;
 
+    /* Public methods */
     self.$onInit = onInit;
     self.completeFieldCenter;
 
