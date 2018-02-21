@@ -59,9 +59,9 @@
             )
             var fileStructure = FileStructureFactory.create();
             /*TODO: Setar o FieldCenter Correspondente
-              fileStructure.setFieldCenter(self.fieldCenter);
-            */
             fileStructure.setFieldCenter({ acronym: "SP" }); 
+            */
+            fileStructure.setFieldCenter(self.fieldCenter);
             fileStructure.createRowsWithSheet(rowsArray)
               .then(function () {
                 _showToast("Convertendo arquivo de: " + fileStructure.template.fileType);

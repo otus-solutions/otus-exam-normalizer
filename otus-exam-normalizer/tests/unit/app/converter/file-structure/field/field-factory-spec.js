@@ -93,7 +93,7 @@ describe('the Field Factory', function () {
     it('the isDate should be equal to TemplateField.isDate', function () {
       expect(Mock.FieldByTemplateField.isDate).toEqual(Mock.TemplateField.isDate);
     });
-    
+
     it('the examRule should be equal to TemplateField.rules.result', function () {
       expect(Mock.FieldByTemplateField.examRule).toEqual(Mock.TemplateField.rules.result)
     });
@@ -105,6 +105,35 @@ describe('the Field Factory', function () {
     });
     it('the resultObservationRule should be equal to TemplateField.rules.resultObservation', function () {
       expect(Mock.FieldByTemplateField.resultObservationRule).toEqual(Mock.TemplateField.rules.resultObservation)
+    });
+  });
+
+  describe("fromJson method", function () {
+    beforeEach(function () {
+      mockFieldsJson();
+      mockFieldsFromJson();
+    });
+    it('the objectType should be equal to FieldsJson.objectType', function () {
+      expect(Mock.FieldsFromJson[0].objectType).toEqual(Mock.FieldsJson[0].objectType);
+    });
+    it('the name should be equal to FieldsJson.name', function () {
+      expect(Mock.FieldsFromJson[0].name).toEqual(Mock.FieldsJson[0].name);
+    });
+    it('the value should be equal to FieldsJson.value', function () {
+      expect(Mock.FieldsFromJson[0].value).toEqual(Mock.FieldsJson[0].value);
+    });
+    it('the column should be equal to FieldsJson.column', function () {
+      expect(Mock.FieldsFromJson[0].column).toEqual(Mock.FieldsJson[0].column);
+    });
+  });
+
+  describe("toJSON method", function () {
+    beforeEach(function () {
+      mockFieldsJson();
+      mockFieldsFromJson();
+    });
+    it('the JSON should be valid', function () {
+      expect(JSON.stringify(Mock.FieldsFromJson[0])).toEqual(JSON.stringify(Mock.FieldsJson[0]));
     });
   });
 
@@ -137,6 +166,36 @@ describe('the Field Factory', function () {
 
   function mockFieldByTemplateField() {
     Mock.FieldByTemplateField = factory.createWithTemplateField(Mock.TemplateField);
+  }
+
+  function mockFieldsFromJson() {
+    Mock.FieldsFromJson = factory.fromJson(Mock.FieldsJson);
+  }
+
+  function mockFieldsJson() {
+    Mock.FieldsJson = [
+      {
+        objectType: 'Field',
+        name: "aliquot",
+        value: "333456789",
+        column: 1,
+        required: true,
+        isDate: false,
+        isEmpty: false,
+        examRule: { isEmpty: false },
+        examRuleApplied: false,
+        examRuleReturn: undefined,
+        resultRule: { isEmpty: false },
+        resultRuleApplied: false,
+        resultRuleReturn: undefined,
+        examObservationRule: { isEmpty: false },
+        examObservationRuleApplied: false,
+        examObservationRuleReturn: undefined,
+        resultObservationRule: { isEmpty: false },
+        resultObservationRuleApplied: false,
+        resultObservationRuleReturn: undefined
+      }
+    ];
   }
 });
 
