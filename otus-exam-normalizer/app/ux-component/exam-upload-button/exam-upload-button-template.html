@@ -1,21 +1,25 @@
 <div>
-  <div ng-if="progress">
+  <div class="dropzone" ng-if="$ctrl.progress">
     <div layout="column" layout-padding layout-align="center center">
-      <span layout="row" class="md-headline">Aguarde, carregando arquivo</span>
+      <span ng-if="$ctrl.progress != '100'" layout="row" class="md-headline">Aguarde, carregando arquivo</span>
+      <span ng-if="$ctrl.progress == '100'" layout="row" class="md-headline">Arquivo pronto para download</span>
     </div>
-    <div class="progress">
-      <div class="progress-bar" role="progressbar" aria-valuenow="{{progress}}" aria-valuemin="0" aria-valuemax="100">
-        Progresso do processamento do arquivo: {{progress}}
-      </div>
+    <div flex="90" flex-offset="5">
+      <md-progress-linear md-mode="determinate" value="{{$ctrl.progress}}"></md-progress-linear>
     </div>
-    <hr>
-    <ul>
-      <li style="font:smaller">{{file.name}}</li>
-    </ul>
+    </br>
+
+    <li style="font:smaller">Nome do arquivo convertido:</li> {{$ctrl.fileStructure.name}}
+    </br>
+    </br>
+
+    <md-button class="md-raised md-accent" aria-label="Carregar Resultados" ng-click="$ctrl.download()">
+      <span style="margin-right:8px">Download do arquivo</span>
+    </md-button>
   </div>
 
-  <div class="dropzone" ng-hide="progress" ng-model="file" ngf-pattern="$ctrl.fileFormats" accept="$ctrl.fileFormats" ngf-multiple="false"
-    ngf-drop ngf-select="$ctrl.fileUpload($file)" ngf-drag-over-class="'dragover'">
+  <div class="dropzone" ng-hide="$ctrl.progress" ng-model="file" ngf-pattern="$ctrl.fileFormats" accept="$ctrl.fileFormats"
+    ngf-multiple="false" ngf-drop ngf-select="$ctrl.fileUpload($file)" ngf-drag-over-class="'dragover'">
     <div class="sm-hidden">
       <h3>Solte os arquivos aqui</h3>
       <h3>ou</h3>
