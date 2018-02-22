@@ -62,7 +62,7 @@
             )
             self.fileStructure = FileStructureFactory.create();
             self.fileStructure.name = _extractFileName(file.name);
-            self.fileStructure.setFieldCenter({ acronym: "SP" });
+            self.fileStructure.setFieldCenter(self.fieldCenter);
             self.fileStructure.createRowsWithSheet(rowsArray)
               .then(function () {
                 _showToast("Convertendo arquivo de: " + self.fileStructure.template.fileType);
