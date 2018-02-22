@@ -60,19 +60,17 @@
       _fillDynamicAttributes();
     }
 
-    function _fillDynamicAttributes(){
-      if(self.fields && self.fields.length){
-        self.fields.forEach(function(field) {
-          if (!self[field.name]) self[field.name] = field.value;
+    function _fillDynamicAttributes() {
+      if (self.fields && self.fields.length) {
+        self.fields.forEach(function (field) {
+          _insertDynamicAttributes(field);
         });
       }
     }
-
-    function insertField(field) {
-      self.fields.push(field);
-      //Create Dynamic Attributes
+    function _insertDynamicAttributes(field) {
       if (!self[field.name]) self[field.name] = field.value;
       /*
+      //Example:
         self.aliquot = field.value;
         self.registrationCode = field.value;
         self.solicitationNumber = field.value;
@@ -86,6 +84,11 @@
         self.collectionDate = field.value;
         self.releaseDate = field.value;
       */
+    }
+
+    function insertField(field) {
+      self.fields.push(field);
+      _insertDynamicAttributes(field);
     }
 
     function toJSON() {

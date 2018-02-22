@@ -221,7 +221,6 @@
         isValid = returned;
       }
 
-
       if (isValid && exists(rules.notContains)) {
         var textArray = rules.notContains;
         var returned = notContains(field.name, row, textArray);
