@@ -20,8 +20,6 @@
 
     self.$onInit = onInit;
 
-    function onInit() {
-      console.log("RS center");
-    }
+    function onInit() { }
   }
 }());

@@ -20,8 +20,6 @@
 
     self.$onInit = onInit;
 
-    function onInit() {
-      console.log("BA center");
-    }
+    function onInit() { }
   }
 }());
