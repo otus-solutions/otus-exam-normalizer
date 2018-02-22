@@ -1,7 +1,7 @@
 <div>
   <div class="dropzone" ng-if="$ctrl.progress">
     <div layout="column" layout-padding layout-align="center center">
-      <span ng-if="$ctrl.progress != 100" layout="row" class="md-headline">Aguarde até que os processos de upload e conversão sejam completos.</span>
+      <span ng-if="$ctrl.progress != 100" layout="row" class="md-headline">Aguarde até que os processos de upload e conversão sejam completos</span>
       <span ng-if="$ctrl.progress == 100" layout="row" class="md-headline">Arquivo pronto para download</span>
     </div>
     <div flex="90" flex-offset="5">
@@ -31,7 +31,6 @@
         <span style="margin-right:8px">Selecione arquivos do seu computador</span>
       </md-button>
     </p>
-    <p ngf-no-file-drop>O arquivo não é compatível</p>
     <p>
       <small>Os seguintes formatos de arquivo são suportados: {{$ctrl.fileFormats}}</small>
     </p>
