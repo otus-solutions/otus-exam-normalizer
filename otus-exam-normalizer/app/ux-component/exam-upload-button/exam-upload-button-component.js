@@ -24,9 +24,7 @@
   ];
 
   function Controller($q, $scope, $element, $mdToast, $mdDialog, FileStructureFactory, ExamUploadService) {
-    const PROGRESS_MESSAGE = "Aguarde, carregando arquivo";
-    const SUCCESS_MESSAGE = "Arquivo pronto para download";
-
+    var _notFoundTemplate;
     var _confirmReturn;
     var _timeShowMsg = 4000;
     var _fileOfModel;
@@ -52,6 +50,7 @@
     function upload(file) {
       if (file) {
         if (!file.$error) {
+          self.progress = 10;
           _convertToWorkbook(file, function (workbook) {
             var rowsArray = XLSX.utils.sheet_to_json(
               workbook.Sheets[workbook.SheetNames[0]],
@@ -67,12 +66,11 @@
             self.fileStructure.setFieldCenter(self.fieldCenter);
             self.fileStructure.createRowsWithSheet(rowsArray)
               .then(function () {
-                _showToast("Convertendo arquivo de: " + self.fileStructure.template.fileType);
                 _fileOfModel = ExamUploadService.fileStructureToModel(self.fileStructure);
                 self.progress = 100;
-              })
-              .catch(function (error) {
-                _showToast(error);
+              }).catch(function (error) {
+                _buildNotFoundTemplateDialog(error);
+                _returnToPreviousScreen(_notFoundTemplate);
               });
           });
         }
@@ -85,12 +83,11 @@
       downloadLink.attr('href', window.URL.createObjectURL(blob));
       downloadLink.attr('download', self.fileStructure.name + '.json');
       downloadLink[0].click();
-      _returnToPreviousScreen();
+      _returnToPreviousScreen(_confirmReturn);
     }
 
     function _convertToWorkbook(file, callback) {
       var reader = new FileReader();
-
       reader.onload = function (e) {
         var bstr = e.target.result;
         var workbook = XLSX.read(bstr, { type: 'binary' });
@@ -120,6 +117,14 @@
       );
     }
 
+    function _buildNotFoundTemplateDialog(errorMessage) {
+      _notFoundTemplate = $mdDialog.alert()
+        .title('Não é possível converter o arquivo')
+        .textContent(errorMessage)
+        .ariaLabel('erro')
+        .ok('Ok');
+    }
+
     function _buildReturnAlertDialogs() {
       _confirmReturn = $mdDialog.confirm()
         .title('Retornar à tela anterior')
@@ -129,9 +134,11 @@
         .cancel('Cancelar');
     }
 
-    function _returnToPreviousScreen() {
-      $mdDialog.show(_confirmReturn).then(function () {
+    function _returnToPreviousScreen(action) {
+      $mdDialog.show(action).then(function () {
         self.progress = undefined;
+        _fileOfModel = undefined;
+        self.fileStructure = undefined;
       });
     }
   }

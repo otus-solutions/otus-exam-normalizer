@@ -40,7 +40,6 @@
             var newResult = ExamResults.create();
             newResult.examName = row.examName;
             newResult.aliquotCode = row.aliquot;
-            //TODO: verificar se é realmente essa data que deve ser obtida!
             newResult.releaseDate = row.releaseDate;
             newResult.resultName = row.label;
             newResult.value = row.result;
@@ -50,7 +49,7 @@
           }
           if (row.isExamObservation && examSending.exams && examSending.exams.length) {
             var observation = ExamObservation.create();
-            observation.name = row.label; //Não sabemos o que vai aqui
+            observation.name = row.label;
             observation.value = row.observation;
             examSending.exams[examSending.exams.length - 1].observations.push(observation);
           }
@@ -62,7 +61,7 @@
             var lastExamIndex = examSending.exams.length - 1;
             var lastResultIndex = examSending.exams[lastExamIndex].examResults.length - 1;
             var observation = ExamObservation.create();
-            observation.name = row.label; //Não sabemos o que vai aqui
+            observation.name = row.label;
             observation.value = row.observation;
             examSending.exams[lastExamIndex].examResults[lastResultIndex].observations.push(observation);
           }
