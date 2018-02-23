@@ -26,7 +26,6 @@
 
     function route(valor) {
       ApplicationStateService.setCurrentState(valor);
-      $mdSidenav('left').close();
     }
 
     function buildToggler(componentId) {
