@@ -35,10 +35,10 @@
     self.objectType = 'FileStructure';
     self.fileName = fileInfo.fileName || '';
     self.realizationDate = fileInfo.realizationDate || new Date().toISOString();
-    self.template = fileInfo.template || '';
-    self.lastResult = fileInfo.lastResult || '';
+    self.template = fileInfo.template || undefined;
+    self.lastResult = fileInfo.lastResult || undefined;
     self.sheet = fileInfo.sheet || [];
-    self.rows = Row.fromJson(fileInfo.rows);
+    self.rows = Row.fromJson(fileInfo.rows) || [];
 
     self.createRowsWithSheet = createRowsWithSheet;
     self.findLastResult = findLastResult;
@@ -126,8 +126,8 @@
 
     function toJSON() {
       var json = {
-        fieldCenter: fieldCenter,
         objectType: self.objectType,
+        fieldCenter: {acronym: fieldCenter.acronym},
         fileName: self.fileName,
         realizationDate: self.realizationDate,
         template: self.template,

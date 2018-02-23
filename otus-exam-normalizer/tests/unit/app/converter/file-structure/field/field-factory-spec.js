@@ -173,29 +173,7 @@ describe('the Field Factory', function () {
   }
 
   function mockFieldsJson() {
-    Mock.FieldsJson = [
-      {
-        objectType: 'Field',
-        name: "aliquot",
-        value: "333456789",
-        column: 1,
-        required: true,
-        isDate: false,
-        isEmpty: false,
-        examRule: { isEmpty: false },
-        examRuleApplied: false,
-        examRuleReturn: undefined,
-        resultRule: { isEmpty: false },
-        resultRuleApplied: false,
-        resultRuleReturn: undefined,
-        examObservationRule: { isEmpty: false },
-        examObservationRuleApplied: false,
-        examObservationRuleReturn: undefined,
-        resultObservationRule: { isEmpty: false },
-        resultObservationRuleApplied: false,
-        resultObservationRuleReturn: undefined
-      }
-    ];
+    Mock.FieldsJson = Test.utils.data.Fields;
   }
 });
 
