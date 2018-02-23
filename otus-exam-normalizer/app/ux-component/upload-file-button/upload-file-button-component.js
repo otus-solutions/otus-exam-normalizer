@@ -3,9 +3,9 @@
 
   angular
     .module('normalizerjs.uxComponent')
-    .component('examUploadButton', {
+    .component('uploadFileButton', {
       controller: Controller,
-      templateUrl: 'app/ux-component/exam-upload-button/exam-upload-button-template.html',
+      templateUrl: 'app/ux-component/upload-file-button/upload-file-button-template.html',
       bindings: {
         uploadFile: '<',
         validateFile: '<',
@@ -48,9 +48,9 @@
     });
 
     function upload(file) {
-      if (file) {
-        if (!file.$error) {
-          self.progress = 10;
+      if (file && !file.$error) {
+        self.progress = 10;
+        setTimeout(function () {
           _convertToWorkbook(file, function (workbook) {
             var rowsArray = XLSX.utils.sheet_to_json(
               workbook.Sheets[workbook.SheetNames[0]],
@@ -73,7 +73,7 @@
                 _returnToPreviousScreen(_notFoundTemplate);
               });
           });
-        }
+        }, 3000);
       }
     }
 
