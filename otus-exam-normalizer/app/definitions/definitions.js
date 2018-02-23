@@ -2,6 +2,42 @@ var Definitions = {};
 Definitions.templates = [];
 Definitions.fieldCenterList = [];
 
+/*
+//The rules of the fields are divided into:
+  field.rules: {
+    result: {},
+    exam: {},
+    examObservation: {},
+    resultObservation: {}
+  }
+
+//Each rule has these attributes:
+  field.rules.result: {
+    isEmpty: true,
+    equalLastResult: false,
+    contains: ['this_text'],
+    notContains: ['this_other_text']
+  }
+
+//The rules of the template are divided into:
+  template.rules: {
+    result: {},
+    exam: {},
+    examObservation: {},
+    resultObservation: {}
+  }
+//These rules have these attributes:
+  template.rules.result: {
+    otherValidation: function(row, lastResult) { return true; }
+  }
+
+//The Observation rules (examObservation, resultObservation) have these attributes:
+  template.rules.result: {
+    observationFromTheField: "aliquot",
+    getObservation: function (row, lastResult) { return "observation"; }
+  }
+*/
+
 Definitions.fieldCenterList = [
   {
     name: "Bahia",
