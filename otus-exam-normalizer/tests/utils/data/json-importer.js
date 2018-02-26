@@ -6,7 +6,7 @@ Test.utils.data.Fields = [
   {
     objectType: 'Field',
     name: "aliquot",
-    value: "333456789",
+    value: "363004755",
     column: 1,
     required: true,
     isDate: false,
@@ -111,7 +111,7 @@ Test.utils.data.Fields = [
   {
     objectType: 'Field',
     name: "releaseDate",
-    value: "25/05/17 15:36",
+    value: "26/05/17 12:11",
     column: 11,
     required: true,
     isDate: true,
@@ -409,3 +409,39 @@ Test.utils.data.rows = [
     fields: []
   }
 ];
+
+Test.utils.data.LastResult = {
+  objectType: 'Row',
+  index: 0,
+  originalLine: 3,
+  originalColumnsArray: Test.utils.data.sheet[3],
+  countRowsAfterLastResult: 0,
+  fieldsRequiredfilled: false,
+  isValid: true,
+  isResult: true,
+  isNewExam: true,
+  isExamObservation: false,
+  isResultObservation: false,
+  observation: "",
+  rejected: false,
+  rejectionMessage: "",
+  fields: Test.utils.data.Fields
+};
+
+Test.utils.data.RowJson = {
+  objectType: 'Row',
+  index: 1,
+  originalLine: 4,
+  originalColumnsArray: Test.utils.data.sheet[4],
+  countRowsAfterLastResult: 0,
+  fieldsRequiredfilled: false,
+  isValid: true,
+  isResult: false,
+  isNewExam: false,
+  isExamObservation: false,
+  isResultObservation: false,
+  observation: "",
+  rejected: false,
+  rejectionMessage: "",
+  fields: Test.utils.data.Fields
+};

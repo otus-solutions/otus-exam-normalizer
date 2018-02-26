@@ -76,7 +76,7 @@
     }
 
     function getValueFromSheet(sheet, line, column) {
-      return sheet.length > 0 ? sheet[line][column] : undefined;
+      return sheet.length && sheet.length > 0 ? sheet[line][column] : undefined;
     }
 
     function getColumn(fieldName, template) {
@@ -86,7 +86,7 @@
     }
 
     function equalLastResult(property, row, lastResult) {
-      return lastResult && row[property].toString().trim().toUpperCase() === lastResult[property].toString().trim().toUpperCase() ? true : false;
+      return lastResult && row[property].toString().trim().toUpperCase() !== lastResult[property].toString().trim().toUpperCase() ? false : true;
     }
 
     function notContains(property, row, textArray) {
