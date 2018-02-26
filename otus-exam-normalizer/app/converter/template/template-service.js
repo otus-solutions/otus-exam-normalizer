@@ -55,32 +55,32 @@
         var column = getColumn(testTemplate.templateValidations.fieldName, testTemplate);
         var isValid = false;
 
-        for(var line = 0; line < 10; line++) {
-          var value = getValueFromSheet(sheet, line, column); 
-          var acceptable = testTemplate.templateValidations.acceptableValues.find(function(acceptableValue){
-            if(exists(value) && value.toString){
+        for (var line = 0; line < 10; line++) {
+          var value = getValueFromSheet(sheet, line, column);
+          var acceptable = testTemplate.templateValidations.acceptableValues.find(function (acceptableValue) {
+            if (exists(value) && value.toString) {
               return acceptableValue.toString().trim() == value.toString().trim();
             } else {
               return false;
             }
           });
 
-          if(exists(acceptable)){
+          if (exists(acceptable)) {
             template = testTemplate;
             break;
           }
         }
-        if(exists(template)) break;
+        if (exists(template)) break;
       }
       return template;
     }
 
-    function getValueFromSheet(sheet, line, column){
-      return sheet[line][column];
+    function getValueFromSheet(sheet, line, column) {
+      return sheet.length > 0 ? sheet[line][column] : undefined;
     }
 
-    function getColumn(fieldName, template){
-      return template.fields.find(function(field){
+    function getColumn(fieldName, template) {
+      return template.fields.find(function (field) {
         return field.name == fieldName;
       }).column
     }
@@ -96,7 +96,7 @@
     function contains(property, row, textArray) {
       var value = row[property];
       var contains = false;
-      
+
       for (var i = 0; i < textArray.length; i++) {
         var text = textArray[i];
         var re = new RegExp(text, "i");
@@ -128,11 +128,11 @@
       validateFieldsRule(row, lastResult);
       validateRow(row, lastResult, template);
 
-      if(row.isResult){
+      if (row.isResult) {
         row.countRowsAfterLastResult = 0;
       }
 
-      if(!row.isResult && !row.isNewExam && !row.isExamObservation && !row.isResultObservation){
+      if (!row.isResult && !row.isNewExam && !row.isExamObservation && !row.isResultObservation) {
         row.rejected = true;
         row.rejectionMessage = "N/A";
       }
@@ -343,11 +343,11 @@
       }
     }
 
-    function getObservation(observationRule, row, lastResult){
+    function getObservation(observationRule, row, lastResult) {
       var observation = "";
-      if(observationRule.observationFromTheField){
+      if (observationRule.observationFromTheField) {
         observation = row[observationRule.observationFromTheField];
-      } else if(observationRule.getObservation){
+      } else if (observationRule.getObservation) {
         observation = observationRule.getObservation(row, lastResult);
       }
       return observation;
