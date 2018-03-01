@@ -306,16 +306,16 @@
 
       if (template.rules) {
         if (template.rules.exam && (!exists(examRuleReturn) || examRuleReturn)) {
-          examRuleReturn = validateFunctionRules(template.rules.exam, row, lastResult);
+          examRuleReturn = validateFunctionRules(template.rules.exam, row, lastResult, examRuleReturn);
         }
         if (template.rules.result && (!exists(resultRuleReturn) || resultRuleReturn)) {
-          resultRuleReturn = validateFunctionRules(template.rules.result, row, lastResult);
+          resultRuleReturn = validateFunctionRules(template.rules.result, row, lastResult, resultRuleReturn);
         }
         if (template.rules.examObservation && (!exists(examObservationRuleReturn) || examObservationRuleReturn)) {
-          examObservationRuleReturn = validateFunctionRules(template.rules.examObservation, row, lastResult);
+          examObservationRuleReturn = validateFunctionRules(template.rules.examObservation, row, lastResult, examObservationRuleReturn);
         }
         if (template.rules.resultObservation && (!exists(resultObservationRuleReturn) || resultObservationRuleReturn)) {
-          resultObservationRuleReturn = validateFunctionRules(template.rules.resultObservation, row, lastResult);
+          resultObservationRuleReturn = validateFunctionRules(template.rules.resultObservation, row, lastResult, resultObservationRuleReturn);
         }
       }
 
@@ -353,10 +353,12 @@
       return observation;
     }
 
-    function validateFunctionRules(rules, row, lastResult) {
+    function validateFunctionRules(rules, row, lastResult, fieldsRuleReturn) {
       var isValid = false;
       if (rules.otherValidation) {
         isValid = rules.otherValidation(row, lastResult);
+      } else {
+        isValid = fieldsRuleReturn ? true : false;
       }
       return isValid;
     }

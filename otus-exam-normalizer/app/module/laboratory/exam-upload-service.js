@@ -8,12 +8,12 @@
   service.$inject = [
     'otusjs.laboratory.exam.sending.ExamSendingFactory',
     'otusjs.laboratory.exam.sending.Exam',
-    'otusjs.laboratory.exam.sending.ExamLot',
+    'otusjs.laboratory.exam.sending.ExamSendingLot',
     'otusjs.laboratory.exam.sending.ExamObservation',
     'otusjs.laboratory.exam.sending.ExamResults'
   ];
 
-  function service(ExamSendingFactory, Exam, ExamLot, ExamObservation, ExamResults) {
+  function service(ExamSendingFactory, Exam, ExamSendingLot, ExamObservation, ExamResults) {
     var self = this;
 
     /* Public methods */
@@ -21,11 +21,10 @@
 
     function fileStructureToModel(fileStructure) {
       var examSending = ExamSendingFactory.create();
-      examSending.examLot.objectType = "ExamLot";
-      examSending.examLot.fileName = fileStructure.fileName;
-      examSending.examLot.realizationDate = new Date();
-      examSending.examLot.resultsQuantity = 0;
-      examSending.examLot.fieldCenter = {
+      examSending.examSendingLot.fileName = fileStructure.fileName;
+      examSending.examSendingLot.realizationDate = new Date();
+      examSending.examSendingLot.resultsQuantity = 0;
+      examSending.examSendingLot.fieldCenter = {
         acronym: fileStructure.getFieldCenter().acronym
       };
 
@@ -67,7 +66,7 @@
           }
         }
       });
-      examSending.examLot.resultsQuantity = examSending.getExamList().length;
+      examSending.examSendingLot.resultsQuantity = examSending.getExamList().length;
 
       return examSending;
     }

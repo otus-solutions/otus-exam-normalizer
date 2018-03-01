@@ -280,23 +280,25 @@ describe('TemplateService service', function () {
       mockLastResult();
       mockRowFilled();
     });
-    it('(1) the return should be equal to true', function () {
+    it('(1) the return should be equal to false', function () {
       let returned = service.validateFunctionRules(
         {
-          otherValidation: (row, lastResult) => row.aliquot === lastResult.aliquot
+          otherValidation: (row, lastResult) => row.aliquot !== lastResult.aliquot
         },
         Mock.RowFilled,
-        Mock.LastResult
+        Mock.LastResult,
+        true
       );
-      expect(returned).toEqual(true);
+      expect(returned).toEqual(false);
     });
-    it('(2) the return should be equal to false', function () {
+    it('(2) the return should be equal to true', function () {
       let returned = service.validateFunctionRules(
         {},
         Mock.RowFilled,
-        Mock.LastResult
+        Mock.LastResult,
+        true
       );
-      expect(returned).toEqual(false);
+      expect(returned).toEqual(true);
     });
   });
 
