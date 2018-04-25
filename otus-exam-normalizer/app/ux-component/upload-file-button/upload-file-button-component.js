@@ -56,7 +56,7 @@
               {
                 header: 1,
                 dateNF: "dd/MM/yy hh:mm",
-                defval: "",
+                blankrows: false,
                 raw: false
               }
             )
