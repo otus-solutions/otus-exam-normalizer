@@ -205,11 +205,13 @@ describe('TemplateService service', function () {
     beforeEach(function () {
       mockTemplate();
     });
-    it('(1) the return should be equal to "2017-05-26T15:11:00.000Z"', function () {
+    it('(1) the return should be equal to dateISOString', function () {
+      let dateISOString = new Date(2017, 4, 26, 12, 11, 0,0).toISOString();
       let returned = service.dateValueToISOString("26/05/17 12:11", Mock.Template.formatType.date);
-      expect(returned).toEqual("2017-05-26T15:11:00.000Z");
+      expect(returned).toEqual(dateISOString);
     });
-    it('(2) the return should be equal to "2017-05-26T15:11:00.000Z"', function () {
+    it('(2) the return should be equal to dateISOString', function () {
+      let dateISOString = new Date(2017, 4, 26, 12, 11, 0,0).toISOString();
       let returned = service.dateValueToISOString(
         "m:11, h:12, a:2017, M:5, d:26",
         {
@@ -220,7 +222,7 @@ describe('TemplateService service', function () {
           day: { start: 27, length: 2 }
         }
       );
-      expect(returned).toEqual("2017-05-26T15:11:00.000Z");
+      expect(returned).toEqual(dateISOString);
     });
   });
 
@@ -347,17 +349,17 @@ describe('TemplateService service', function () {
     it('the label.resultRuleReturn should be equal to true', function () {
       expect(fields.label.resultRuleReturn).toEqual(true);
     });
-    it('the aliquot.examObservationRuleReturn should be undefined', function () {
-      expect(fields.aliquot.examObservationRuleReturn).toEqual(undefined);
+    it('the aliquot.examObservationRuleReturn should be true', function () {
+      expect(fields.aliquot.examObservationRuleReturn).toEqual(true);
     });
-    it('the examCode.examObservationRuleReturn should be undefined', function () {
-      expect(fields.examCode.examObservationRuleReturn).toEqual(undefined);
+    it('the examCode.examObservationRuleReturn should be false', function () {
+      expect(fields.examCode.examObservationRuleReturn).toEqual(false);
     });
     it('the examName.examObservationRuleReturn should be undefined', function () {
       expect(fields.examName.examObservationRuleReturn).toEqual(undefined);
     });
-    it('the label.examObservationRuleReturn should be undefined', function () {
-      expect(fields.label.examObservationRuleReturn).toEqual(undefined);
+    it('the label.examObservationRuleReturn should be false', function () {
+      expect(fields.label.examObservationRuleReturn).toEqual(false);
     });
   });
 
