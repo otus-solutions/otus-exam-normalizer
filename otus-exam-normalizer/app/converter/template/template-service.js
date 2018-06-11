@@ -55,7 +55,7 @@
         var column = getColumn(testTemplate.templateValidations.fieldName, testTemplate);
         var isValid = false;
 
-        for (var line = 0; line < 10; line++) {
+        for (var line = 0; line < sheet.length && line < 10; line++) {
           var value = getValueFromSheet(sheet, line, column);
           var acceptable = testTemplate.templateValidations.acceptableValues.find(function (acceptableValue) {
             if (exists(value) && value.toString) {
