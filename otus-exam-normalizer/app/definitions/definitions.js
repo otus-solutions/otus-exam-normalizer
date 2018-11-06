@@ -233,8 +233,7 @@ Definitions.templates = [
         required: true,
         rules: {
           result: {
-            isEmpty: false,
-            notContains: ["Obs"]
+            isEmpty: false
           },
           examObservation: {
             notContains: ["Amostra acidentada"]
