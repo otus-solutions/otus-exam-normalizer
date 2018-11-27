@@ -279,11 +279,11 @@ Definitions.templates = [
       exam: {
         otherValidation: function (row, lastResult) {
           return (!lastResult ||
-            (
-              row.aliquot !== lastResult.aliquot
-              || row.examCode !== lastResult.examCode
-            )
-          ) ? true : false;
+              (
+                  row.aliquot !== lastResult.aliquot
+                  || row.examCode !== lastResult.examCode
+              )
+          );
         }
       },
       examObservation: {
@@ -399,8 +399,7 @@ Definitions.templates = [
         required: true,
         rules: {
           result: {
-            isEmpty: false,
-            notContains: ["Obs"]
+            isEmpty: false
           },
           examObservation: {
             notContains: ["Amostra acidentada"]
@@ -446,11 +445,11 @@ Definitions.templates = [
       exam: {
         otherValidation: function (row, lastResult) {
           return (!lastResult ||
-            (
-              row.aliquot !== lastResult.aliquot
-              || row.examCode !== lastResult.examCode
-            )
-          ) ? true : false;
+              (
+                  row.aliquot !== lastResult.aliquot
+                  || row.examCode !== lastResult.examCode
+              )
+          );
         }
       },
       examObservation: {
@@ -566,8 +565,7 @@ Definitions.templates = [
         required: true,
         rules: {
           result: {
-            isEmpty: false,
-            notContains: ["Obs"]
+            isEmpty: false
           },
           examObservation: {
             notContains: ["Amostra acidentada"]
@@ -613,11 +611,11 @@ Definitions.templates = [
       exam: {
         otherValidation: function (row, lastResult) {
           return (!lastResult ||
-            (
-              row.aliquot !== lastResult.aliquot
-              || row.examCode !== lastResult.examCode
-            )
-          ) ? true : false;
+              (
+                  row.aliquot !== lastResult.aliquot
+                  || row.examCode !== lastResult.examCode
+              )
+          );
         }
       },
       examObservation: {
@@ -733,8 +731,7 @@ Definitions.templates = [
         required: true,
         rules: {
           result: {
-            isEmpty: false,
-            notContains: ["Obs"]
+            isEmpty: false
           },
           examObservation: {
             notContains: ["Amostra acidentada"]
@@ -780,11 +777,11 @@ Definitions.templates = [
       exam: {
         otherValidation: function (row, lastResult) {
           return (!lastResult ||
-            (
-              row.aliquot !== lastResult.aliquot
-              || row.examCode !== lastResult.examCode
-            )
-          ) ? true : false;
+              (
+                  row.aliquot !== lastResult.aliquot
+                  || row.examCode !== lastResult.examCode
+              )
+          );
         }
       },
       examObservation: {
@@ -900,8 +897,7 @@ Definitions.templates = [
         required: true,
         rules: {
           result: {
-            isEmpty: false,
-            notContains: ["Obs"]
+            isEmpty: false
           },
           examObservation: {
             notContains: ["Amostra acidentada"]
@@ -947,11 +943,11 @@ Definitions.templates = [
       exam: {
         otherValidation: function (row, lastResult) {
           return (!lastResult ||
-            (
-              row.aliquot !== lastResult.aliquot
-              || row.examCode !== lastResult.examCode
-            )
-          ) ? true : false;
+              (
+                  row.aliquot !== lastResult.aliquot
+                  || row.examCode !== lastResult.examCode
+              )
+          );
         }
       },
       examObservation: {
@@ -1067,8 +1063,7 @@ Definitions.templates = [
         required: true,
         rules: {
           result: {
-            isEmpty: false,
-            notContains: ["Obs"]
+            isEmpty: false
           },
           examObservation: {
             notContains: ["Amostra acidentada"]
@@ -1114,11 +1109,11 @@ Definitions.templates = [
       exam: {
         otherValidation: function (row, lastResult) {
           return (!lastResult ||
-            (
-              row.aliquot !== lastResult.aliquot
-              || row.examCode !== lastResult.examCode
-            )
-          ) ? true : false;
+              (
+                  row.aliquot !== lastResult.aliquot
+                  || row.examCode !== lastResult.examCode
+              )
+          );
         }
       },
       examObservation: {
@@ -1232,8 +1227,7 @@ Definitions.templates = [
         required: true,
         rules: {
           result: {
-            isEmpty: false,
-            notContains: ["Obs"]
+            isEmpty: false
           },
           examObservation: {
             notContains: ["Amostra acidentada"]
@@ -1279,11 +1273,11 @@ Definitions.templates = [
       exam: {
         otherValidation: function (row, lastResult) {
           return (!lastResult ||
-            (
-              row.aliquot !== lastResult.aliquot
-              || row.examCode !== lastResult.examCode
-            )
-          ) ? true : false;
+              (
+                  row.aliquot !== lastResult.aliquot
+                  || row.examCode !== lastResult.examCode
+              )
+          );
         }
       },
       examObservation: {
@@ -1399,8 +1393,7 @@ Definitions.templates = [
         required: true,
         rules: {
           result: {
-            isEmpty: false,
-            notContains: ["Obs"]
+            isEmpty: false
           },
           examObservation: {
             notContains: ["Amostra acidentada"]
@@ -1446,11 +1439,11 @@ Definitions.templates = [
       exam: {
         otherValidation: function (row, lastResult) {
           return (!lastResult ||
-            (
-              row.aliquot !== lastResult.aliquot
-              || row.examCode !== lastResult.examCode
-            )
-          ) ? true : false;
+              (
+                  row.aliquot !== lastResult.aliquot
+                  || row.examCode !== lastResult.examCode
+              )
+          );
         }
       },
       examObservation: {
@@ -1566,8 +1559,7 @@ Definitions.templates = [
         required: true,
         rules: {
           result: {
-            isEmpty: false,
-            notContains: ["Obs"]
+            isEmpty: false
           },
           examObservation: {
             notContains: ["Amostra acidentada"]
@@ -1613,11 +1605,11 @@ Definitions.templates = [
       exam: {
         otherValidation: function (row, lastResult) {
           return (!lastResult ||
-            (
-              row.aliquot !== lastResult.aliquot
-              || row.examCode !== lastResult.examCode
-            )
-          ) ? true : false;
+              (
+                  row.aliquot !== lastResult.aliquot
+                  || row.examCode !== lastResult.examCode
+              )
+          );
         }
       },
       examObservation: {
@@ -1734,8 +1726,7 @@ Definitions.templates = [
         required: true,
         rules: {
           result: {
-            isEmpty: false,
-            notContains: ["Obs"]
+            isEmpty: false
           },
           examObservation: {
             notContains: ["Amostra acidentada"]
@@ -1781,11 +1772,11 @@ Definitions.templates = [
       exam: {
         otherValidation: function (row, lastResult) {
           return (!lastResult ||
-            (
-              row.aliquot !== lastResult.aliquot
-              || row.examCode !== lastResult.examCode
-            )
-          ) ? true : false;
+              (
+                  row.aliquot !== lastResult.aliquot
+                  || row.examCode !== lastResult.examCode
+              )
+          );
         }
       },
       examObservation: {
