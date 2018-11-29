@@ -279,10 +279,10 @@ Definitions.templates = [
       exam: {
         otherValidation: function (row, lastResult) {
           return (!lastResult ||
-              (
-                  row.aliquot !== lastResult.aliquot
-                  || row.examCode !== lastResult.examCode
-              )
+            (
+              row.aliquot !== lastResult.aliquot
+              || row.examCode !== lastResult.examCode
+            )
           );
         }
       },
@@ -445,10 +445,10 @@ Definitions.templates = [
       exam: {
         otherValidation: function (row, lastResult) {
           return (!lastResult ||
-              (
-                  row.aliquot !== lastResult.aliquot
-                  || row.examCode !== lastResult.examCode
-              )
+            (
+              row.aliquot !== lastResult.aliquot
+              || row.examCode !== lastResult.examCode
+            )
           );
         }
       },
@@ -611,10 +611,10 @@ Definitions.templates = [
       exam: {
         otherValidation: function (row, lastResult) {
           return (!lastResult ||
-              (
-                  row.aliquot !== lastResult.aliquot
-                  || row.examCode !== lastResult.examCode
-              )
+            (
+              row.aliquot !== lastResult.aliquot
+              || row.examCode !== lastResult.examCode
+            )
           );
         }
       },
@@ -777,10 +777,10 @@ Definitions.templates = [
       exam: {
         otherValidation: function (row, lastResult) {
           return (!lastResult ||
-              (
-                  row.aliquot !== lastResult.aliquot
-                  || row.examCode !== lastResult.examCode
-              )
+            (
+              row.aliquot !== lastResult.aliquot
+              || row.examCode !== lastResult.examCode
+            )
           );
         }
       },
@@ -943,10 +943,10 @@ Definitions.templates = [
       exam: {
         otherValidation: function (row, lastResult) {
           return (!lastResult ||
-              (
-                  row.aliquot !== lastResult.aliquot
-                  || row.examCode !== lastResult.examCode
-              )
+            (
+              row.aliquot !== lastResult.aliquot
+              || row.examCode !== lastResult.examCode
+            )
           );
         }
       },
@@ -1109,10 +1109,10 @@ Definitions.templates = [
       exam: {
         otherValidation: function (row, lastResult) {
           return (!lastResult ||
-              (
-                  row.aliquot !== lastResult.aliquot
-                  || row.examCode !== lastResult.examCode
-              )
+            (
+              row.aliquot !== lastResult.aliquot
+              || row.examCode !== lastResult.examCode
+            )
           );
         }
       },
@@ -1273,10 +1273,10 @@ Definitions.templates = [
       exam: {
         otherValidation: function (row, lastResult) {
           return (!lastResult ||
-              (
-                  row.aliquot !== lastResult.aliquot
-                  || row.examCode !== lastResult.examCode
-              )
+            (
+              row.aliquot !== lastResult.aliquot
+              || row.examCode !== lastResult.examCode
+            )
           );
         }
       },
@@ -1439,10 +1439,10 @@ Definitions.templates = [
       exam: {
         otherValidation: function (row, lastResult) {
           return (!lastResult ||
-              (
-                  row.aliquot !== lastResult.aliquot
-                  || row.examCode !== lastResult.examCode
-              )
+            (
+              row.aliquot !== lastResult.aliquot
+              || row.examCode !== lastResult.examCode
+            )
           );
         }
       },
@@ -1605,10 +1605,10 @@ Definitions.templates = [
       exam: {
         otherValidation: function (row, lastResult) {
           return (!lastResult ||
-              (
-                  row.aliquot !== lastResult.aliquot
-                  || row.examCode !== lastResult.examCode
-              )
+            (
+              row.aliquot !== lastResult.aliquot
+              || row.examCode !== lastResult.examCode
+            )
           );
         }
       },
@@ -1772,10 +1772,10 @@ Definitions.templates = [
       exam: {
         otherValidation: function (row, lastResult) {
           return (!lastResult ||
-              (
-                  row.aliquot !== lastResult.aliquot
-                  || row.examCode !== lastResult.examCode
-              )
+            (
+              row.aliquot !== lastResult.aliquot
+              || row.examCode !== lastResult.examCode
+            )
           );
         }
       },
