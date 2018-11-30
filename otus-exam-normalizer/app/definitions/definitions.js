@@ -283,7 +283,7 @@ Definitions.templates = [
               row.aliquot !== lastResult.aliquot
               || row.examCode !== lastResult.examCode
             )
-          ) ? true : false;
+          );
         }
       },
       examObservation: {
@@ -399,8 +399,7 @@ Definitions.templates = [
         required: true,
         rules: {
           result: {
-            isEmpty: false,
-            notContains: ["Obs"]
+            isEmpty: false
           },
           examObservation: {
             notContains: ["Amostra acidentada"]
@@ -450,7 +449,7 @@ Definitions.templates = [
               row.aliquot !== lastResult.aliquot
               || row.examCode !== lastResult.examCode
             )
-          ) ? true : false;
+          );
         }
       },
       examObservation: {
@@ -566,8 +565,7 @@ Definitions.templates = [
         required: true,
         rules: {
           result: {
-            isEmpty: false,
-            notContains: ["Obs"]
+            isEmpty: false
           },
           examObservation: {
             notContains: ["Amostra acidentada"]
@@ -617,7 +615,7 @@ Definitions.templates = [
               row.aliquot !== lastResult.aliquot
               || row.examCode !== lastResult.examCode
             )
-          ) ? true : false;
+          );
         }
       },
       examObservation: {
@@ -733,8 +731,7 @@ Definitions.templates = [
         required: true,
         rules: {
           result: {
-            isEmpty: false,
-            notContains: ["Obs"]
+            isEmpty: false
           },
           examObservation: {
             notContains: ["Amostra acidentada"]
@@ -784,7 +781,7 @@ Definitions.templates = [
               row.aliquot !== lastResult.aliquot
               || row.examCode !== lastResult.examCode
             )
-          ) ? true : false;
+          );
         }
       },
       examObservation: {
@@ -900,8 +897,7 @@ Definitions.templates = [
         required: true,
         rules: {
           result: {
-            isEmpty: false,
-            notContains: ["Obs"]
+            isEmpty: false
           },
           examObservation: {
             notContains: ["Amostra acidentada"]
@@ -951,7 +947,7 @@ Definitions.templates = [
               row.aliquot !== lastResult.aliquot
               || row.examCode !== lastResult.examCode
             )
-          ) ? true : false;
+          );
         }
       },
       examObservation: {
@@ -1067,8 +1063,7 @@ Definitions.templates = [
         required: true,
         rules: {
           result: {
-            isEmpty: false,
-            notContains: ["Obs"]
+            isEmpty: false
           },
           examObservation: {
             notContains: ["Amostra acidentada"]
@@ -1118,7 +1113,7 @@ Definitions.templates = [
               row.aliquot !== lastResult.aliquot
               || row.examCode !== lastResult.examCode
             )
-          ) ? true : false;
+          );
         }
       },
       examObservation: {
@@ -1232,8 +1227,7 @@ Definitions.templates = [
         required: true,
         rules: {
           result: {
-            isEmpty: false,
-            notContains: ["Obs"]
+            isEmpty: false
           },
           examObservation: {
             notContains: ["Amostra acidentada"]
@@ -1283,7 +1277,7 @@ Definitions.templates = [
               row.aliquot !== lastResult.aliquot
               || row.examCode !== lastResult.examCode
             )
-          ) ? true : false;
+          );
         }
       },
       examObservation: {
@@ -1399,8 +1393,7 @@ Definitions.templates = [
         required: true,
         rules: {
           result: {
-            isEmpty: false,
-            notContains: ["Obs"]
+            isEmpty: false
           },
           examObservation: {
             notContains: ["Amostra acidentada"]
@@ -1450,7 +1443,7 @@ Definitions.templates = [
               row.aliquot !== lastResult.aliquot
               || row.examCode !== lastResult.examCode
             )
-          ) ? true : false;
+          );
         }
       },
       examObservation: {
@@ -1566,8 +1559,7 @@ Definitions.templates = [
         required: true,
         rules: {
           result: {
-            isEmpty: false,
-            notContains: ["Obs"]
+            isEmpty: false
           },
           examObservation: {
             notContains: ["Amostra acidentada"]
@@ -1617,7 +1609,7 @@ Definitions.templates = [
               row.aliquot !== lastResult.aliquot
               || row.examCode !== lastResult.examCode
             )
-          ) ? true : false;
+          );
         }
       },
       examObservation: {
@@ -1734,8 +1726,7 @@ Definitions.templates = [
         required: true,
         rules: {
           result: {
-            isEmpty: false,
-            notContains: ["Obs"]
+            isEmpty: false
           },
           examObservation: {
             notContains: ["Amostra acidentada"]
@@ -1785,7 +1776,7 @@ Definitions.templates = [
               row.aliquot !== lastResult.aliquot
               || row.examCode !== lastResult.examCode
             )
-          ) ? true : false;
+          );
         }
       },
       examObservation: {
