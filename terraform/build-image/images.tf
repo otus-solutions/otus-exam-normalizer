@@ -58,16 +58,16 @@ resource "null_resource" "otus-exam-install" {
   }
 }
 
-#resource "null_resource" "otus-exam-test" {
-#  depends_on = [null_resource.otus-exam-install]
-#  provisioner "local-exec" {
-#    working_dir = "${var.otus-exam-source}"
-#    command = "${var.otus-exam-npmtest}"
-#  }
-#}
+resource "null_resource" "otus-exam-test" {
+  depends_on = [null_resource.otus-exam-install]
+  provisioner "local-exec" {
+    working_dir = "${var.otus-exam-source}"
+    command = "${var.otus-exam-npmtest}"
+  }
+}
 
 resource "null_resource" "otus-exam-build" {
-  #depends_on = [null_resource.otus-exam-test]
+  depends_on = [null_resource.otus-exam-test]
   provisioner "local-exec" {
     working_dir = "${var.otus-exam-source}"
     command = "${var.otus-exam-npmbuild}"
@@ -83,7 +83,7 @@ resource "null_resource" "otus-exam-prune" {
 }
 
 resource "null_resource" otus-exam-normalizer {
-  depends_on = [null_resource.otus-exam-build]
+  depends_on = [null_resource.otus-exam-prune]
   provisioner "local-exec" {
     command = "docker ${var.otus-exam-dockerbuild} -t ${var.otus-exam-name} ${var.otus-exam-dockerfile}"
   }
