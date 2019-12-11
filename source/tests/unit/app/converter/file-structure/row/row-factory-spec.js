@@ -97,11 +97,11 @@ describe('the Row Factory', function () {
       mockRow();
     });
     it('the JSON should be valid', function () {
-      let field = Test.utils.data.Fields[0];
+      var field = Test.utils.data.Fields[0];
       Mock.Row.insertField(field);
       expect(Mock.Row[field.name]).toEqual(field.value);
 
-      let otherField = Test.utils.data.Fields[1];
+      var otherField = Test.utils.data.Fields[1];
       Mock.Row.insertField(otherField);
       expect(Mock.Row[otherField.name]).toEqual(otherField.value);
     });

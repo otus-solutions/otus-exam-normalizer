@@ -95,7 +95,7 @@ describe('the FileStructure Factory', function () {
   });
 
   describe("createRow method", function () {
-    let originalLine = 3;
+    var originalLine = 3;
     beforeEach(function () {
       mockFileStructureWithTemplate();
       mockColumnsArray(originalLine);

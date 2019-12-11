@@ -56,8 +56,9 @@ module.exports = function(config) {
     // preprocess matching files before serving them to the browser
     // available preprocessors: https://npmjs.org/browse/keyword/karma-preprocessor
     preprocessors: {
-      './app/**/*.js': ['browserify','coverage'],
-      './tests/unit/**/*-spec.js': ['browserify','coverage']
+      './app/**/*.js': ['babel','coverage'],
+      'node_modules/otus*/**/*.js': 'babel',
+      './tests/unit/**/*-spec.js': 'babel'
     },
 
     browserify: {
@@ -87,7 +88,7 @@ module.exports = function(config) {
       pageTitle: 'Unit Tests'
     },
     // web server port
-    port: 9000,
+    port: 9876,
 
     // enable / disable colors in the output (reporters and logs)
     colors: true,
