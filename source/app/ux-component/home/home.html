@@ -1,0 +1,74 @@
+<md-content layout="column" flex>
+  <div flex layout="column">
+    <md-toolbar class="md-hue-2">
+      <div class="md-toolbar-tools">
+        <md-icon md-font-set="material-icons">widgets</md-icon>
+        <div layout="row" layout-padding></div>
+        <h2 flex md-truncate>OTUS NORMALIZER</h2>
+      </div>
+    </md-toolbar>
+    <div layout="row" flex>
+      <div layout="column" flex>
+        <md-content layout="row" flex>
+          <div flex layout="column" class="md-body-2" ui-view>
+            <div layout="column" layout-align="center center" layout-padding flex>
+              <div layout="row">
+                <div flex>
+                  <div layout="row" layout-padding>
+                    <div layout="column" layout-padding layout-align="center center">
+                      <span layout="row" class="md-headline">Utilize as opções de centro a seguir para navegar no sistema.</span>
+                    </div>
+                  </div>
+                  <md-content class="md-padding" layout-xs="column" layout="row">
+                    <div flex-xs flex-gt-xs="35" layout="column">
+                      <md-card layout-align="center center" style="cursor:pointer;" ng-click="$ctrl.route('ba')">
+                        <md-card-content>
+                          <md-icon style="font-size:50px;height:50px;width:50px;">location_city</md-icon>
+                        </md-card-content>
+                        <span class="md-body-1" layout-padding>Bahia</span>
+                      </md-card>
+                      <md-card layout-align="center center" style="cursor:pointer;" ng-click="$ctrl.route('es')">
+                        <md-card-content>
+                          <md-icon style="font-size:50px;height:50px;width:50px;">location_city</md-icon>
+                        </md-card-content>
+                        <span class="md-body-1" layout-padding>Espírito Santo</span>
+                      </md-card>
+                    </div>
+                    <div flex-xs flex-gt-xs="35" layout="column">
+                      <md-card layout-align="center center" style="cursor:pointer;" ng-click="$ctrl.route('mg')">
+                        <md-card-content>
+                          <md-icon style="font-size:50px;height:50px;width:50px;">location_city</md-icon>
+                        </md-card-content>
+                        <span class="md-body-1" layout-padding>Minas Gerais</span>
+                      </md-card>
+                      <md-card layout-align="center center" style="cursor:pointer;" ng-click="$ctrl.route('rj')">
+                        <md-card-content>
+                          <md-icon style="font-size:50px;height:50px;width:50px;">location_city</md-icon>
+                        </md-card-content>
+                        <span class="md-body-1" layout-padding>Rio de Janeiro</span>
+                      </md-card>
+                    </div>
+                    <div flex-xs flex-gt-xs="35" layout="column">
+                      <md-card layout-align="center center" style="cursor:pointer;" ng-click="$ctrl.route('rs')">
+                        <md-card-content>
+                          <md-icon style="font-size:50px;height:50px;width:50px;">location_city</md-icon>
+                        </md-card-content>
+                        <span class="md-body-1" layout-padding>Rio Grande do Sul</span>
+                      </md-card>
+                      <md-card layout-align="center center" style="cursor:pointer;" ng-click="$ctrl.route('sp')">
+                        <md-card-content>
+                          <md-icon style="font-size:50px;height:50px;width:50px;">location_city</md-icon>
+                        </md-card-content>
+                        <span class="md-body-1" layout-padding>São Paulo</span>
+                      </md-card>
+                    </div>
+                  </md-content>
+                </div>
+              </div>
+            </div>
+          </div>
+        </md-content>
+      </div>
+    </div>
+  </div>
+</md-content>
