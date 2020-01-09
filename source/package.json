@@ -45,7 +45,7 @@
     "jquery": "2.2.0",
     "jsbarcode": "^3.5.7",
     "lokijs": "1.4.2",
-    "moment": "2.12.0",
+    "moment": "2.24.0",
     "moment-timezone": "^0.5.14",
     "ng-file-upload": "^12.2.13",
     "please-wait": "0.0.5",
