@@ -15,7 +15,8 @@
     "deploy": "npm run gulp nexus",
     "gulp": "gulp",
     "karma": "karma",
-    "build": "gulp compress"
+    "build": "gulp compress",
+    "production": "npm install && npm test && npm run build && npm prune --production"
   },
   "url": "https://github.com/ccem-dev/otus-exam-normalizer/issues",
   "email": "ccem.projects@gmail.com",
