@@ -38,7 +38,7 @@
           if (row.isResult && examSending.exams && examSending.exams.length) {
             var newResult = ExamResults.create();
             newResult.examName = row.examName;
-            newResult.aliquotCode = row.aliquot;
+            newResult.code = row.aliquot;
             newResult.releaseDate = row.releaseDate;
             newResult.resultName = row.label;
             newResult.value = row.result;
